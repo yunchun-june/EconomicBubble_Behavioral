@@ -51,7 +51,7 @@ import java.net.Socket
             input_socket.close;
             break;
             
-        catch
+        catch exception
             if ~isempty(input_socket)
                 input_socket.close;
             end
