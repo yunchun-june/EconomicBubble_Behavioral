@@ -4,6 +4,7 @@ classdef deviceHandler < handle
        wPtr
        width
        height
+       screenID
        dev
        devInd
     end
@@ -19,7 +20,7 @@ classdef deviceHandler < handle
     methods
         function obj = deviceHandler(screid,keyboardName)
             obj.setupKeyboard(keyboardName);
-            obj.openScreen(screid);
+            obj.screenID = screid;
         end
         
         function res = getResponse(obj)
@@ -33,8 +34,8 @@ classdef deviceHandler < handle
             end
         end
         
-        function openScreen(obj,screid)
-            [obj.wPtr, screenRect]=Screen('OpenWindow',screid, 0,[],32,2);
+        function openScreen(obj)
+            [obj.wPtr, screenRect]=Screen('OpenWindow',obj.screenID, 0,[],32,2);
             [obj.width, obj.height] = Screen('WindowSize', obj.wPtr);
             
         end
@@ -44,8 +45,10 @@ classdef deviceHandler < handle
         end
         
         function setupKeyboard(obj,keyboardName)
+            if keyboardName == 'Mac', keyboardName = 'Apple Internal Keyboard / Trackpad'; end
+            if keyboardName == 'USB', keyboardName = 'USB Receiver'; end
             obj.dev=PsychHID('Devices');
-            obj.devInd = find(strcmpi(keyboardName, {obj.dev.usageName}) & strcmpi(keyboardName, {obj.dev.product}));
+            obj.devInd = find(strcmpi('Keyboard', {obj.dev.usageName}) & strcmpi(keyboardName, {obj.dev.product}));
             KbQueueCreate(obj.devInd);  
             KbQueueStart(obj.devInd);
             KbName('UnifyKeyNames');

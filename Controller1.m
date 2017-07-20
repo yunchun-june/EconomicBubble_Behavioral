@@ -4,10 +4,10 @@ addpath('./Functions');
 
 try
     %===== Parameters =====%
-    initialCash       = 1000;
+    initialCash         = 1000;
     initialStock        = 0;
     initialStockPrice   = 100;
-    trials              = 10;
+    totalTrials         = 10;
     
     %===== Parameters =====%
     MARKET_BASELINE = 1;
@@ -17,17 +17,36 @@ try
     FALSE = 0;
     
     %===== Establish Connection =====%
-    cnt = connector('1.171.154.207',3000,'1.171.154.207',3001);
+    cnt = connector('localhost',3000,'localhost',3001);
     cnt.send('Handshake');
     data = cnt.fetch();
 
     fprintf('Connection Established\n');
     
     %===== Initialize Componets =====%
-    device = deviceHandler(max(Screen('Screens')),'Keyboard');
-    mrk = market(MARKET_BASELINE,initialSotckPrice);
+    %device = deviceHandler(max(Screen('Screens')),'Mac');
+    mrk = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opponent = player(initialCash,initialStock);
+    
+    %===== Game Start =====%
+    for trial = 1:totalTrials
+        
+        %Syncing
+        cnt.send('Sync');
+        data = cnt.fetch();
+        
+        %Fixation
+        
+        %See Status
+        
+        %Make Decision
+        
+        %Get opponent's response
+        
+        fprintf('Trials: %d\n',trial);
+        
+    end
     
     
 catch exception

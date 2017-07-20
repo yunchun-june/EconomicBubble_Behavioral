@@ -56,7 +56,7 @@ import java.net.Socket
                 input_socket.close;
             end
             
-            fprintf(1,'Error: %s\n',getReport(exception));
+            %fprintf(1,'Error: %s\n',getReport(exception));
 
             % pause before retrying
               pause(0.1);

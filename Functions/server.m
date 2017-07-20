@@ -58,7 +58,7 @@ function server(message, output_port, number_of_retries)
                 output_socket.close
             end
             
-            fprintf(1,'Error: %s\n',getReport(exception));
+            %fprintf(1,'Error: %s\n',getReport(exception));
 
             % pause before retrying
             % pause(1);
