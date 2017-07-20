@@ -55,6 +55,8 @@ import java.net.Socket
             if ~isempty(input_socket)
                 input_socket.close;
             end
+            
+            fprintf(1,'Error: %s\n',getReport(exception));
 
             % pause before retrying
               pause(0.1);

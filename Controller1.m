@@ -17,7 +17,7 @@ try
     FALSE = 0;
     
     %===== Establish Connection =====%
-    cnt = connector('localhost',3000,'localhost',3001);
+    cnt = connector('1.171.154.207',3000,'1.171.154.207',3001);
     cnt.send('Handshake');
     data = cnt.fetch();
 

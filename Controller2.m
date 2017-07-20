@@ -3,7 +3,7 @@ close all;
 addpath('./Functions');
 
 try
-    cnt = connector('localhost',3001,'localhost',3000);
+    cnt = connector('1.171.154.207',3001,'1.171.154.207',3000);
     data = cnt.fetch();
     cnt.send('Handshake recieved');
 

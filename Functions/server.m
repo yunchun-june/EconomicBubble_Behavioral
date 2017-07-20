@@ -49,7 +49,7 @@ function server(message, output_port, number_of_retries)
             output_socket.close;
             break;
             
-        catch
+        catch exception
             if ~isempty(server_socket)
                 server_socket.close
             end
@@ -57,6 +57,8 @@ function server(message, output_port, number_of_retries)
             if ~isempty(output_socket)
                 output_socket.close
             end
+            
+            fprintf(1,'Error: %s\n',getReport(exception));
 
             % pause before retrying
             % pause(1);
