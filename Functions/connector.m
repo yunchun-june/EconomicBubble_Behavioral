@@ -24,9 +24,8 @@ classdef connector
             server(message,obj.ownPort,-1);
         end
         
-        function fetch(obj)
+        function data = fetch(obj)
             data = client(obj.destIP,obj.destPort,-1);
-            fprintf(1,'%s\n',data);
         end
     end
 end

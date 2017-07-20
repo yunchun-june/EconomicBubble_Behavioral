@@ -23,8 +23,8 @@ import java.net.Socket
         end
         
         try
-            fprintf(1, 'Retry %d connecting to %s:%d\n', ...
-                    retry, host, port);
+            %fprintf(1, 'Retry %d connecting to %s:%d\n', ...
+            %        retry, host, port);
 
             % throws if unable to connect
             input_socket = Socket(host, port);
@@ -33,12 +33,12 @@ import java.net.Socket
             input_stream   = input_socket.getInputStream;
             d_input_stream = DataInputStream(input_stream);
 
-            fprintf(1, 'Connected to server\n');
+            %fprintf(1, 'Connected to server\n');
 
             % read data from the socket - wait a short time first
             pause(0.5);
             bytes_available = input_stream.available;
-            fprintf(1, 'Reading %d bytes\n', bytes_available);
+            %fprintf(1, 'Reading %d bytes\n', bytes_available);
             
             message = zeros(1, bytes_available, 'uint8');
             for i = 1:bytes_available

@@ -24,8 +24,8 @@ function server(message, output_port, number_of_retries)
                 break;
             end
 
-            fprintf(1, ['Try %d waiting for client to connect to this ' ...
-                        'host on port : %d\n'], retry, output_port);
+            %fprintf(1, ['Try %d waiting for client to connect to this ' ...
+            %            'host on port : %d\n'], retry, output_port);
 
             % wait for 1 second for client to connect server socket
             server_socket = ServerSocket(output_port);
@@ -33,14 +33,14 @@ function server(message, output_port, number_of_retries)
 
             output_socket = server_socket.accept;
 
-            fprintf(1, 'Client connected\n');
+            %fprintf(1, 'Client connected\n');
 
             output_stream   = output_socket.getOutputStream;
             d_output_stream = DataOutputStream(output_stream);
 
             % output the data over the DataOutputStream
             % Convert to stream of bytes
-            fprintf(1, 'Writing %d bytes\n', length(message))
+            %fprintf(1, 'Writing %d bytes\n', length(message))
             d_output_stream.writeBytes(char(message));
             d_output_stream.flush;
             

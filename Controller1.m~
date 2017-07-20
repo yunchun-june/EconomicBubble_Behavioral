@@ -1,0 +1,19 @@
+clear all;
+close all;
+addpath('./Functions');
+
+try
+    %===== Parameters =====%
+    
+    
+    %===== Establish Connection =====%
+    cnt = connector('localhost',3000,'localhost',3001);
+    cnt.send('Handshake');
+    data = cnt.fetch();
+
+    fprintf('Connection Established\n');
+
+catch exception
+    fprintf(1,'Error: %s\n',getReport(exception));
+end
+
