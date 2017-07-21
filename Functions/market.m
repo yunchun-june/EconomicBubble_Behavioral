@@ -3,7 +3,7 @@ classdef market < handle
     properties
         marketCondition
         stockPrice
-        dramatic = 0;
+        dramatic
     end
     
     properties (Constant)
@@ -11,7 +11,7 @@ classdef market < handle
         BUBBLE = 2;
         BURST = 3;
         BUY = 1;
-        NO_ACTION = 2;
+        NO_TRADE = 2;
         SELL = 3;
         baselineRate    = [1.1  1.06   1.00;
                            1.06 1.00   0.94;
@@ -31,9 +31,10 @@ classdef market < handle
         function obj = market(condition,stockPrice)
             obj.marketCondition = condition;
             obj.stockPrice = stockPrice;
+            obj.dramatic = 0;
         end
         
-        function [] = trade(obj,p1Act,p2Act)
+        function trade(obj,p1Act,p2Act)
 
             if(obj.marketCondition == obj.BASELINE)
                 rate = obj.baselineRate(p1Act,p2Act);
@@ -49,17 +50,18 @@ classdef market < handle
                 rate = rate + (rate-1)*2;
             end
             
-            obj.stockPrice = ceil(obj.stockprice * rate);
+            obj.stockPrice = ceil(obj.stockPrice * rate);
         end
 
         
-        function [] = setCondition(obj,condition)
+        function setCondition(obj,condition)
             obj.marketCondition = condition;
         end
         
-        function [] = setDramatic(obj,dramatic)
+        function setDramatic(obj,dramatic)
             obj.dramatic = dramatic;
         end
+        
     end
 
 end

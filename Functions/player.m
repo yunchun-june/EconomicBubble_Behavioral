@@ -23,24 +23,30 @@ classdef player < handle
             totalAsset = obj.cash + obj.stock*currentStockPrice;
         end
         
-        function buySuccess = buyStock(obj,currentStockPrice)
+        function can = canBuy(obj,currentStockPrice)
             if(obj.cash > currentStockPrice)
-                obj.cash = obj.cash - currentStockPrice;
-                obj.stock = obj.stock+1;45
-                buySuccess = 1;
+                can = 1;
             else
-                buySuccess = 0;
+                can = 0;
             end
         end
         
-        function sellSuccess = sellStock(obj,currentStockPrice)
+        function buyStock(obj,currentStockPrice)
+            obj.cash = obj.cash - currentStockPrice;
+            obj.stock = obj.stock+1;
+        end
+        
+        function can = canSell(obj)
             if(obj.stock > 0)
-                obj.cash = obj.cash + currentStockPrice;
-                obj.stock = obj.stock-1;
-                sellSuccess = 1;
+                can = 1;
             else
-                sellSuccess = 0;
+                can = 0;
             end
+        end
+        
+        function sellStock(obj,currentStockPrice)
+            obj.cash = obj.cash + currentStockPrice;
+            obj.stock = obj.stock-1;
         end
         
     end
