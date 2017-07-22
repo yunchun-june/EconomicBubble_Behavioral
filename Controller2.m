@@ -23,7 +23,9 @@ try
     %===== Establish Connection =====%
     cnt = connector('localhost',3001,'localhost',3000);
     data = cnt.fetch();
+    fprintf('Recieved message from player1.\n');
     cnt.send('Handshake recieved');
+    fprintf('Message sent to player1.\n');
 
     fprintf('Connection Established\n');
     
