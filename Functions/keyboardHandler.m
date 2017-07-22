@@ -33,15 +33,14 @@ classdef keyboardHandler < handle
         end
        
         function res = getResponse(obj)
-            res = 2;
-            while true
+            res = 0;
                 try
                 KbEventFlush();
                 [keyIsDown, secs, keyCode] = KbQueueCheck(obj.devInd);
                 
                 if secs(KbName(obj.confirm))
+                        res = 4;
                         fprintf('confirmed\n');
-                        break;
                 end
                 
                 if secs(KbName(obj.buy))
@@ -62,7 +61,6 @@ classdef keyboardHandler < handle
                 catch exception
                     fprintf(1,'Error: %s\n',getReport(exception));
                 end
-            end
         end
         
     end

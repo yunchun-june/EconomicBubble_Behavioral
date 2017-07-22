@@ -54,7 +54,8 @@ try
         %Fixation
         
         %See Status
-        display.showStatus(data.getStatusData(trial,1));
+        statusData = data.getStatusData(trial,1);
+        display.showStatus(statusData);
         data.printStatus('player1',trial);
         timeZero = GetSecs();
         while GetSecs()-timeZero < resultTime
@@ -63,32 +64,35 @@ try
         
         %Make Decision
         fprintf('Please Make Decision.\n');
-        decisionMade = FALSE;
         finalDecision = NO_TRADE;
         timesUp = GetSecs()+decideTime;
         while GetSecs() < timesUp
-            while decisionMade == FALSE
-                temp_decision = randi(3);
+            while true
+                temp_decision = randi(4);
                 %temp_decision = keyboard.getResponse();
                 if temp_decision == 1
                     if me.canBuy(mrk.stockPrice)
                         finalDecision = BUY;
-                        decisionMade = TRUE;
                     end
                 end
 
                 if temp_decision == 2
                     finalDecision = NO_TRADE;
-                    decisionMade = TRUE;
                 end
 
                 if temp_decision == 3
                     if me.canSell()
                         finalDecision = SELL;
-                        decisionMade = TRUE;
                     end
                 end
+                
+                if temp_decision == 4
+                    break;
+                end
+                
+                display.showDecision(statusData,finalDecision,FALSE);
             end
+            display.showDecision(statusData,finalDecision,TRUE);
         end
      
 
