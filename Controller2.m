@@ -10,6 +10,10 @@ try
     initialStockPrice   = 100;
     totalTrials         = 60;
     
+    resultTime          =3;
+    decideTime          =10;
+    fixationTime        =1;
+    
     %===== Parameters =====%
     MARKET_BASELINE = 1;
     MARKET_BUBBLE = 2;
@@ -50,28 +54,36 @@ try
         
         %See Status
         data.printStatus('player2',trial);
+        timeZero = GetSecs();
+        while GetSecs()-timaeZero < resultTime
+            
+        end
         
         %Make Decision
+        fprintf('Please Make Decision.\n');
         decisionMade = FALSE;
-        while decisionMade == FALSE
-            %temp_decision = randi(3);
-            temp_decision = device.getResponse();
-            if temp_decision == 1
-                if me.canBuy(mrk.stockPrice)
-                    finalDecision = BUY;
+        finalDecision = NO_TRADE;
+        while GetSecs() - timeZero<decideTime
+            while decisionMade == FALSE
+                %temp_decision = randi(3);
+                temp_decision = device.getResponse();
+                if temp_decision == 1
+                    if me.canBuy(mrk.stockPrice)
+                        finalDecision = BUY;
+                        decisionMade = TRUE;
+                    end
+                end
+
+                if temp_decision == 2
+                    finalDecision = NO_TRADE;
                     decisionMade = TRUE;
                 end
-            end
-            
-            if temp_decision == 2
-                finalDecision = NO_TRADE;
-                decisionMade = TRUE;
-            end
-            
-            if temp_decision == 3
-                if me.canSell()
-                    finalDecision = SELL;
-                    decisionMade = TRUE;
+
+                if temp_decision == 3
+                    if me.canSell()
+                        finalDecision = SELL;
+                        decisionMade = TRUE;
+                    end
                 end
             end
         end
