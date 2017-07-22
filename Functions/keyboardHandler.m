@@ -1,10 +1,6 @@
-classdef deviceHandler < handle
+classdef keyboardHandler < handle
     
     properties
-       wPtr
-       width
-       height
-       screenID
        dev
        devInd
     end
@@ -18,19 +14,8 @@ classdef deviceHandler < handle
     end
     
     methods
-        function obj = deviceHandler(screid,keyboardName)
+        function obj = keyboardHandler(keyboardName)
             obj.setupKeyboard(keyboardName);
-            obj.screenID = screid;
-        end
-        
-        function openScreen(obj)
-            [obj.wPtr, screenRect]=Screen('OpenWindow',obj.screenID, 0,[],32,2);
-            [obj.width, obj.height] = Screen('WindowSize', obj.wPtr);
-            
-        end
-        
-        function closeScreen(obj)
-            Screen('CloseAll');
         end
         
         function setupKeyboard(obj,keyboardName)

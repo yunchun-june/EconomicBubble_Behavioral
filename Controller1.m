@@ -33,7 +33,8 @@ try
     fprintf('Connection Established\n');
     
     %===== Initialize Componets =====%
-    device = deviceHandler(max(Screen('Screens')),'Mac');
+    keyboard = keyboardHandler('Mac');
+    display = displayer(max(Screen('Screens')));
     mrk = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
@@ -54,7 +55,7 @@ try
         %See Status
         data.printStatus('player1',trial);
         timeZero = GetSecs();
-        while GetSecs()-timaeZero < resultTime
+        while GetSecs()-timeZero < resultTime
             
         end
         
@@ -65,8 +66,8 @@ try
         timeZero = GetSecs();
         while GetSecs() - timeZero<decideTime
             while decisionMade == FALSE
-                %temp_decision = randi(3);
-                temp_decision = device.getResponse();
+                temp_decision = randi(3);
+                %temp_decision = keyboard.getResponse();
                 if temp_decision == 1
                     if me.canBuy(mrk.stockPrice)
                         finalDecision = BUY;
