@@ -9,8 +9,8 @@ try
     initialStockPrice   = 100;
     totalTrials         = 60;
     
-    resultTime          =3;
-    decideTime          =10;
+    resultTime          =1;
+    decideTime          =1;
     fixationTime        =1;
     
     %===== Parameters =====%
@@ -35,6 +35,7 @@ try
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('Mac');
     display = displayer(max(Screen('Screens')));
+    display.openScreen();
     mrk = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
@@ -53,6 +54,7 @@ try
         %Fixation
         
         %See Status
+        display.showStatus(data.getStatusData(trial,1));
         data.printStatus('player1',trial);
         timeZero = GetSecs();
         while GetSecs()-timeZero < resultTime
@@ -63,8 +65,8 @@ try
         fprintf('Please Make Decision.\n');
         decisionMade = FALSE;
         finalDecision = NO_TRADE;
-        timeZero = GetSecs();
-        while GetSecs() - timeZero<decideTime
+        timesUp = GetSecs()+decideTime;
+        while GetSecs() < timesUp
             while decisionMade == FALSE
                 temp_decision = randi(3);
                 %temp_decision = keyboard.getResponse();
@@ -109,6 +111,7 @@ try
     end
     
     data.printStatus('player1',totalTrials+1);
+    display.closeScreen();
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));

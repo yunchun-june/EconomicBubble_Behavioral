@@ -10,8 +10,8 @@ try
     initialStockPrice   = 100;
     totalTrials         = 60;
     
-    resultTime          =3;
-    decideTime          =10;
+    resultTime          =1;
+    decideTime          =1;
     fixationTime        =1;
     
     %===== Parameters =====%
