@@ -10,7 +10,7 @@ try
     totalTrials         = 60;
     
     resultTime          =1;
-    decideTime          =1;
+    decideTime          =5;
     fixationTime        =1;
     
     %===== Parameters =====%
@@ -65,11 +65,13 @@ try
         %Make Decision
         fprintf('Please Make Decision.\n');
         finalDecision = NO_TRADE;
+        
         timesUp = GetSecs()+decideTime;
+        decisionMade = FALSE;
         while GetSecs() < timesUp
-            while true
-                temp_decision = randi(4);
-                %temp_decision = keyboard.getResponse();
+            while GetSecs()<timesUp && ~decisionMade
+                %temp_decision = randi(4);
+                temp_decision = keyboard.getResponse();
                 if temp_decision == 1
                     if me.canBuy(mrk.stockPrice)
                         finalDecision = BUY;
@@ -87,14 +89,14 @@ try
                 end
                 
                 if temp_decision == 4
-                    break;
+                    decisionMade = TRUE;
                 end
                 
                 display.showDecision(statusData,finalDecision,FALSE);
             end
             display.showDecision(statusData,finalDecision,TRUE);
         end
-     
+            display.showDecision(statusData,finalDecision,TRUE);
 
         %Get opponent's response
         cnt.send(num2str(finalDecision));
