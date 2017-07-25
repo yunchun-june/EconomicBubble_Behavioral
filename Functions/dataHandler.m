@@ -80,7 +80,7 @@ classdef dataHandler <handle
             data = obj.result(i,:);
         end
         
-        function printStatus(obj,player,i,mrk,p1,p2)
+        function logStatus(obj,player,i,mrk,p1,p2)
             action = {'buy','no trade','sell'};
             
             fprintf('=================================================\n');
