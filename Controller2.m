@@ -26,16 +26,18 @@ try
     
     %===== Establish Connection =====%
     cnt = connector('localhost',3001,'localhost',3000);
-    data = cnt.fetch();
+    syncResult = cnt.fetch();
+    assert(strcmp(syncResult,'Handshake'));
     fprintf('Recieved message from player1.\n');
-    cnt.send('Handshake recieved');
+    cnt.send('Handshake received');
     fprintf('Message sent to player1.\n');
 
     fprintf('Connection Established\n');
     
     %===== Initialize Componets =====%
-    keyboard = keyboardHandler('USB');
+    keyboard = keyboardHandler('Mac');
     %display = displayer(max(Screen('Screens')));
+    %display.openScreen();
     mrk = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
@@ -44,12 +46,9 @@ try
     %===== Game Start =====%
     for trial = 1:totalTrials
         
-        if(trial == 20) mrk.setCondition(MARKET_BUBBLE); end
-        if(trial == 40) mrk.setCondition(MARKET_BURST); end
-        
         %Syncing
-        syncResult = cnt.fetch();
-        cnt.send('Sync');
+        assert(strcmp(num2str(trial), cnt.fetch()));
+        cnt.send(num2str(trial));
         
         %Fixation
         
