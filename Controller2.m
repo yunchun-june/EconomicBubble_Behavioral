@@ -37,7 +37,7 @@ try
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('Mac');
     display = displayer(max(Screen('Screens')));
-    display.openScreen();
+    %display.openScreen();
     mrk = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
@@ -90,12 +90,12 @@ try
                     decisionMade = TRUE;
                 end
                 
-                display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
+                %display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
             end
-            display.showDecision(statusData,finalDecision,0,TRUE);
+            %display.showDecision(statusData,finalDecision,0,TRUE);
         end
         
-        display.showDecision(statusData,finalDecision,0,TRUE);
+        %display.showDecision(statusData,finalDecision,0,TRUE);
         
         %Get opponent's response
         oppDecision = cnt.fetch();

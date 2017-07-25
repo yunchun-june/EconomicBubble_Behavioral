@@ -36,7 +36,7 @@ try
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('USB');
     display = displayer(max(Screen('Screens')));
-    %display.openScreen();
+    display.openScreen();
     mrk = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
@@ -54,7 +54,7 @@ try
         
         %See Status
         statusData = data.getStatusData(trial,1);
-        %display.showStatus(statusData);
+        display.showStatus(statusData);
         data.logStatus('player1',trial);
         timeZero = GetSecs();
         while GetSecs()-timeZero < resultTime
@@ -90,12 +90,12 @@ try
                     decisionMade = TRUE;
                 end
                 
-                %display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
+                display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
             end
-            %display.showDecision(statusData,finalDecision,0,TRUE);
+            display.showDecision(statusData,finalDecision,0,TRUE);
         end
         
-        %display.showDecision(statusData,finalDecision,0,TRUE);
+        display.showDecision(statusData,finalDecision,0,TRUE);
 
         %Get opponent's response
         cnt.send(num2str(finalDecision));
