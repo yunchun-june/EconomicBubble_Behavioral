@@ -47,7 +47,7 @@ classdef displayer < handle
             obj.write('Stock Price:',1,3,'white',30);
             obj.write(num2str(data.stockPrice),2,3,'white',30);
             if data.change<0
-                output = '('+num2str(data.change)+')';
+                output = strcat('(',num2str(data.change),')');
                 obj.write(output,3,3,'red',30);
             end
             
@@ -56,7 +56,7 @@ classdef displayer < handle
             end
             
             if data.change>0
-                output = '(+'+num2str(data.change)+')';
+                output = strcat('(+',num2str(data.change),')');
                 obj.write(output,3,3,'green',30);
             end
             
@@ -80,7 +80,7 @@ classdef displayer < handle
             obj.write('Stock Price:',1,3,'white',30);
             obj.write(num2str(data.stockPrice),2,3,'white',30);
             if data.change<0
-                output = '('+num2str(data.change)+')';
+                output = strcat('(',num2str(data.change),')');
                 obj.write(output,3,3,'red',30);
             end
             
@@ -89,7 +89,7 @@ classdef displayer < handle
             end
             
             if data.change>0
-                output = '(+'+num2str(data.change)+')';
+                output = strcat('(+',num2str(data.change),')');
                 obj.write(output,3,3,'green',30);
             end
             
