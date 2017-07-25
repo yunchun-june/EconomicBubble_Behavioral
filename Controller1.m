@@ -91,11 +91,11 @@ try
                     decisionMade = TRUE;
                 end
                 
-                display.showDecision(statusData,finalDecision,FALSE);
+                display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
             end
-            display.showDecision(statusData,finalDecision,TRUE);
+            display.showDecision(statusData,finalDecision,0,TRUE);
         end
-            display.showDecision(statusData,finalDecision,TRUE);
+            display.showDecision(statusData,finalDecision,0,TRUE);
 
         %Get opponent's response
         cnt.send(num2str(finalDecision));

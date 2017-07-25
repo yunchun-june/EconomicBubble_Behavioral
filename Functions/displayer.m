@@ -76,7 +76,7 @@ classdef displayer < handle
             Screen('Flip',obj.wPtr);
         end
         
-        function showDecision(obj,data,temp,confirmed)
+        function showDecision(obj,data,temp,timer,confirmed)
             obj.write('Stock Price:',1,3,'white',30);
             obj.write(num2str(data.stockPrice),2,3,'white',30);
             if data.change<0
@@ -92,6 +92,7 @@ classdef displayer < handle
                 output = strcat('(+',num2str(data.change),')');
                 obj.write(output,3,3,'green',30);
             end
+            obj.write(num2str(timer),4,3,'white',30);
             
             obj.write('Cash',1,4,'white',30);
             obj.write('Stock',2,4,'white',30);
