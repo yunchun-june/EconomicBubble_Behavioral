@@ -31,7 +31,7 @@ classdef connector
                 %// TO DO //%
                 % send and check ID
                 obj.send('Handshake');
-                fprintf('Recieved message from player2.\n');
+                fprintf('Mesage sent to player2.\n');
                 syncResult = obj.fetch();
                 assert(strcmp(syncResult,'Handshake received'));
                 fprintf('Message sent to player2.\n');
@@ -73,12 +73,12 @@ classdef connector
             if obj.rule == 'player1'
                 obj.send(num2str(myRes));
                 oppRes = obj.fetch();
-                oppRes = str2num(oppRes);
+                oppRes = str2double(oppRes);
             end
             if obj.rule == 'player2'
                 oppRes = obj.fetch();
                 obj.send(num2str(myRes));
-                oppRes = str2num(oppRes);
+                oppRes = str2double(oppRes);
             end
             
         end
