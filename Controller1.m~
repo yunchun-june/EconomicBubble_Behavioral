@@ -10,37 +10,37 @@ try
     totalTrials         = 60;
     
     resultTime          =1;
-    decideTime          =5;
+    decideTime          =10;
     fixationTime        =1;
     
-    %===== Parameters =====%
+     %===== Parameters =====%
     MARKET_BASELINE = 1;
     MARKET_BUBBLE = 2;
     MARKET_BURST = 3;
     BUY = 1;  
-    NO_TRADE = 2;
+    NO_TRADE =  2 ; 
     SELL = 3;
     TRUE = 1;
     FALSE = 0;
     
-    %===== Establish Connection =====%
+    %===== Initialize Componets =====%
+    keyboard = keyboardHandler('USB');
+    displayer = displayer(max(Screen('Screens')));
+    market = market(MARKET_BASELINE,initialStockPrice);
+    me = player(initialCash,initialStock);
+    opp = player(initialCash,initialStock);
+    data = dataHandler('P1','P2',totalTrials,market,me,opp);
+    
+    %===== Establish Connection =====% 
     cnt = connector('localhost',3000,'localhost',3001);
     cnt.send('Handshake');
     fprintf('Recieved message from player2.\n');
     syncResult = cnt.fetch();
     assert(strcmp(syncResult,'Handshake received'));
     fprintf('Message sent to player2.\n');
-
     fprintf('Connection Established\n');
     
-    %===== Initialize Componets =====%
-    keyboard = keyboardHandler('USB');
-    display = displayer(max(Screen('Screens')));
-    display.openScreen();
-    mrk = market(MARKET_BASELINE,initialStockPrice);
-    me = player(initialCash,initialStock);
-    opp = player(initialCash,initialStock);
-    data = dataHandler('P1','P2',totalTrials,mrk,me,opp);
+    %display.openScreen();
     
     %===== Game Start =====%
     
@@ -54,7 +54,7 @@ try
         
         %See Status
         statusData = data.getStatusData(trial,1);
-        display.showStatus(statusData);
+        displayer.showStatus(statusData);
         data.logStatus('player1',trial);
         timeZero = GetSecs();
         while GetSecs()-timeZero < resultTime
@@ -71,7 +71,7 @@ try
                 %temp_decision = randi(4);
                 temp_decision = keyboard.getResponse();
                 if temp_decision == 1
-                    if me.canBuy(mrk.stockPrice)
+                    if me.canBuy(market.stockPrice)
                         finalDecision = BUY;
                     end
                 end
@@ -89,12 +89,12 @@ try
                 if temp_decision == 4
                     decisionMade = TRUE;
                 end
-                
-                display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
+                                displayer.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
             end
-            display.showDecision(statusData,finalDecision,0,TRUE);
+            displayer.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),TRUE);
         end
-            display.showDecision(statusData,finalDecision,0,TRUE);
+        
+        displayer.showDecision(statusData,finalDecision,0,TRUE);
 
         %Get opponent's response
         cnt.send(num2str(finalDecision));
@@ -102,20 +102,20 @@ try
         oppDecision = str2num(oppDecision);
         
         %Save Data
-        data.update(mrk,me,opp,finalDecision,oppDecision,trial);
+        data.update(market,me,opp,finalDecision,oppDecision,trial);
         
         %Update market and asset
-        if(oppDecision == BUY)   opp.buyStock(mrk.stockPrice);end
-        if(oppDecision == SELL)  opp.sellStock(mrk.stockPrice);end
-        if(finalDecision == BUY)   me.buyStock(mrk.stockPrice);end
-        if(finalDecision == SELL)  me.sellStock(mrk.stockPrice);end
-        mrk.trade(finalDecision,oppDecision);
+        if(oppDecision == BUY)   opp.buyStock(market.stockPrice);end
+        if(oppDecision == SELL)  opp.sellStock(market.stockPrice);end
+        if(finalDecision == BUY)   me.buyStock(market.stockPrice);end
+        if(finalDecision == SELL)  me.sellStock(market.stockPrice);end
+        market.trade(finalDecision,oppDecision);
         
-        data.preUpdate(mrk,me,opp,trial);
+        data.preUpdate(market,me,opp,trial);
     end
     
     data.printStatus('player1',totalTrials+1);
-    display.closeScreen();
+    displayer.closeScreen();
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));

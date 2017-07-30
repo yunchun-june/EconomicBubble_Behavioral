@@ -22,7 +22,7 @@ classdef keyboardHandler < handle
             if strcmp(keyboardName,'Mac')
                keyboardName = 'Apple Internal Keyboard / Trackpad';
             end
-            if strcmp(keyboardName,'USB')
+            if strcmp(keyboardName,'Logitech')
                 keyboardName = 'USB Receiver';
             end
             obj.dev=PsychHID('Devices');

@@ -11,7 +11,7 @@ try
     totalTrials         = 60;
     
     resultTime          =1;
-    decideTime          =5;
+    decideTime          =10;
     fixationTime        =1;
     
     %===== Parameters =====%
@@ -23,26 +23,22 @@ try
     SELL = 3;
     TRUE = 1;
     FALSE = 0;
-    
-    %===== Establish Connection =====%
-    cnt = connector('localhost',3001,'localhost',3000);
-    syncResult = cnt.fetch();
-    assert(strcmp(syncResult,'Handshake'));
-    fprintf('Recieved message from player1.\n');
-    cnt.send('Handshake received');
-    fprintf('Message sent to player1.\n');
 
-    fprintf('Connection Established\n');
-    
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('Mac');
     display = displayer(max(Screen('Screens')));
-    %display.openScreen();
-    mrk = market(MARKET_BASELINE,initialStockPrice);
+    market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
-    data = dataHandler('P1','P2',totalTrials,mrk,opp,me);
+    data = dataHandler('P1','P2',totalTrials,market,opp,me);
     
+    
+    %===== Establish Connection =====%
+    cnt = connector('player2','localhost',3001,'localhost',3000);
+    cnt.establish();
+
+    %display.openScreen();
+
     %===== Game Start =====%
     for trial = 1:totalTrials
         
@@ -71,7 +67,7 @@ try
                 temp_decision = randi(4);
                 %temp_decision = keyboard.getResponse();
                 if temp_decision == 1
-                    if me.canBuy(mrk.stockPrice)
+                    if me.canBuy(market.stockPrice)
                         finalDecision = BUY;
                     end
                 end
@@ -92,7 +88,7 @@ try
                 
                 %display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
             end
-            %display.showDecision(statusData,finalDecision,0,TRUE);
+            %display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),TRUE);
         end
         
         %display.showDecision(statusData,finalDecision,0,TRUE);
@@ -103,16 +99,16 @@ try
         oppDecision = str2num(oppDecision);
         
         %Save Data
-        data.update(mrk,opp,me,oppDecision,finalDecision,trial);
+        data.update(market,opp,me,oppDecision,finalDecision,trial);
         
         %Update market and asset
-        if(oppDecision == BUY)   opp.buyStock(mrk.stockPrice);end
-        if(oppDecision == SELL)  opp.sellStock(mrk.stockPrice);end
-        if(finalDecision == BUY)   me.buyStock(mrk.stockPrice);end
-        if(finalDecision == SELL)  me.sellStock(mrk.stockPrice);end
-        mrk.trade(finalDecision,oppDecision);
+        if(oppDecision == BUY)   opp.buyStock(market.stockPrice);end
+        if(oppDecision == SELL)  opp.sellStock(market.stockPrice);end
+        if(finalDecision == BUY)   me.buyStock(market.stockPrice);end
+        if(finalDecision == SELL)  me.sellStock(market.stockPrice);end
+        market.trade(finalDecision,oppDecision);
         
-        data.preUpdate(mrk,opp,me,trial);
+        data.preUpdate(market,opp,me,trial);
         
     end
     
