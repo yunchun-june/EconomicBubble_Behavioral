@@ -34,8 +34,27 @@ classdef market < handle
             obj.dramatic = 0;
         end
         
-        function trade(obj,p1Act,p2Act)
-
+        function trade(obj,p1,p2)
+            switch p1
+                case "buy"
+                    p1Act = 1;
+                case "no trade"
+                    p1Act = 2;
+                case "sell"
+                    p1Act = 3;
+                otherwise
+            end
+            
+            switch p2
+                case "buy"
+                    p2Act = 1;
+                case "no trade"
+                    p2Act = 2;
+                case "sell"
+                    p2Act = 3;
+                otherwise
+            end
+            
             if(obj.marketCondition == obj.BASELINE)
                 rate = obj.baselineRate(p1Act,p2Act);
             end

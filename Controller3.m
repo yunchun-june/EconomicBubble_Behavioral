@@ -24,16 +24,16 @@ try
     FALSE = 0;
     
     %===== Inputs =====%
-    rule = 'player1';
-    myID = 'dummyID1';
-    oppID = 'dummyID2';
+    rule = 'player2';
+    myID = 'dummyID2';
+    oppID = 'dummyID1';
     myIP = 'localhost';
     oppIP = 'localhost';
-    myPort = 3000;
-    oppPort = 3001;
+    myPort = 3001;
+    oppPort = 3000;
     
     %===== Initialize Componets =====%
-    keyboard = keyboardHandler('Logitech');
+    keyboard = keyboardHandler('Mac');
     displayer = displayer(max(Screen('Screens')));
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
