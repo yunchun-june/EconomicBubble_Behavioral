@@ -10,11 +10,13 @@ classdef dataHandler <handle
 %    player1TotalAsset      =7
 %    player1Decision        =8
 %    player1RT              =9
+%    player1event           =10
 %    player2Cash            =10
 %    player2Stock           =11
 %    player2TotalAsset      =12
 %    player2Decision        =13
 %    player2RT              =14
+%    player2event           =15
    
     
     properties

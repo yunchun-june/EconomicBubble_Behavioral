@@ -11,7 +11,7 @@ try
     totalTrials         = 60;
     
     resultTime          =1;
-    decideTime          =10;
+    decideTime          =3;
     fixationTime        =1;
     
     %===== Parameters =====%
@@ -23,18 +23,27 @@ try
     SELL = 3;
     TRUE = 1;
     FALSE = 0;
+    
+    %===== Inputs =====%
+    rule = 'player2';
+    myID = 'dummyID2';
+    oppID = 'dummyID1';
+    myIP = 'localhost';
+    oppIP = 'localhost';
+    myPort = 3001;
+    oppPort = 3000;
 
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('Mac');
-    display = displayer(max(Screen('Screens')));
+    displayer = displayer(max(Screen('Screens')));
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
-    data = dataHandler('P1','P2',totalTrials,market,opp,me);
+    data = dataHandler(myID,oppID,totalTrials,market,me,opp);
     
     
     %===== Establish Connection =====%
-    cnt = connector('player2','localhost',3001,'localhost',3000);
+    cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
     cnt.establish();
 
     %display.openScreen();
@@ -43,8 +52,7 @@ try
     for trial = 1:totalTrials
         
         %Syncing
-        assert(strcmp(num2str(trial), cnt.fetch()));
-        cnt.send(num2str(trial));
+        cnt.syncTrial(trial);
         
         %Fixation
         
@@ -94,9 +102,7 @@ try
         %display.showDecision(statusData,finalDecision,0,TRUE);
         
         %Get opponent's response
-        oppDecision = cnt.fetch();
-        cnt.send(num2str(finalDecision));
-        oppDecision = str2num(oppDecision);
+        oppDecision = cnt.sendOwnResAndgetOppRes(finalDecision);
         
         %Save Data
         data.update(market,opp,me,oppDecision,finalDecision,trial);
