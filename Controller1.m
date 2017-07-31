@@ -10,7 +10,7 @@ try
     totalTrials         = 60;
     
     resultTime          =1;
-    decideTime          =1;
+    decideTime          =10;
     fixationTime        =1;
     
     %===== Parameters =====%
@@ -33,7 +33,7 @@ try
     oppPort = 3001;
     
     %===== Initialize Componets =====%
-    keyboard = keyboardHandler('Logitech');
+    keyboard = keyboardHandler('Mac');
     displayer = displayer(max(Screen('Screens')));
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
@@ -68,15 +68,49 @@ try
         %response to get
         myRes.decision = "buy";
         myRes.RT = 0;
-        myRes.events = [];
+        myRes.events = strings(0,2);
         
         %Make Decision
         fprintf('Makind decision ....\n');
-        timesUp = GetSecs()+decideTime;
+        startTime = GetSecs();
+        timesUp = startTime+decideTime;
         decisionMade = FALSE;
+        tempDecision = "no trade";
         while GetSecs() < timesUp
+            if ~decisionMade
+                [keyName,timing] = keyboard.getResponse(timesUp);
+                if keyName ~= "NA"
+                    myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
+                    fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                end
+
+                if keyName == "buy" && me.canBuy(market.stockPrice)
+                    tempDecision = "buy";
+                end
+                if keyName == "no trade"
+                    tempDecision = "no trade";
+                end
+                if keyName == "sell" && me.canSell()
+                    tempDecision = "sell";
+                end
+                if keyName == "confirm"
+                    decisionMade = TRUE;
+                    myRes.RT = num2str(timing-startTime);
+                end
+                % TODO %
+                % show screen%
+            end
             
+            if decisionMade
+                % TODO %
+                % show screen%
+            end
         end
+        
+        fprintf("timesUp! %s\n",num2str(GetSecs() - startTime));
+        
+        % TODO %
+        % show screen%
         
         %Get opponent's response
         %oppRes = cnt.sendOwnResAndgetOppRes(myRes);

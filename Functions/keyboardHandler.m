@@ -32,30 +32,33 @@ classdef keyboardHandler < handle
             KbName('UnifyKeyNames');
         end
        
-        function res = getResponse(obj)
-            res = 0;
-
-            KbEventFlush();
-            [keyIsDown, secs, keyCode] = KbQueueCheck(obj.devInd);
-
-            if secs(KbName(obj.buy))
-                    res = 1;
-                    fprintf('buy\n');
-            end
-
-            if secs(KbName(obj.noTrade))
-                    res = 2;
-                    fprintf('noTrade\n');
-            end
-
-            if secs(KbName(obj.sell))
-                    res = 3;
-                    fprintf('sell\n');
-            end
+        function [keyName, timing] = getResponse(obj,timesUp)
             
-            if secs(KbName(obj.confirm))
-                res = 4;
-                fprintf('confirmed\n');
+            keyName = "NA";
+            timing = -1;
+            
+            KbEventFlush();
+            while GetSecs()<timesUp && keyName == "NA"
+               [keyIsDown, secs, keyCode] = KbQueueCheck(obj.devInd); 
+               if secs(KbName(obj.buy))
+                    keyName = "buy";
+                    timing = GetSecs();
+                end
+
+                if secs(KbName(obj.noTrade))
+                    keyName = "no trade";
+                    timing = GetSecs();
+                end
+
+                if secs(KbName(obj.sell))
+                    keyName = "sell";
+                    timing = GetSecs();
+                end
+
+                if secs(KbName(obj.confirm))
+                    keyName = "confirm";
+                    timing = GetSecs();
+                end
             end
 
         end
