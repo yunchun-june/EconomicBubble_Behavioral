@@ -3,23 +3,22 @@ close all;
 addpath('./Functions');
 
 try
-    
     %===== Parameters =====%
     initialCash         = 1000;
     initialStock        = 5;
-    initialStockPrice   = 100;
+    initialStockPrice   = 50;
     totalTrials         = 60;
     
     resultTime          =1;
-    decideTime          =3;
+    decideTime          =5;
     fixationTime        =1;
     
     %===== Parameters =====%
     MARKET_BASELINE = 1;
     MARKET_BUBBLE = 2;
     MARKET_BURST = 3;
-    BUY = 1;
-    NO_TRADE = 2;
+    BUY = 1;  
+    NO_TRADE =  2 ; 
     SELL = 3;
     TRUE = 1;
     FALSE = 0;
@@ -32,97 +31,104 @@ try
     oppIP = 'localhost';
     myPort = 3001;
     oppPort = 3000;
-
+    
     %===== Initialize Componets =====%
-    keyboard = keyboardHandler('Mac');
+    keyboard = keyboardHandler('Logitech');
     displayer = displayer(max(Screen('Screens')));
+    parser = parser();
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
-    data = dataHandler(myID,oppID,totalTrials,market,me,opp);
+    data = dataHandler(myID,oppID,rule,totalTrials);
     
-    
-    %===== Establish Connection =====%
+    %===== Establish Connection =====% 
     cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
     cnt.establish();
-
+        
     %display.openScreen();
-
+    
     %===== Game Start =====%
+    
     for trial = 1:totalTrials
         
         %Syncing
         cnt.syncTrial(trial);
         
-        %Fixation
-        
-        %See Status
-        statusData = data.getStatusData(trial,2);
-        %display.showStatus(statusData);
-        data.logStatus('player2',trial);
+        % Update condition based on last decision
+        data.updateCondition(market,me,opp,trial);
+        %statusData = data.getStatusData(trial,1);
+                
+        %Display condition
+        %displayer.showStatus(statusData);
+        data.logStatus(trial);
         timeZero = GetSecs();
         while GetSecs()-timeZero < resultTime
             
         end
         
+        %response to get
+        myRes.decision = "no trade";
+        myRes.events = strings(0,2);
+        
         %Make Decision
-        fprintf('Please Make Decision.\n');
-        finalDecision = NO_TRADE;
-        timesUp = GetSecs()+decideTime;
+        fprintf('Makind decision ....\n');
+        startTime = GetSecs();
+        timesUp = startTime+decideTime;
         decisionMade = FALSE;
         while GetSecs() < timesUp
-            while GetSecs()<timesUp && ~decisionMade
-                temp_decision = randi(4);
-                %temp_decision = keyboard.getResponse();
-                if temp_decision == 1
-                    if me.canBuy(market.stockPrice)
-                        finalDecision = BUY;
-                    end
+            if ~decisionMade
+                [keyName,timing] = keyboard.getResponse(timesUp);
+                if keyName ~= "NA"
+                    myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
+                    fprintf("%s %s\n",keyName,num2str(timing-startTime));
                 end
 
-                if temp_decision == 2
-                    finalDecision = NO_TRADE;
+                if keyName == "buy" && me.canBuy(market.stockPrice)
+                    myRes.decision = "buy";
                 end
-
-                if temp_decision == 3
-                    if me.canSell()
-                        finalDecision = SELL;
-                    end
+                if keyName == "no trade"
+                    myRes.decision = "no trade";
                 end
-                
-                if temp_decision == 4
+                if keyName == "sell" && me.canSell()
+                    myRes.decision = "sell";
+                end
+                if keyName == "confirm"
                     decisionMade = TRUE;
                 end
-                
-                %display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),FALSE);
+                % TODO %
+                % show screen%
             end
-            %display.showDecision(statusData,finalDecision,ceil(timesUp - GetSecs()),TRUE);
+            
+            if decisionMade
+                % TODO %
+                % show screen%
+            end
         end
         
-        %display.showDecision(statusData,finalDecision,0,TRUE);
+        fprintf("timesUp! %s\n",num2str(GetSecs() - startTime));
+        
+        % TODO %
+        % show screen%
         
         %Get opponent's response
-        oppDecision = cnt.sendOwnResAndgetOppRes(finalDecision);
+        oppResRaw = cnt.sendOwnResAndgetOppRes(parser.resToStr(myRes));
+        oppRes = parser.strToRes(oppResRaw);
         
         %Save Data
-        data.update(market,opp,me,oppDecision,finalDecision,trial);
+        data.saveResponse(myRes,oppRes,trial);
         
-        %Update market and asset
-        if(oppDecision == BUY)   opp.buyStock(market.stockPrice);end
-        if(oppDecision == SELL)  opp.sellStock(market.stockPrice);end
-        if(finalDecision == BUY)   me.buyStock(market.stockPrice);end
-        if(finalDecision == SELL)  me.sellStock(market.stockPrice);end
-        market.trade(finalDecision,oppDecision);
-        
-        data.preUpdate(market,opp,me,trial);
+        %Update market and player
+        if(myRes.decision == "buy")   me.buyStock(market.stockPrice);end
+        if(myRes.decision == "sell")  me.sellStock(market.stockPrice);end
+        if(oppRes.decision == "buy")  opp.buyStock(market.stockPrice);end
+        if(oppRes.decision == "sell") opp.sellStock(market.stockPrice);end
+        market.trade(myRes.decision,oppRes.decision);
         
     end
     
-    data.printStatus('player2',totalTrials+1);
+    %displayer.closeScreen();
     
-
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));
 end
 
-    
