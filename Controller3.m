@@ -33,7 +33,7 @@ try
     oppPort = 3000;
     
     %===== Initialize Componets =====%
-    keyboard = keyboardHandler('Mac');
+    keyboard = keyboardHandler('Logitech');
     displayer = displayer(max(Screen('Screens')));
     parser = parser();
     market = market(MARKET_BASELINE,initialStockPrice);
@@ -67,7 +67,7 @@ try
         end
         
         %response to get
-        myRes.decision = "buy";
+        myRes.decision = "no trade";
         myRes.events = strings(0,2);
         
         %Make Decision
@@ -75,7 +75,6 @@ try
         startTime = GetSecs();
         timesUp = startTime+decideTime;
         decisionMade = FALSE;
-        tempDecision = "no trade";
         while GetSecs() < timesUp
             if ~decisionMade
                 [keyName,timing] = keyboard.getResponse(timesUp);
@@ -85,13 +84,13 @@ try
                 end
 
                 if keyName == "buy" && me.canBuy(market.stockPrice)
-                    tempDecision = "buy";
+                    myRes.decision = "buy";
                 end
                 if keyName == "no trade"
-                    tempDecision = "no trade";
+                    myRes.decision = "no trade";
                 end
                 if keyName == "sell" && me.canSell()
-                    tempDecision = "sell";
+                    myRes.decision = "sell";
                 end
                 if keyName == "confirm"
                     decisionMade = TRUE;
