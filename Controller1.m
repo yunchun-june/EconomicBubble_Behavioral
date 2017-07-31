@@ -10,7 +10,7 @@ try
     totalTrials         = 60;
     
     resultTime          =1;
-    decideTime          =10;
+    decideTime          =5;
     fixationTime        =1;
     
     %===== Parameters =====%
@@ -95,7 +95,6 @@ try
                 end
                 if keyName == "confirm"
                     decisionMade = TRUE;
-                    myRes.RT = num2str(timing-startTime);
                 end
                 % TODO %
                 % show screen%

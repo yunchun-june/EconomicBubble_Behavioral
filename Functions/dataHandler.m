@@ -12,11 +12,9 @@ classdef dataHandler <handle
 %    player2Stock           =9
 %    player2TotalAsset      =10
 %    player1Decision        =11
-%    player1RT              =12
-%    player1event           =13
-%    player2Decision        =14
-%    player2RT              =15
-%    player2event           =16
+%    player1event           =12
+%    player2Decision        =13
+%    player2event           =14
    
     
     properties
@@ -35,7 +33,7 @@ classdef dataHandler <handle
             obj.player2ID = ID2;
             obj.rule = rule;
             obj.totalTrial = trials;
-            obj.result = cell(trials,16);
+            obj.result = cell(trials,14);
         end
         
         %----- Updating Data -----%
@@ -77,11 +75,9 @@ classdef dataHandler <handle
             end
             
             obj.result{trial,11} = p1Res.decision;
-            obj.result{trial,12} = p1Res.RT;
-            obj.result{trial,13} = p1Res.events;
-            obj.result{trial,14} = p2Res.decision;
-            obj.result{trial,15} = p2Res.RT;
-            obj.result{trial,16} = p2Res.events;
+            obj.result{trial,12} = p1Res.events;
+            obj.result{trial,13} = p2Res.decision;
+            obj.result{trial,14} = p2Res.events;
         end
         
         function logStatus(obj,trial)
