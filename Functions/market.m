@@ -43,6 +43,7 @@ classdef market < handle
                 case "sell"
                     p1Act = 3;
                 otherwise
+                    p1Act = 2;
             end
             
             switch p2
@@ -53,6 +54,7 @@ classdef market < handle
                 case "sell"
                     p2Act = 3;
                 otherwise
+                    p2Act = 2;
             end
             
             if(obj.marketCondition == obj.BASELINE)

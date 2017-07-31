@@ -69,16 +69,14 @@ classdef connector
             data = client(obj.destIP,obj.destPort,-1);
         end
         
-        function oppRes = sendOwnResAndgetOppRes(obj,myRes)
+        function oppRes = sendOwnResAndgetOppRes(obj,myResStr)
             if obj.rule == 'player1'
-                obj.send(num2str(myRes));
+                obj.send(myResStr);
                 oppRes = obj.fetch();
-                oppRes = str2double(oppRes);
             end
             if obj.rule == 'player2'
                 oppRes = obj.fetch();
-                obj.send(num2str(myRes));
-                oppRes = str2double(oppRes);
+                obj.send(myResStr);
             end
             
         end

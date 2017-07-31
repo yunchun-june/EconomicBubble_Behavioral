@@ -35,6 +35,7 @@ try
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('Mac');
     displayer = displayer(max(Screen('Screens')));
+    parser = parser();
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
     opp = player(initialCash,initialStock);
@@ -66,8 +67,7 @@ try
         end
         
         %response to get
-        myRes.decision = "buy";
-        myRes.RT = 0;
+        myRes.decision = "no trade";
         myRes.events = strings(0,2);
         
         %Make Decision
@@ -112,8 +112,8 @@ try
         % show screen%
         
         %Get opponent's response
-        %oppRes = cnt.sendOwnResAndgetOppRes(myRes);
-        oppRes = myRes;
+        oppResRaw = cnt.sendOwnResAndgetOppRes(parser.resToStr(myRes));
+        oppRes = parser.strToRes(oppResRaw);
         
         %Save Data
         data.saveResponse(myRes,oppRes,trial);
