@@ -100,7 +100,6 @@ classdef dataHandler <handle
         end
         
         function data = getStatusData(obj,i,player)
-            action = {'buy','no trade','sell'};
             data.stockPrice = obj.result{i,4};
             
             if player == 1
@@ -108,12 +107,14 @@ classdef dataHandler <handle
                 data.stock = obj.result{i,6};
                 data.stockValue = obj.result{i,6}* obj.result{i,4};
                 data.totalAsset= obj.result{i,7};
+                data.rivalTotal = obj.result{i,10};
             end
             if player == 2
-                data.cash = obj.result{i,10};
-                data.stock = obj.result{i,11};
-                data.stockValue = obj.result{i,11}*obj.result{i,4};
-                data.totalAsset= obj.result{i,12};
+                data.cash = obj.result{i,8};
+                data.stock = obj.result{i,9};
+                data.stockValue = obj.result{i,9}*obj.result{i,4};
+                data.totalAsset= obj.result{i,10};
+                data.rivalTotal = obj.result{i,7};
             end
             
             if i ==1

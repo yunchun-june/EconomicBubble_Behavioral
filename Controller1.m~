@@ -78,7 +78,7 @@ try
         myRes.decision = "no trade";
         showHiddenInfo = FALSE;
         while GetSecs() < timesUp
-            
+            for remainingTime = 5,
                 if ~decisionMade
                     % show Screen
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,0);

@@ -11,9 +11,12 @@ classdef keyboardHandler < handle
         buy         = 'LeftArrow';
         noTrade     = 'DownArrow';
         sell        = 'RightArrow';
+        see         = 'UpArrow';
     end
     
     methods
+        
+        %----Constructor-----%
         function obj = keyboardHandler(keyboardName)
             obj.setupKeyboard(keyboardName);
         end
@@ -32,6 +35,7 @@ classdef keyboardHandler < handle
             KbName('UnifyKeyNames');
         end
        
+        %----------%
         function [keyName, timing] = getResponse(obj,timesUp)
             
             keyName = "NA";
@@ -39,30 +43,51 @@ classdef keyboardHandler < handle
             
             KbEventFlush();
             while GetSecs()<timesUp && keyName == "NA"
-               [keyIsDown, secs, keyCode] = KbQueueCheck(obj.devInd); 
-               if secs(KbName(obj.buy))
+               [isDown, press, release] = KbQueueCheck(obj.devInd); 
+                if press(KbName(obj.buy))
                     keyName = "buy";
                     timing = GetSecs();
                 end
 
-                if secs(KbName(obj.noTrade))
+                if press(KbName(obj.noTrade))
                     keyName = "no trade";
                     timing = GetSecs();
                 end
 
-                if secs(KbName(obj.sell))
+                if press(KbName(obj.sell))
                     keyName = "sell";
                     timing = GetSecs();
                 end
 
-                if secs(KbName(obj.confirm))
+                if press(KbName(obj.confirm))
                     keyName = "confirm";
+                    timing = GetSecs();
+                end
+                
+                if press(KbName(obj.see))
+                    keyName = "see";
+                    timing = GetSecs();
+                end
+                
+                if release(KbName(obj.see))
+                    keyName = "unsee";
                     timing = GetSecs();
                 end
             end
 
         end
         
+        function press(obj)
+            KbEventFlush();
+            [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd); 
+            while 1
+                [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd); 
+                if firstKeyPressTimes(KbName('space'))
+                    fprintf('Space is pressed.\n');
+                    break;
+                end
+            end
+        end
     end
     
 end
