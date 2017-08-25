@@ -118,17 +118,17 @@ classdef dataHandler <handle
             
             if i ==1
                 data.change = 0;
-                data.d1 = "no trade";
-                data.d2 = "no trade ";
+                data.d1 = 'no trade';
+                data.d2 = 'no trade';
             else
                 data.change = obj.result{i,4}-obj.result{i-1,4};
                 if player == 1
-                    data.d1 = obj.result{i-1,11};
-                    data.d2 = obj.result{i-1,13};
+                    data.d1 = action{obj.result(i-1,8)};
+                    data.d2 = action{obj.result(i-1,13)};
                 end
                 if player == 2
-                    data.d1 = obj.result{i-1,13};
-                    data.d2 = obj.result{i-1,11};
+                    data.d1 = action{obj.result(i-1,13)};
+                    data.d2 = action{obj.result(i-1,8)};
                 end
                 
             end

@@ -56,7 +56,7 @@ try
         
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
-        %statusData = data.getStatusData(trial,1);
+        statusData = data.getStatusData(trial,1);
                 
         %Display condition
         %displayer.showStatus(statusData);
