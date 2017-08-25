@@ -135,6 +135,7 @@ classdef displayer < handle
                 if temp == "no trade" obj.write('no trade',2,8,'red',30); end
                 if temp == "sell" obj.write('sell',3,8,'red',30); end
             end
+            
             obj.write(num2str(timer),4,8,'white',30);
             
             Screen('Flip',obj.wPtr);

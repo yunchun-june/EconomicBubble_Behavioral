@@ -73,15 +73,16 @@ try
         %Make Decision
         fprintf('Makind decision ....\n');
         startTime = GetSecs();
-        timesUp = startTime+decideTime;
+        deadline = startTime+decideTime;
         decisionMade = FALSE;
         myRes.decision = "no trade";
         showHiddenInfo = FALSE;
-        while GetSecs() < timesUp
-            
+        for remaining = 5:-1:1
+            timesUp = deadline - remaining +1 
+            while GetSecs() < timesUp
                 if ~decisionMade
                     % show Screen
-                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,0);
+                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,0);
 
                     [keyName,timing] = keyboard.getResponse(timesUp);
 
@@ -112,14 +113,14 @@ try
 
                 if decisionMade
                     % TODO %
-                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,1);
+                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,1);
                 end
+            end
         end
         
-        fprintf("timesUp! %s\n",num2str(GetSecs() - startTime));
-        
         % TODO %
-        displayer.showDecision(statusData,myRes.decision,showHiddenInfo,1);
+        fprintf("timesUp! %s\n",num2str(GetSecs() - startTime));
+        displayer.showDecision(statusData,myRes.decision,showHiddenInfo,0,1);
         
         %Get opponent's response
         oppResRaw = cnt.sendOwnResAndgetOppRes(parser.resToStr(myRes));
