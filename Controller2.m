@@ -77,7 +77,14 @@ try
         decisionMade = FALSE;
         while GetSecs() < timesUp
             if ~decisionMade
-                [keyName,timing] = keyboard.getResponse(timesUp);
+                % Manual Mode
+                %[keyName,timing] = keyboard.getResponse(timesUp);
+                
+                %Random Mode
+                keyNameList = ["NA", "buy", "no trade", "sell", "confirm"];
+                keyName = keyNameList(randi(5));
+                timing = GetSecs();
+                
                 if keyName ~= "NA"
                     myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
                     fprintf("%s %s\n",keyName,num2str(timing-startTime));
