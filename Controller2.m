@@ -4,9 +4,9 @@ addpath('./Functions');
 
 try
     %===== Parameters =====%
-    initialCash         = 1000;
-    initialStock        = 5;
-    initialStockPrice   = 50;
+    initialCash         = 10000;
+    initialStock        = 10;
+    initialStockPrice   = 100;
     totalTrials         = 60;
     
     resultTime          =1;

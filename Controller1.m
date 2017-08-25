@@ -4,9 +4,9 @@ addpath('./Functions');
 
 try
     %===== Parameters =====%
-    initialCash         = 1000;
-    initialStock        = 5;
-    initialStockPrice   = 50;
+    initialCash         = 10000;
+    initialStock        = 10;
+    initialStockPrice   = 100;
     totalTrials         = 60;
     
     resultTime          =1;
@@ -45,7 +45,7 @@ try
     cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
     cnt.establish();
         
-    %display.openScreen();
+    displayer.openScreen();
     
     %===== Game Start =====%
     
@@ -59,7 +59,7 @@ try
         statusData = data.getStatusData(trial,1);
                 
         %Display condition
-        %displayer.showStatus(statusData);
+        displayer.showStatus(statusData);
         data.logStatus(trial);
         timeZero = GetSecs();
         while GetSecs()-timeZero < resultTime
@@ -130,5 +130,6 @@ try
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));
+    displayer.closeScreen();
 end
 
