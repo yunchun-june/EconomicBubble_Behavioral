@@ -10,7 +10,7 @@ try
     initialStockPrice   = 100;
     totalTrials         = 60;
     
-    resultTime          =1;
+    resultTime          =5;
     decideTime          =5;
     fixationTime        =1;
     
@@ -35,7 +35,7 @@ try
     
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('Mac');
-    displayer = displayer(max(Screen('Screens')));
+    displayer = displayer(max(Screen('Screens')),decideTime);
     parser = parser();
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
@@ -60,11 +60,14 @@ try
         statusData = data.getStatusData(trial,1);
                 
         %Display condition
-        displayer.showStatus(statusData);
         data.logStatus(trial);
-        timeZero = GetSecs();
-        while GetSecs()-timeZero < resultTime
-            
+        startTime = GetSecs();
+        deadline = startTime+resultTime+decideTime;
+        for remaining = resultTime+decideTime:-1:decideTime
+           displayer.showStatus(statusData,remaining);
+           timesUp = deadline - remaining+1;
+           while GetSecs() < timesUp
+           end
         end
         
         %response to get
@@ -78,12 +81,12 @@ try
         decisionMade = FALSE;
         myRes.decision = "no trade";
         showHiddenInfo = FALSE;
-        for remaining = 5:-1:1
-            timesUp = deadline - remaining +1;
+        for remaining = decideTime:-1:1
+            timesUp = deadline - remaining;
             while GetSecs() < timesUp
                 if ~decisionMade
                     % show Screen
-                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,0);
+                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,FALSE);
 
                     [keyName,timing] = keyboard.getResponse(timesUp);
 
@@ -113,18 +116,17 @@ try
                 end
 
                 if decisionMade
-                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,1);
+                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,TRUE);
                 end
             end
         end
-        
-        
+
         if showHiddenInfo == TRUE
             myRes.events(end+1,:) = ["unsee",num2str(GetSecs()-startTime)];
         end
         
-        fprintf("timesUp! %s\n",num2str(GetSecs() - startTime));
-        displayer.showDecision(statusData,myRes.decision,FALSE,0,1);
+        fprintf("timesUp! %s\n");
+        displayer.showDecision(statusData,myRes.decision,FALSE,0,TRUE);
         
         %Get opponent's response
         oppResRaw = cnt.sendOwnResAndgetOppRes(parser.resToStr(myRes));
@@ -142,7 +144,7 @@ try
         
     end
     
-    %displayer.closeScreen();
+    displayer.closeScreen();
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));

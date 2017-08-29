@@ -10,7 +10,7 @@ try
     initialStockPrice   = 100;
     totalTrials         = 60;
     
-    resultTime          =1;
+    resultTime          =5;
     decideTime          =5;
     fixationTime        =1;
     
@@ -35,7 +35,7 @@ try
     
     %===== Initialize Componets =====%
     keyboard = keyboardHandler('Logitech');
-    displayer = displayer(max(Screen('Screens')));
+    displayer = displayer(max(Screen('Screens')),decideTime);
     parser = parser();
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);

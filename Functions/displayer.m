@@ -11,6 +11,7 @@ classdef displayer < handle
         screenID
         row
         col
+        decideTime
     end
     
     properties (Constant)
@@ -21,8 +22,9 @@ classdef displayer < handle
     end
     
     methods
-        function obj = displayer(screid)
+        function obj = displayer(screid,decideTime)
             obj.screenID = screid;
+            obj.decideTime = decideTime
         end
         
         function openScreen(obj)
@@ -43,7 +45,7 @@ classdef displayer < handle
             Screen('CloseAll');
         end
         
-        function showStatus(obj,data)
+        function showStatus(obj,data,timer)
             
             % Stock Price:  112(+6)
             obj.write('Stock Price:',1,3,'white',30);
@@ -76,6 +78,8 @@ classdef displayer < handle
             % Rival's Total: 2300
             obj.write('Rival Total:',1,6,'white',30);
             obj.write(num2str(data.rivalTotal),2,6,'white',30);
+            
+            obj.drawTimer(timer,4,8);
             
             Screen('Flip',obj.wPtr);
         end
@@ -136,8 +140,7 @@ classdef displayer < handle
                 if temp == "sell" obj.write('sell',3,8,'red',30); end
             end
             
-            obj.write(num2str(timer),4,8,'white',30);
-            
+            obj.drawTimer(timer,4,8);
             Screen('Flip',obj.wPtr);
         end
         
@@ -150,6 +153,23 @@ classdef displayer < handle
             Screen(obj.wPtr,'TextSize', size);
             Screen('DrawText',obj.wPtr,char(text), obj.xCen+obj.col(x), obj.yCen-obj.row(y), color);
             
+        end
+        
+        function drawTimer(obj,t,xPosi,yPosi)
+            w = 15;
+            h = 50;
+            margin = 20;
+            x = obj.xCen+obj.col(xPosi);
+            y = obj.yCen-obj.row(yPosi);
+            for i = 1:t
+                if i <= obj.decideTime
+                    Screen('FillRect', obj.wPtr, obj.YELLOW, [x,y,x+w,y+h]);
+                else
+                    Screen('FillRect', obj.wPtr, obj.WHITE, [x,y,x+w,y+h]);
+                end
+                x = x+margin;
+            end
+
         end
         
     end
