@@ -12,6 +12,7 @@ classdef displayer < handle
         row
         col
         decideTime
+        displayerOn
     end
     
     properties (Constant)
@@ -22,12 +23,15 @@ classdef displayer < handle
     end
     
     methods
-        function obj = displayer(screid,decideTime)
+        function obj = displayer(screid,displayerOn,decideTime)
             obj.screenID = screid;
             obj.decideTime = decideTime;
+            obj.displayerOn = displayerOn;
         end
         
         function openScreen(obj)
+            if ~obj.displayerOn return; end
+            
             [obj.wPtr, screenRect]=Screen('OpenWindow',obj.screenID, 0,[],32,2);
             [obj.width, obj.height] = Screen('WindowSize', obj.wPtr);
             obj.xCen = obj.width/2;
@@ -42,10 +46,13 @@ classdef displayer < handle
         end
         
         function closeScreen(obj)
+            if ~obj.displayerOn return; end
             Screen('CloseAll');
         end
 
         function showDecision(obj,data,temp,see,timer,confirmed)
+            if ~obj.displayerOn return; end
+            
             % Stock Price:  112(+6)
             obj.write('Stock Price:',1,3,'white',30);
             obj.write(num2str(data.stockPrice),2,3,'white',30);
@@ -74,15 +81,17 @@ classdef displayer < handle
             obj.write(num2str(data.cash),3,5,'white',30);
             obj.write(num2str(data.totalAsset),4,5,'white',30);
 
-            % Rival's Total: 2300   [++.--]
-            obj.write('Rival Total:',1,6,'white',30);
-            obj.write(num2str(data.rivalTotal),2,6,'white',30);
-            obj.write('Rival Decision:',3,6,'white',30);
+            % Rival Decision: [++.--]  Rival's Total: 2300   
+            
+            obj.write('Rival Decision:',1,6,'white',30);
             if see
-                obj.write(data.oppDecision,4,6,'white',30);
+                obj.write(data.oppDecision,2,6,'white',30);
             else
-                obj.write('*****',4,6,'white',30);
+                obj.write('*****',2,6,'white',30);
             end
+            
+            obj.write('Rival Total:',3,6,'white',30);
+            obj.write(num2str(data.rivalTotal),4,6,'white',30);
             
             % buy     no trade    sell    [timer]
             

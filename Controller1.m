@@ -15,14 +15,14 @@ try
     fixationTime        =1;
     
     %===== Parameters =====%
-    MARKET_BASELINE = 1;
-    MARKET_BUBBLE = 2;
-    MARKET_BURST = 3;
-    BUY = 1;  
-    NO_TRADE =  2 ; 
-    SELL = 3;
-    TRUE = 1;
-    FALSE = 0;
+    MARKET_BASELINE     = 1;
+    MARKET_BUBBLE       = 2;
+    MARKET_BURST        = 3;
+    BUY                 = 1;  
+    NO_TRADE            = 2; 
+    SELL                = 3;
+    TRUE                = 1;
+    FALSE               = 0;
     
     %===== Inputs =====%
     rule = 'player1';
@@ -32,10 +32,12 @@ try
     oppIP = 'localhost';
     myPort = 3000;
     oppPort = 3001;
+    inputDeviceName = 'Mac';
+    displayerOn = FALSE;
     
     %===== Initialize Componets =====%
-    keyboard = keyboardHandler('Mac');
-    displayer = displayer(max(Screen('Screens')),decideTime);
+    keyboard = keyboardHandler(inputDeviceName);
+    displayer = displayer(max(Screen('Screens')),displayerOn,decideTime);
     parser = parser();
     market = market(MARKET_BASELINE,initialStockPrice);
     me = player(initialCash,initialStock);
@@ -65,7 +67,7 @@ try
         myRes.decision = "no trade";
         myRes.events = strings(0,2);
        
-        %========== jShow Status and Make Decision ===============%
+        %========== Show Status and Make Decision ===============%
 
         data.logStatus(trial);
         startTime = GetSecs();
@@ -76,9 +78,13 @@ try
             timesUp = deadline - remaining;
             while GetSecs() < timesUp
                 if ~decisionMade
-                    % show Screen
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,FALSE);
-
+                    
+                    %Auto Mode
+                    %keyNameList = ["NA", "buy", "no trade", "sell", "confirm"];
+                    %keyName = keyNameList(randi(5));
+                    
+                    %Manual Mode
                     [keyName,timing] = keyboard.getResponse(timesUp);
                     
                     if keyName == "see"
