@@ -24,7 +24,7 @@ classdef displayer < handle
     methods
         function obj = displayer(screid,decideTime)
             obj.screenID = screid;
-            obj.decideTime = decideTime
+            obj.decideTime = decideTime;
         end
         
         function openScreen(obj)
