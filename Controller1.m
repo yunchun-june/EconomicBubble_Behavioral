@@ -64,29 +64,15 @@ try
         %response to get
         myRes.decision = "no trade";
         myRes.events = strings(0,2);
-        
-        
-        %========== Show status ===============%
-        
+       
+        %========== jShow Status and Make Decision ===============%
+
         data.logStatus(trial);
         startTime = GetSecs();
         deadline = startTime+resultTime+decideTime;
-        for remaining = resultTime+decideTime:-1:decideTime
-           displayer.showStatus(statusData,remaining);
-           timesUp = deadline - remaining+1;
-           while GetSecs() < timesUp
-           end
-        end
-       
-        %========== Make Decision ===============%
-        
-        fprintf('Makind decision ....\n');
-        startTime = GetSecs();
-        deadline = startTime+decideTime;
         decisionMade = FALSE;
-        myRes.decision = "no trade";
         showHiddenInfo = FALSE;
-        for remaining = decideTime:-1:1
+        for remaining = resultTime+decideTime:-1:1
             timesUp = deadline - remaining;
             while GetSecs() < timesUp
                 if ~decisionMade
@@ -94,30 +80,45 @@ try
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,FALSE);
 
                     [keyName,timing] = keyboard.getResponse(timesUp);
-
-                    if keyName ~= "NA"
+                    
+                    if keyName == "see"
                         myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
                         fprintf("%s %s\n",keyName,num2str(timing-startTime));
-                    end
-
-                    if keyName == "buy" && me.canBuy(market.stockPrice)
-                        myRes.decision = "buy";
-                    end
-                    if keyName == "no trade"
-                        myRes.decision = "no trade";
-                    end
-                    if keyName == "sell" && me.canSell()
-                        myRes.decision = "sell";
-                    end
-                    if keyName == "confirm"
-                        decisionMade = TRUE;
-                    end
-                    if keyName == "see"
                         showHiddenInfo = TRUE;
                     end
                     if keyName == "unsee"
+                        myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
+                        fprintf("%s %s\n",keyName,num2str(timing-startTime));
                         showHiddenInfo = FALSE;
                     end
+                    
+                    if remaining <= decideTime
+                        
+                        if keyName == "buy" && me.canBuy(market.stockPrice)
+                            myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
+                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                            myRes.decision = "buy";
+                        end
+
+                        if keyName == "no trade"
+                            myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
+                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                            myRes.decision = "no trade";
+                        end
+
+                        if keyName == "sell" && me.canSell()
+                            myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
+                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                            myRes.decision = "sell";
+                        end
+                        if keyName == "confirm"
+                            myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
+                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                            decisionMade = TRUE;
+                        end
+                    
+                    end
+
                 end
 
                 if decisionMade
