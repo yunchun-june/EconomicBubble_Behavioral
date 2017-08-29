@@ -29,7 +29,7 @@ classdef connector
         function establish(obj)
             fprintf('Establishing Connection ....\n');
             
-            if(obj.rule == 'player1')
+            if(strcmp(obj.rule,'player1'))
                 %// TO DO //%
                 % send and check ID
                 obj.send('Handshake');
@@ -39,7 +39,7 @@ classdef connector
                 fprintf('Message sent to player2.\n');
             end
             
-            if(obj.rule == 'player2')
+            if(strcmp(obj.rule , 'player2'))
                 syncResult = obj.fetch();
                 assert(strcmp(syncResult,'Handshake'));
                 fprintf('Recieved message from player1.\n');
@@ -51,12 +51,12 @@ classdef connector
         end
 
         function syncTrial(obj,trial)
-            if obj.rule == 'player1'
+            if strcmp(obj.rule , 'player1')
                 obj.send(num2str(trial));
                 assert(strcmp(num2str(trial), obj.fetch()));
             end
             
-            if obj.rule == 'player2'
+            if strcmp(obj.rule ,'player2')
                 assert(strcmp(num2str(trial), obj.fetch()));
                 obj.send(num2str(trial));
             end
@@ -72,11 +72,11 @@ classdef connector
         end
         
         function oppRes = sendOwnResAndgetOppRes(obj,myResStr)
-            if obj.rule == 'player1'
+            if strcmp(obj.rule , 'player1')
                 obj.send(myResStr);
                 oppRes = obj.fetch();
             end
-            if obj.rule == 'player2'
+            if strcmp(obj.rule , 'player2')
                 oppRes = obj.fetch();
                 obj.send(myResStr);
             end

@@ -44,12 +44,12 @@ classdef dataHandler <handle
             obj.result{trial,3} = mrk.dramatic;
             obj.result{trial,4} = mrk.stockPrice;
             
-            if obj.rule == 'player1'
+            if strcmp(obj.rule, 'player1')
                 p1 = player;
                 p2 = opp;
             end
             
-            if obj.rule == 'player2'
+            if strcmp(obj.rule , 'player2')
                 p1 = opp;
                 p2 = player;
             end
@@ -64,12 +64,12 @@ classdef dataHandler <handle
         
         function saveResponse(obj,myRes,oppRes,trial)
             
-            if obj.rule == 'player1'
+            if strcmp(obj.rule, 'player1')
                 p1Res = myRes;
                 p2Res = oppRes;
             end
             
-            if obj.rule == 'player2'
+            if strcmp(obj.rule , 'player2')
                 p1Res = oppRes;
                 p2Res = myRes;
             end
@@ -85,16 +85,16 @@ classdef dataHandler <handle
             fprintf('Trial          %d\n',trial);
             fprintf('Stock Price    %d\n',obj.result{trial,4});
             
-            if obj.rule == 'player1'
+            if strcmp(obj.rule , 'player1')
                 fprintf('Cash    Stock   Asset\n');
                 fprintf('%d      %d      %d\n',obj.result{trial,5},obj.result{trial,6},obj.result{trial,7});
-                fprintf("Opponent's asset: %d\n", obj.result{trial,10});
+                fprintf('Opponent asset: %d\n', obj.result{trial,10});
             end
             
-            if obj.rule == 'player2'
+            if strcmp(obj.rule , 'player2')
                 fprintf('Cash    Stock   Asset\n');
                 fprintf('%d      %d      %d\n',obj.result{trial,8},obj.result{trial,9},obj.result{trial,10});
-                fprintf("Opponent's asset: %d\n", obj.result{trial,7});
+                fprintf('Opponent asset: %d\n', obj.result{trial,7});
             end
             
         end
@@ -113,13 +113,13 @@ classdef dataHandler <handle
                     if i-back <=0 
                         oppDecision = strcat(oppDecision,'.');  
                     else  
-                        if obj.result{i-back,13} == "buy"  
+                        if strcmp(obj.result{i-back,13} ,'buy')  
                             oppDecision = strcat(oppDecision,'+');  
                         end  
-                        if obj.result{i-back,13} == "no trade"  
+                        if strcmp(obj.result{i-back,13}, 'no trade') 
                             oppDecision = strcat(oppDecision,'.');  
                         end  
-                        if obj.result{i-back,13} == "sell" 
+                        if strcmp(obj.result{i-back,13} ,'sell')
                             oppDecision = strcat(oppDecision,'-');  
                         end  
                     end  
@@ -134,28 +134,28 @@ classdef dataHandler <handle
                 data.totalAsset= obj.result{i,10};
                 data.rivalTotal = obj.result{i,7};
                 oppDecision= '';  
-%                 for back= 5:-1:1  
-%                     if(i-back <0)  
-%                         oppDecision = strcat(oppDecision,'.');  
-%                     else  
-%                         if obj.result{i,11} == "buy" 
-%                             oppDecision = strcat(oppDecision,'+');  
-%                         end  
-%                         if obj.result{i,11} == "no trade"  
-%                             oppDecision = strcat(oppDecision,'.');  
-%                         end  
-%                         if obj.result{i,11} == "sell"
-%                             oppDecision = strcat(oppDecision,'-');  
-%                         end  
-%                     end  
-%                 end 
-%                 data.oppDecision = oppDecision; 
+                for back= 5:-1:1  
+                    if(i-back <0)  
+                        oppDecision = strcat(oppDecision,'.');  
+                    else  
+                        if strcmp(obj.result{i-back,11} ,'buy')  
+                            oppDecision = strcat(oppDecision,'+');  
+                        end  
+                        if strcmp(obj.result{i-back,11}, 'no trade') 
+                            oppDecision = strcat(oppDecision,'.');  
+                        end  
+                        if strcmp(obj.result{i-back,11} ,'sell')
+                            oppDecision = strcat(oppDecision,'-');  
+                        end  
+                    end  
+                end 
+                data.oppDecision = oppDecision; 
             end
             
             if i ==1
                 data.change = 0;
-                data.d1 = "no trade";
-                data.d2 = "no trade ";
+                data.d1 = 'no trade';
+                data.d2 = 'no trade';
             else
                 data.change = obj.result{i,4}-obj.result{i-1,4};
                 if player == 1

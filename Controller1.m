@@ -2,6 +2,7 @@ clear all;
 close all;
 clc;
 addpath('./Functions');
+Screen('Preference', 'SkipSyncTests', 1);
 
 try
     %===== Parameters =====%
@@ -64,7 +65,7 @@ try
         statusData = data.getStatusData(trial,1);
         
         %response to get
-        myRes.decision = "no trade";
+        myRes.decision = 'no trade';
         myRes.events = strings(0,2);
        
         %========== Show Status and Make Decision ===============%
@@ -81,45 +82,45 @@ try
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,FALSE);
                     
                     %Auto Mode
-                    %keyNameList = ["NA", "buy", "no trade", "sell", "confirm"];
+                    %keyNameList = ['NA', 'buy', 'no trade', 'sell', 'confirm'];
                     %keyName = keyNameList(randi(5));
                     
                     %Manual Mode
                     [keyName,timing] = keyboard.getResponse(timesUp);
                     
-                    if keyName == "see"
+                    if strcmp(keyName,'see')
                         myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
-                        fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                        fprintf('%s %s\n',keyName,num2str(timing-startTime));
                         showHiddenInfo = TRUE;
                     end
-                    if keyName == "unsee"
+                    if strcmp(keyName,'unsee')
                         myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
-                        fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                        fprintf('%s %s\n',keyName,num2str(timing-startTime));
                         showHiddenInfo = FALSE;
                     end
                     
                     if remaining <= decideTime
                         
-                        if keyName == "buy" && me.canBuy(market.stockPrice)
+                        if strcmp(keyName,'buy') && me.canBuy(market.stockPrice)
                             myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
-                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
-                            myRes.decision = "buy";
+                            fprintf('%s %s\n',keyName,num2str(timing-startTime));
+                            myRes.decision = 'buy';
                         end
 
-                        if keyName == "no trade"
+                        if strcmp(keyName,'no trade')
                             myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
-                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
-                            myRes.decision = "no trade";
+                            fprintf('%s %s\n',keyName,num2str(timing-startTime));
+                            myRes.decision = 'no trade';
                         end
 
-                        if keyName == "sell" && me.canSell()
+                        if strcmp(keyName,'sell') && me.canSell()
                             myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
-                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
-                            myRes.decision = "sell";
+                            fprintf('%s %s\n',keyName,num2str(timing-startTime));
+                            myRes.decision = 'sell';
                         end
-                        if keyName == "confirm"
+                        if strcmp(keyName,'confirm')
                             myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
-                            fprintf("%s %s\n",keyName,num2str(timing-startTime));
+                            fprintf('%s %s\n',keyName,num2str(timing-startTime));
                             decisionMade = TRUE;
                         end
                     
@@ -134,10 +135,10 @@ try
         end
 
         if showHiddenInfo == TRUE
-            myRes.events(end+1,:) = ["unsee",num2str(GetSecs()-startTime)];
+            myRes.events(end+1,:) = ['unsee',num2str(GetSecs()-startTime)];
         end
         
-        fprintf("timesUp! %s\n");
+        fprintf('timesUp!\n');
         displayer.showDecision(statusData,myRes.decision,FALSE,0,TRUE);
         
         %========== Exchange and Save Data ===============%
@@ -150,10 +151,10 @@ try
         data.saveResponse(myRes,oppRes,trial);
         
         %Update market and player
-        if(myRes.decision == "buy")   me.buyStock(market.stockPrice);end
-        if(myRes.decision == "sell")  me.sellStock(market.stockPrice);end
-        if(oppRes.decision == "buy")  opp.buyStock(market.stockPrice);end
-        if(oppRes.decision == "sell") opp.sellStock(market.stockPrice);end
+        if(strcmp(myRes.decision,'buy'))   me.buyStock(market.stockPrice);end
+        if(strcmp(myRes.decision,'sell'))  me.sellStock(market.stockPrice);end
+        if(strcmp(oppRes.decision,'buy'))  opp.buyStock(market.stockPrice);end
+        if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
         market.trade(myRes.decision,oppRes.decision);
         
     end
