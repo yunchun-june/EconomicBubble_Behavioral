@@ -52,14 +52,22 @@ try
     
     for trial = 1:totalTrials
         
+        %=========== Setting Up Trials ==============%
+        
         %Syncing
         cnt.syncTrial(trial);
         
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
         statusData = data.getStatusData(trial,1);
-                
-        %Display condition
+        
+        %response to get
+        myRes.decision = "no trade";
+        myRes.events = strings(0,2);
+        
+        
+        %========== Show status ===============%
+        
         data.logStatus(trial);
         startTime = GetSecs();
         deadline = startTime+resultTime+decideTime;
@@ -69,12 +77,9 @@ try
            while GetSecs() < timesUp
            end
         end
+       
+        %========== Make Decision ===============%
         
-        %response to get
-        myRes.decision = "no trade";
-        myRes.events = strings(0,2);
-        
-        %Make Decision
         fprintf('Makind decision ....\n');
         startTime = GetSecs();
         deadline = startTime+decideTime;
@@ -127,6 +132,8 @@ try
         
         fprintf("timesUp! %s\n");
         displayer.showDecision(statusData,myRes.decision,FALSE,0,TRUE);
+        
+        %========== Exchange and Save Data ===============%
         
         %Get opponent's response
         oppResRaw = cnt.sendOwnResAndgetOppRes(parser.resToStr(myRes));

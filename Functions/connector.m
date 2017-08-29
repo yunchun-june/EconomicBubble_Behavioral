@@ -27,6 +27,8 @@ classdef connector
         end
         
         function establish(obj)
+            fprintf('Establishing Connection ....\n');
+            
             if(obj.rule == 'player1')
                 %// TO DO //%
                 % send and check ID
