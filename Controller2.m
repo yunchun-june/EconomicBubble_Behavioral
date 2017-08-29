@@ -1,5 +1,6 @@
 clear all;
 close all;
+clc;
 addpath('./Functions');
 
 try

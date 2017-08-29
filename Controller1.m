@@ -1,5 +1,6 @@
 clear all;
 close all;
+clc;
 addpath('./Functions');
 
 try
@@ -78,7 +79,7 @@ try
         myRes.decision = "no trade";
         showHiddenInfo = FALSE;
         for remaining = 5:-1:1
-            timesUp = deadline - remaining +1 
+            timesUp = deadline - remaining +1;
             while GetSecs() < timesUp
                 if ~decisionMade
                     % show Screen
@@ -112,15 +113,18 @@ try
                 end
 
                 if decisionMade
-                    % TODO %
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,1);
                 end
             end
         end
         
-        % TODO %
+        
+        if showHiddenInfo == TRUE
+            myRes.events(end+1,:) = ["unsee",num2str(GetSecs()-startTime)];
+        end
+        
         fprintf("timesUp! %s\n",num2str(GetSecs() - startTime));
-        displayer.showDecision(statusData,myRes.decision,showHiddenInfo,0,1);
+        displayer.showDecision(statusData,myRes.decision,FALSE,0,1);
         
         %Get opponent's response
         oppResRaw = cnt.sendOwnResAndgetOppRes(parser.resToStr(myRes));

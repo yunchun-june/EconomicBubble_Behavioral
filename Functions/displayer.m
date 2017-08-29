@@ -114,9 +114,9 @@ classdef displayer < handle
             obj.write(num2str(data.rivalTotal),2,6,'white',30);
             
             if see
-                obj.write('--info--',4,6,'white',30);
+                obj.write(data.oppDecision,4,6,'white',30);
             else
-                obj.write('--------',4,6,'white',30);
+                obj.write('--Opp Decision--',4,6,'white',30);
             end
             
             % buy     no trade    sell    [timer]

@@ -108,6 +108,24 @@ classdef dataHandler <handle
                 data.stockValue = obj.result{i,6}* obj.result{i,4};
                 data.totalAsset= obj.result{i,7};
                 data.rivalTotal = obj.result{i,10};
+                oppDecision= '';  
+                for back= 5:-1:1  
+                    if i-back <=0 
+                        oppDecision = strcat(oppDecision,'.');  
+                    else  
+                        if obj.result{i-back,13} == "buy"  
+                            oppDecision = strcat(oppDecision,'+');  
+                        end  
+                        if obj.result{i-back,13} == "no trade"  
+                            oppDecision = strcat(oppDecision,'.');  
+                        end  
+                        if obj.result{i-back,13} == "sell" 
+                            oppDecision = strcat(oppDecision,'-');  
+                        end  
+                    end  
+                end 
+                data.oppDecision = oppDecision; 
+
             end
             if player == 2
                 data.cash = obj.result{i,8};
@@ -115,6 +133,23 @@ classdef dataHandler <handle
                 data.stockValue = obj.result{i,9}*obj.result{i,4};
                 data.totalAsset= obj.result{i,10};
                 data.rivalTotal = obj.result{i,7};
+                oppDecision= '';  
+%                 for back= 5:-1:1  
+%                     if(i-back <0)  
+%                         oppDecision = strcat(oppDecision,'.');  
+%                     else  
+%                         if obj.result{i,11} == "buy" 
+%                             oppDecision = strcat(oppDecision,'+');  
+%                         end  
+%                         if obj.result{i,11} == "no trade"  
+%                             oppDecision = strcat(oppDecision,'.');  
+%                         end  
+%                         if obj.result{i,11} == "sell"
+%                             oppDecision = strcat(oppDecision,'-');  
+%                         end  
+%                     end  
+%                 end 
+%                 data.oppDecision = oppDecision; 
             end
             
             if i ==1
