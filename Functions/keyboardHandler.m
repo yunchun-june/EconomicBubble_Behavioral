@@ -38,39 +38,39 @@ classdef keyboardHandler < handle
         %----------%
         function [keyName, timing] = getResponse(obj,timesUp)
             
-            keyName = "NA";
+            keyName = 'NA';
             timing = -1;
             
             KbEventFlush();
-            while GetSecs()<timesUp && keyName == "NA"
+            while GetSecs()<timesUp && strcmp(keyName,'NA')
                [isDown, press, release] = KbQueueCheck(obj.devInd); 
                 if press(KbName(obj.buy))
-                    keyName = "buy";
+                    keyName = 'buy';
                     timing = GetSecs();
                 end
 
                 if press(KbName(obj.noTrade))
-                    keyName = "no trade";
+                    keyName = 'no trade';
                     timing = GetSecs();
                 end
 
                 if press(KbName(obj.sell))
-                    keyName = "sell";
+                    keyName = 'sell';
                     timing = GetSecs();
                 end
 
                 if press(KbName(obj.confirm))
-                    keyName = "confirm";
+                    keyName = 'confirm';
                     timing = GetSecs();
                 end
                 
                 if press(KbName(obj.see))
-                    keyName = "see";
+                    keyName = 'see';
                     timing = GetSecs();
                 end
                 
                 if release(KbName(obj.see))
-                    keyName = "unsee";
+                    keyName = 'unsee';
                     timing = GetSecs();
                 end
             end

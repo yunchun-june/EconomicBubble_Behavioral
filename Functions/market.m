@@ -36,22 +36,22 @@ classdef market < handle
         
         function trade(obj,p1,p2)
             switch p1
-                case "buy"
+                case 'buy'
                     p1Act = 1;
-                case "no trade"
+                case 'no trade'
                     p1Act = 2;
-                case "sell"
+                case 'sell'
                     p1Act = 3;
                 otherwise
                     p1Act = 2;
             end
             
             switch p2
-                case "buy"
+                case 'buy'
                     p2Act = 1;
-                case "no trade"
+                case 'no trade'
                     p2Act = 2;
-                case "sell"
+                case 'sell'
                     p2Act = 3;
                 otherwise
                     p2Act = 2;

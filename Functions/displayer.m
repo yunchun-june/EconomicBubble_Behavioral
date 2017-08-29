@@ -101,15 +101,15 @@ classdef displayer < handle
                 obj.write('sell',3,8,'white',30);
 
                 if confirmed == 0
-                    if temp == "buy" obj.write('buy',1,8,'yellow',30); end
-                    if temp == "no trade" obj.write('no trade',2,8,'yellow',30); end
-                    if temp == "sell" obj.write('sell',3,8,'yellow',30); end
+                    if strcmp(temp ,'buy') obj.write('buy',1,8,'yellow',30); end
+                    if strcmp(temp ,'no trade') obj.write('no trade',2,8,'yellow',30); end
+                    if strcmp(temp ,'sell') obj.write('sell',3,8,'yellow',30); end
                 end
 
                 if confirmed == 1
-                    if temp == "buy" obj.write('buy',1,8,'red',30); end
-                    if temp == "no trade" obj.write('no trade',2,8,'red',30); end
-                    if temp == "sell" obj.write('sell',3,8,'red',30); end
+                    if strcmp(temp ,'buy') obj.write('buy',1,8,'red',30); end
+                    if strcmp(temp ,'no trade') obj.write('no trade',2,8,'red',30); end
+                    if strcmp(temp ,'sell') obj.write('sell',3,8,'red',30); end
                 end
             end
             
