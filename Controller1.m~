@@ -28,8 +28,8 @@ try
     rule = 'player1';
     myID = 'dummyID1';
     oppID = 'dummyID2';
-    myIP = '192.168.1.83';
-    oppIP = '192.168.1.95';
+    myIP = '';
+    oppIP = 'localhost';
     myPort = 3000;
     oppPort = 3001;
     inputDeviceName = 'Mac';
