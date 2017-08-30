@@ -8,15 +8,15 @@ classdef keyboardHandler < handle
     properties (Constant)
         quitkey     = 'ESCAPE';
         confirm     = 'space';
-        buy         = 'LeftArrow';
-        noTrade     = 'DownArrow';
-        sell        = 'RightArrow';
-        see         = 'UpArrow';
+        buy         = 'j'; %'LeftArrow';
+        noTrade     = 'k'; %'DownArrow';
+        sell        = 'l'; %'RightArrow';
+        see         = 'i'; %'UpArrow';
     end
     
     methods
         
-        %----Constructor-----%
+        %---- Constructor -----%
         function obj = keyboardHandler(keyboardName)
             obj.setupKeyboard(keyboardName);
         end
@@ -35,7 +35,7 @@ classdef keyboardHandler < handle
             KbName('UnifyKeyNames');
         end
        
-        %----------%
+        %----- Functions -----%
         function [keyName, timing] = getResponse(obj,timesUp)
             
             keyName = 'NA';

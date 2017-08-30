@@ -29,12 +29,13 @@ try
     rule = 'player1';
     myID = 'dummyID1';
     oppID = 'dummyID2';
-    myIP = '192.168.1.83';
-    oppIP = '192.168.1.95';
+    myIP = 'localhost';
+    oppIP = 'localhost';
     myPort = 7676;
     oppPort = 5454;
     inputDeviceName = 'Mac';
     displayerOn = FALSE;
+    screenID = 0;
     
     %===== Initialize Componets =====%
     keyboard = keyboardHandler(inputDeviceName);
