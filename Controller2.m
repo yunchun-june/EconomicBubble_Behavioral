@@ -68,6 +68,12 @@ try
         %response to get
         myRes.decision = 'no trade';
         myRes.events = cell(0,2);
+        
+        %=========== Fixation ==============%
+        timesUp = GetSecs()+fixationTime;
+        while GetSecs()<timesUp
+            displayer.fixation();
+        end
        
         %========== Show Status and Make Decision ===============%
 

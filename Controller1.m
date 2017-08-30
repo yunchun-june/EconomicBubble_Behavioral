@@ -54,7 +54,7 @@ try
     %===== Game Start =====%
     
     for trial = 1:totalTrials
-        
+
         %=========== Setting Up Trials ==============%
         
         %Syncing
@@ -67,6 +67,12 @@ try
         %response to get
         myRes.decision = 'no trade';
         myRes.events = strings(0,2);
+        
+        %=========== Fixation ==============%
+        timesUp = GetSecs()+fixationTime;
+        while GetSecs()<timesUp
+            displayer.fixation();
+        end
        
         %========== Show Status and Make Decision ===============%
 

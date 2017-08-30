@@ -50,6 +50,12 @@ classdef displayer < handle
             if ~obj.displayerOn return; end
             Screen('CloseAll');
         end
+        
+        function fixation(obj)
+            l = 10;
+            Screen('FillRect', obj.wPtr, obj.WHITE, [obj.xCen-l,obj.yCen-l,obj.xCen+l,obj.yCen+l]);
+            Screen('Flip',obj.wPtr);
+        end
 
         function showDecision(obj,data,temp,see,timer,confirmed)
             if ~obj.displayerOn return; end
