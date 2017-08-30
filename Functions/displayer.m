@@ -57,7 +57,7 @@ classdef displayer < handle
             
             %delay
             Screen('Flip',obj.wPtr);
-            WaitSecs(.1);
+            WaitSecs(1);
             
             %fixation square
             Screen('FillRect', obj.wPtr, obj.WHITE, [obj.xCen-l,obj.yCen-l,obj.xCen+l,obj.yCen+l]);
@@ -66,10 +66,11 @@ classdef displayer < handle
             
             %delay
             Screen('Flip',obj.wPtr);
-            WaitSecs(.1);
+            WaitSecs(1);
         end
         
         function delay(obj,time)
+            if ~obj.displayerOn return; end
             Screen('Flip',obj.wPtr);
             WaitSecs(time);
         end
