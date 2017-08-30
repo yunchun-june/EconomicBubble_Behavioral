@@ -31,8 +31,8 @@ try
     oppID = 'dummyID2';
     myIP = '192.168.1.83';
     oppIP = '192.168.1.95';
-    myPort = 3000;
-    oppPort = 3001;
+    myPort = 7676;
+    oppPort = 5454;
     inputDeviceName = 'Mac';
     displayerOn = FALSE;
     
@@ -69,10 +69,7 @@ try
         myRes.events = strings(0,2);
         
         %=========== Fixation ==============%
-        timesUp = GetSecs()+fixationTime;
-        while GetSecs()<timesUp
-            displayer.fixation();
-        end
+        displayer.fixation(fixationTime);
        
         %========== Show Status and Make Decision ===============%
 

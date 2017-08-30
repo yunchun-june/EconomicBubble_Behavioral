@@ -70,10 +70,7 @@ try
         myRes.events = cell(0,2);
         
         %=========== Fixation ==============%
-        timesUp = GetSecs()+fixationTime;
-        while GetSecs()<timesUp
-            displayer.fixation();
-        end
+        displayer.fixation();
        
         %========== Show Status and Make Decision ===============%
 

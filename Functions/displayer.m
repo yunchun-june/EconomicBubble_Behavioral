@@ -51,10 +51,22 @@ classdef displayer < handle
             Screen('CloseAll');
         end
         
-        function fixation(obj)
+        function fixation(obj,fixationTime)
+            if ~obj.displayerOn return; end
             l = 10;
+            
+            %delay
+            Screen('Flip',obj.wPtr);
+            WaitSecs(.1);
+            
+            %fixation square
             Screen('FillRect', obj.wPtr, obj.WHITE, [obj.xCen-l,obj.yCen-l,obj.xCen+l,obj.yCen+l]);
             Screen('Flip',obj.wPtr);
+            WaitSecs(fixationTime);
+            
+            %delay
+            Screen('Flip',obj.wPtr);
+            WaitSecs(.1);
         end
 
         function showDecision(obj,data,temp,see,timer,confirmed)
