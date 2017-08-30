@@ -136,7 +136,8 @@ try
                 end
 
                 if decisionMade
-                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,TRUE);
+                    myRes.events{end+1,1} = 'unsee';
+                    myRes.events{end,2} = num2str(timing-startTime);
                 end
             end
         end

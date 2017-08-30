@@ -117,7 +117,7 @@ classdef dataHandler <handle
                             oppDecision = strcat(oppDecision,'+');  
                         end  
                         if strcmp(obj.result{i-back,13}, 'no trade') 
-                            oppDecision = strcat(oppDecision,'.');  
+                            oppDecision = strcat(oppDecision,'x');  
                         end  
                         if strcmp(obj.result{i-back,13} ,'sell')
                             oppDecision = strcat(oppDecision,'-');  
@@ -142,12 +142,12 @@ classdef dataHandler <handle
                             oppDecision = strcat(oppDecision,'+');  
                         end  
                         if strcmp(obj.result{i-back,11}, 'no trade') 
-                            oppDecision = strcat(oppDecision,'.');  
+                            oppDecision = strcat(oppDecision,'x');  
                         end  
                         if strcmp(obj.result{i-back,11} ,'sell')
                             oppDecision = strcat(oppDecision,'-');  
                         end  
-                    end  
+                    end
                 end 
                 data.oppDecision = oppDecision; 
             end
