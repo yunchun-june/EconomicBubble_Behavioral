@@ -75,12 +75,12 @@ classdef displayer < handle
             %9      1008    1150    2158
             
             obj.write('Stock',20,2,'white',30);
-            obj.write('Cash',40,2,'white',30);
-            obj.write('Total',70,2,'white',30);
+            obj.write('Cash',30,2,'white',30);
+            obj.write('Total',60,2,'white',30);
             obj.write(num2str(data.stock),20,3,'white',30);
             obj.write(num2str(data.stockValue),30,3,'white',30);
             obj.write(num2str(data.cash),40,3,'white',30);
-            obj.write(num2str(data.totalAsset),70,3,'white',30);
+            obj.write(num2str(data.totalAsset),60,3,'white',30);
 
             % Rival Decision: [++.--]  Rival's Total: 2300   
             
@@ -91,8 +91,8 @@ classdef displayer < handle
                 obj.write('*****',35,4,'white',30);
             end
             
-            obj.write('Rival Total:',60,4,'white',30);
-            obj.write(num2str(data.rivalTotal),70,4,'white',30);
+            obj.write('Rival Total:',50,4,'white',30);
+            obj.write(num2str(data.rivalTotal),60,4,'white',30);
             
             % buy     no trade    sell    [timer]
             

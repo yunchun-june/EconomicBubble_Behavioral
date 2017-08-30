@@ -31,8 +31,8 @@ try
     oppID = 'dummyID1';
     myIP = '192.168.1.95';
     oppIP = '192.168.1.83';
-    myPort = 3001;
-    oppPort = 3000;
+    myPort = 5454;
+    oppPort = 7676;
     inputDeviceName = 'Mac';
     displayerOn = TRUE;
     
