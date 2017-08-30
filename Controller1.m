@@ -164,9 +164,7 @@ try
         if(strcmp(oppRes.decision,'buy'))  opp.buyStock(market.stockPrice);end
         if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
         market.trade(myRes.decision,oppRes.decision);
-        
-        %2s delay between trials
-        displayer.delay(2);
+
     end
     
     displayer.closeScreen();
