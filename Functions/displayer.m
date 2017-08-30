@@ -24,12 +24,15 @@ classdef displayer < handle
     end
     
     methods
+        
+        %===== Constructor =====%
         function obj = displayer(screid,displayerOn,decideTime)
             obj.screenID = screid;
             obj.decideTime = decideTime;
             obj.displayerOn = displayerOn;
         end
         
+        %===== Open Close Screen =====%
         function openScreen(obj)
             if ~obj.displayerOn return; end
             
@@ -49,6 +52,19 @@ classdef displayer < handle
         function closeScreen(obj)
             if ~obj.displayerOn return; end
             Screen('CloseAll');
+        end
+        
+        %===== Display =====%
+        
+        function writeMessage(obj,message)
+            if ~obj.displayerOn return; end
+            obj.write(message,40,3,'white',30);
+            Screen('Flip',obj.wPtr);
+        end
+        
+        function blackScreen(obj)
+            if ~obj.displayerOn return; end
+            Screen('Flip',obj.wPtr);
         end
         
         function fixation(obj,fixationTime)
@@ -80,19 +96,19 @@ classdef displayer < handle
             
             % Stock Price:  112(+6)
             obj.write('Stock Price:',20,1,'white',30);
-            obj.write(num2str(data.stockPrice),30,1,'white',30);
+            obj.write(num2str(data.stockPrice),40,1,'white',30);
             if data.change<0
                 output = strcat('(',num2str(data.change),')');
-                obj.write(output,35,1,'green',30);
+                obj.write(output,50,1,'green',30);
             end
             
             if data.change ==0
-                obj.write('(+0)',35,1,'white',30);
+                obj.write('(+0)',50,1,'white',30);
             end
             
             if data.change>0
                 output = strcat('(+',num2str(data.change),')');
-                obj.write(output,35,1,'red',30);
+                obj.write(output,50,1,'red',30);
             end
             
             %Stock          Cash    Total
@@ -108,14 +124,14 @@ classdef displayer < handle
 
             % Rival Decision: [++.--]  Rival's Total: 2300   
             
-            obj.write('Rival Decision:',20,4,'white',30);
+            %obj.write('Rival Decision:',20,4,'white',30);
             if see
-                obj.write(data.oppDecision,35,4,'white',30);
+                obj.write(data.oppDecision,30,4,'white',30);
             else
-                obj.write('*****',35,4,'white',30);
+                obj.write('*****',30,4,'white',30);
             end
             
-            obj.write('Rival Total:',60,4,'white',30);
+            obj.write('Rival Total:',50,4,'white',30);
             obj.write(num2str(data.rivalTotal),70,4,'white',30);
             
             % buy     no trade    sell    [timer]
@@ -148,7 +164,7 @@ classdef displayer < handle
             if strcmp(c,'green') color = obj.GREEN; end
             if strcmp(c,'yellow') color = obj.YELLOW; end
 
-            Screen(obj.wPtr,'TextSize', size);
+            Screen('TextSize', obj.wPtr,size);
             Screen('DrawText',obj.wPtr,char(text), ceil(x*obj.width/100), ceil(obj.yLine(y)*obj.height/100), color);
             
         end

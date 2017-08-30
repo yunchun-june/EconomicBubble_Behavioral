@@ -37,7 +37,6 @@ classdef keyboardHandler < handle
        
         %----- Functions -----%
         function [keyName, timing] = getResponse(obj,timesUp)
-            
             keyName = 'NA';
             timing = -1;
             
@@ -77,13 +76,14 @@ classdef keyboardHandler < handle
 
         end
         
-        function press(obj)
+        function waitSpacePress(obj)
+            fprintf('press space to start.\n');
             KbEventFlush();
-            [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd); 
+            [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd);
             while 1
                 [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd); 
                 if firstKeyPressTimes(KbName('space'))
-                    fprintf('Space is pressed.\n');
+                    fprintf('space is pressed.\n');
                     break;
                 end
             end

@@ -53,7 +53,11 @@ try
     displayer.openScreen();
     
     %===== Game Start =====%
-    pfrintf('Game Start.\n');
+    displayer.writeMessage('Press Space To Start');
+    keyboard.waitSpacePress();
+    displayer.blackScreen();
+    fprintf('Game Start.\n');
+    
     for trial = 1:totalTrials
 
         %=========== Setting Up Trials ==============%
