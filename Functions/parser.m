@@ -18,9 +18,7 @@ classdef parser
         end
         
         function res = strToRes(obj,str)
-            fprintf('parser working...\n');
             c = strsplit(str,',');
-            size(c)
             res.decision = c{1};
             res.events = cell(0,2);
             eventsNum = (size(c)-1)/2;
