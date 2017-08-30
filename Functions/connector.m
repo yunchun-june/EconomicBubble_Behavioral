@@ -26,24 +26,28 @@ classdef connector
             obj.destPort = destPort; 
         end
         
-        function establish(obj)
+        function establish(obj,myID,oppID)
             fprintf('Establishing Connection ....\n');
             
             if(strcmp(obj.rule,'player1'))
                 %// TO DO //%
                 % send and check ID
-                obj.send('Handshake');
+                sentMessage = strcat(myID,',',oppID,',Handshake');
+                reveivedMessage = strcat(myID,',',oppID,',Handshake received');
+                obj.send(sentMessage);
                 fprintf('Mesage sent to player2.\n');
                 syncResult = obj.fetch();
-                assert(strcmp(syncResult,'Handshake received'));
-                fprintf('Message sent to player2.\n');
+                assert(strcmp(syncResult,reveivedMessage));
+                fprintf('Recieved meeesge from player2.\n');
             end
             
             if(strcmp(obj.rule , 'player2'))
+                sentMessage = strcat(oppID,',',myID,',Handshake received');
+                reveivedMessage = strcat(oppID,',',myID,',Handshake');
                 syncResult = obj.fetch();
-                assert(strcmp(syncResult,'Handshake'));
+                assert(strcmp(syncResult,reveivedMessage));
                 fprintf('Recieved message from player1.\n');
-                obj.send('Handshake received');
+                obj.send(sentMessage);
                 fprintf('Message sent to player1.\n');
             end
             

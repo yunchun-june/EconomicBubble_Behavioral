@@ -15,18 +15,15 @@ try
     decideTime          =3;
     fixationTime        =1;
     
-    %===== Parameters =====%
+    %===== Constants =====%
     MARKET_BASELINE     = 1;
     MARKET_BUBBLE       = 2;
     MARKET_BURST        = 3;
-    BUY                 = 1;  
-    NO_TRADE            = 2; 
-    SELL                = 3;
     TRUE                = 1;
     FALSE               = 0;
+    rule                = 'player1';
     
     %===== Inputs =====%
-    rule                = 'player1';
     myID                = 'dummyID1';
     oppID               = 'dummyID2';
     myIP                = 'localhost';
@@ -48,7 +45,7 @@ try
     
     %===== Establish Connection =====% 
     cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
-    cnt.establish();
+    cnt.establish(myID,oppID);
     
     %===== Open Screen =====% 
     fprintf('Start after 10 secs, move cursor to script\n');
@@ -56,7 +53,7 @@ try
     displayer.openScreen();
     
     %===== Game Start =====%
-    
+    pfrintf('Game Start.\n');
     for trial = 1:totalTrials
 
         %=========== Setting Up Trials ==============%
