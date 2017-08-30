@@ -68,6 +68,11 @@ classdef displayer < handle
             Screen('Flip',obj.wPtr);
             WaitSecs(.1);
         end
+        
+        function delay(obj,time)
+            Screen('Flip',obj.wPtr);
+            WaitSecs(time);
+        end
 
         function showDecision(obj,data,temp,see,timer,confirmed)
             if ~obj.displayerOn return; end

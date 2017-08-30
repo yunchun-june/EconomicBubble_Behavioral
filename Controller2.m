@@ -70,7 +70,7 @@ try
         myRes.events = cell(0,2);
         
         %=========== Fixation ==============%
-        displayer.fixation();
+        displayer.fixation(fixationTime);
        
         %========== Show Status and Make Decision ===============%
 
@@ -168,6 +168,8 @@ try
         if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
         market.trade(myRes.decision,oppRes.decision);
         
+        %1s delay between trials
+        displayer.delay(1);
     end
     
     
