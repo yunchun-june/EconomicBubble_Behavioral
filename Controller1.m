@@ -160,8 +160,8 @@ try
         if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
         market.trade(myRes.decision,oppRes.decision);
         
-        %1s delay between trials
-        displayer.delay(1);
+        %2s delay between trials
+        displayer.delay(2);
     end
     
     displayer.closeScreen();
