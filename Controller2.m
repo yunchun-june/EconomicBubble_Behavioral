@@ -9,10 +9,10 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 60;
+    totalTrials         = 20;
     
-    resultTime          =5;
-    decideTime          =5;
+    resultTime          =10;
+    decideTime          =3;
     fixationTime        =1;
     
     %===== Parameters =====%
@@ -26,34 +26,36 @@ try
     FALSE               = 0;
     
     %===== Inputs =====%
-    rule = 'player2';
-    myID = 'dummyID2';
-    oppID = 'dummyID1';
-    myIP = 'localhost';
-    oppIP = 'localhost';
-    myPort = 5454;
-    oppPort = 7676;
-    inputDeviceName = 'Logitech';
-    displayerOn = FALSE;
-    screenID = 1;
+    rule                = 'player2';
+    myID                = 'dummyID2';
+    oppID               = 'dummyID1';
+    myIP                = 'localhost';
+    oppIP               = 'localhost';
+    myPort              = 5454;
+    oppPort             = 7676;
+    inputDeviceName     = 'Logitech';
+    displayerOn         = FALSE;
+    screenID            = 1;
     
     %===== Initialize Componets =====%
-    keyboard = keyboardHandler(inputDeviceName);
-    displayer = displayer(max(Screen('Screens')),displayerOn,decideTime);
-    parser = parser();
-    market = market(MARKET_BASELINE,initialStockPrice);
-    me = player(initialCash,initialStock);
-    opp = player(initialCash,initialStock);
-    data = dataHandler(myID,oppID,rule,totalTrials);
+    keyboard    = keyboardHandler(inputDeviceName);
+    displayer   = displayer(max(Screen('Screens')),displayerOn,decideTime);
+    parser      = parser();
+    market      = market(MARKET_BASELINE,initialStockPrice);
+    me          = player(initialCash,initialStock);
+    opp         = player(initialCash,initialStock);
+    data        = dataHandler(myID,oppID,rule,totalTrials);
     
     %===== Establish Connection =====% 
     cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
     cnt.establish();
         
+    %===== Open Screen =====% 
+    fprintf('Start after 10 secs, move cursor to script\n');
+    WaitSecs(10);
     displayer.openScreen();
     
     %===== Game Start =====%
-    
  
     for trial = 1:totalTrials
         
@@ -173,8 +175,8 @@ try
         displayer.delay(2);
     end
     
-    
     displayer.closeScreen();
+    data.saveToFile();
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));

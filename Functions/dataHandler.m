@@ -172,7 +172,8 @@ classdef dataHandler <handle
     
         %----- Writing and Loading -----%
         function saveToFile(obj)
-            filename = strcat(obj.player1ID,'.mat');
+            result = obj.result;
+            filename = strcat('./RawData/',datestr(now,'YYmmDD'),'_',obj.player1ID,'.mat');
             save(filename,'result');
         end
         
