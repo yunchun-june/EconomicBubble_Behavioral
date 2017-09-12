@@ -86,6 +86,7 @@ try
         for remaining = resultTime+decideTime:-1:1
             timesUp = deadline - remaining;
             while GetSecs() < timesUp
+                
                 if ~decisionMade
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,FALSE);
                     
@@ -139,12 +140,15 @@ try
                         end
                     
                     end
-
                 end
-
+                
                 if decisionMade
-                    myRes.events{end+1,1} = 'unsee';
-                    myRes.events{end,2} = num2str(timing-startTime);
+                    if showHiddenInfo == TRUE
+                        myRes.events{end+1,1} = 'unsee';
+                        myRes.events{end,2} = num2str(timing-startTime);
+                        showHiddenInfo = FALSE;
+                    end
+                    displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,TRUE);
                 end
             end
         end

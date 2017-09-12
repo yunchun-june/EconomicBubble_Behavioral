@@ -27,9 +27,10 @@ classdef connector
         end
         
         function establish(obj,myID,oppID)
-            fprintf('Establishing Connection ....\n');
-            fprintf(strcat('myID: ',myID,'  oppID: ',oppID));
             
+            fprintf('Establishing Connection ....\n');
+            fprintf(strcat('myID: ',myID,'  oppID: ',oppID,'\n'));
+            fprintf('-----------------------------\n');
             if(strcmp(obj.rule,'player1'))
                 sentMessage = strcat(myID,',',oppID);
                 reveivedMessage = strcat(myID,',',oppID);
@@ -51,6 +52,7 @@ classdef connector
             end
             
             fprintf('Connection Established\n');
+            fprintf('-----------------------------\n');
         end
 
         function syncTrial(obj,trial)
