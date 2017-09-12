@@ -28,12 +28,11 @@ classdef connector
         
         function establish(obj,myID,oppID)
             fprintf('Establishing Connection ....\n');
+            fprintf(strcat('myID: ',myID,'  oppID: ',oppID));
             
             if(strcmp(obj.rule,'player1'))
-                %// TO DO //%
-                % send and check ID
-                sentMessage = strcat(myID,',',oppID,',Handshake');
-                reveivedMessage = strcat(myID,',',oppID,',Handshake received');
+                sentMessage = strcat(myID,',',oppID);
+                reveivedMessage = strcat(myID,',',oppID);
                 obj.send(sentMessage);
                 fprintf('Mesage sent to player2.\n');
                 syncResult = obj.fetch();
@@ -42,8 +41,8 @@ classdef connector
             end
             
             if(strcmp(obj.rule , 'player2'))
-                sentMessage = strcat(oppID,',',myID,',Handshake received');
-                reveivedMessage = strcat(oppID,',',myID,',Handshake');
+                sentMessage = strcat(oppID,',',myID);
+                reveivedMessage = strcat(oppID,',',myID);
                 syncResult = obj.fetch();
                 assert(strcmp(syncResult,reveivedMessage));
                 fprintf('Recieved message from player1.\n');

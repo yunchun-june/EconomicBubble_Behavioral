@@ -20,7 +20,7 @@ classdef displayer < handle
         YELLOW = [255 255 0];
         GREEN = [0 255 0];
         RED = [255 0 0];
-        yLine = [20 34 42 56 75];
+        yLine = [23 29 35 41 47 53 59 65 71 77];
     end
     
     methods
@@ -92,69 +92,90 @@ classdef displayer < handle
         end
 
         function showDecision(obj,data,temp,see,timer,confirmed)
+            divider = '-----------------------------------------------------------------------------------------------------------';
             if ~obj.displayerOn return; end
             
-            % Stock Price:  112(+6)
+            %--------------------------------------
+            %1 Stock Price:  112(+6)
+            %2 Stock         10
+            %3 Stock Value   1000          ******
+            %4 Cash          10000
+            %5
+            %6 Total         11000      Rivals  11000
+            %7
+            %8   buy  no trade  sell       timer
+            %--------------------------------------
+            
+            %1 Stock Price:  112(+6)
             obj.write('Stock Price:',20,1,'white',30);
             obj.write(num2str(data.stockPrice),40,1,'white',30);
             if data.change<0
                 output = strcat('(',num2str(data.change),')');
-                obj.write(output,50,1,'green',30);
+                obj.write(output,43,1,'green',30);
             end
             
             if data.change ==0
-                obj.write('(+0)',50,1,'white',30);
+                obj.write('(+0)',43,1,'white',30);
             end
             
             if data.change>0
                 output = strcat('(+',num2str(data.change),')');
-                obj.write(output,50,1,'red',30);
+                obj.write(output,43,1,'red',30);
             end
             
-            %Stock          Cash    Total
-            %9      1008    1150    2158
+            %2 Stock Hold  10
+            %3 Stock Value 1000
+            %4 Cash        10000
+            %5
+            %6 Total       11000
             
-            obj.write('Stock',20,2,'white',30);
-            obj.write('Cash',40,2,'white',30);
-            obj.write('Total',70,2,'white',30);
-            obj.write(num2str(data.stock),20,3,'white',30);
-            obj.write(num2str(data.stockValue),30,3,'white',30);
-            obj.write(num2str(data.cash),40,3,'white',30);
-            obj.write(num2str(data.totalAsset),70,3,'white',30);
+            obj.write('Stock Hold',20,2,'white',30);
+            obj.write('Stock Value',20,3,'white',30);
+            obj.write('Cash',20,4,'white',30);
+            obj.write('Total',20,6,'white',30);
+            
+            obj.write(num2str(data.stock),40,2,'white',30);
+            obj.write(num2str(data.stockValue),40,3,'white',30);
+            obj.write(num2str(data.cash),40,4,'white',30);
+            obj.write(num2str(data.totalAsset),40,6,'white',30);
 
-            % Rival Decision: [++.--]  Rival's Total: 2300   
-            
-            %obj.write('Rival Decision:',20,4,'white',30);
+            %3 ******
+            %4 
+            %5
+            %6 Rivals  11000
+             
             if see
-                obj.write(data.oppDecision,30,4,'white',30);
+                obj.write(data.oppDecision,60,3,'white',30);
             else
-                obj.write('*****',30,4,'white',30);
+                obj.write('*****',60,3,'white',30);
             end
             
-            obj.write('Rival Total:',50,4,'white',30);
-            obj.write(num2str(data.rivalTotal),70,4,'white',30);
+            obj.write('Rival Total:',55,6,'white',30);
+            obj.write(num2str(data.rivalTotal),70,6,'white',30);
+            
+            obj.write(divider,20,7,'white',30);
             
             % buy     no trade    sell    [timer]
             
             if timer <= obj.decideTime
-                obj.write('buy',20,5,'white',30);
-                obj.write('no trade',36,5,'white',30);
-                obj.write('sell',52,5,'white',30);
+                obj.write('buy'      ,27,8,'white',30);
+                obj.write('no trade' ,43,8,'white',30);
+                obj.write('sell'     ,59,8,'white',30);
 
                 if confirmed == 0
-                    if strcmp(temp ,'buy') obj.write('buy',20,5,'yellow',30); end
-                    if strcmp(temp ,'no trade') obj.write('no trade',36,5,'yellow',30); end
-                    if strcmp(temp ,'sell') obj.write('sell',52,5,'yellow',30); end
+                    if strcmp(temp ,'buy')      obj.write('buy'     ,27,8,'yellow',30); end
+                    if strcmp(temp ,'no trade') obj.write('no trade',43,8,'yellow',30); end
+                    if strcmp(temp ,'sell')     obj.write('sell'    ,59,8,'yellow',30); end
                 end
 
                 if confirmed == 1
-                    if strcmp(temp ,'buy') obj.write('buy',20,5,'red',30); end
-                    if strcmp(temp ,'no trade') obj.write('no trade',36,5,'red',30); end
-                    if strcmp(temp ,'sell') obj.write('sell',52,5,'red',30); end
+                    if strcmp(temp ,'buy')      obj.write('buy'     ,27,8,'red',30); end
+                    if strcmp(temp ,'no trade') obj.write('no trade',43,8,'red',30); end
+                    if strcmp(temp ,'sell')     obj.write('sell'    ,59,8,'red',30); end
                 end
             end
             
-            obj.drawTimer(timer,65,5);
+            obj.drawTimer(timer,45,10);
             Screen('Flip',obj.wPtr);
         end
         
@@ -170,9 +191,9 @@ classdef displayer < handle
         end
         
         function drawTimer(obj,t,xPosi,yPosi)
-            w = 15;
-            h = 50;
-            margin = 20;
+            w = 8;
+            h = 20;
+            margin = 13;
             x = ceil(xPosi*obj.width/100);
             y = ceil(obj.yLine(yPosi)*obj.height/100);
             for i = 1:t

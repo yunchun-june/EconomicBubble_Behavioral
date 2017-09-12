@@ -7,11 +7,11 @@ classdef keyboardHandler < handle
     
     properties (Constant)
         quitkey     = 'ESCAPE';
-        confirm     = 'space';
-        buy         = 'j'; %'LeftArrow';
-        noTrade     = 'k'; %'DownArrow';
-        sell        = 'l'; %'RightArrow';
-        see         = 'i'; %'UpArrow';
+        confirm     = 'p';
+        buy         = '6^'; %'LeftArrow';
+        noTrade     = '8*'; %'DownArrow';
+        sell        = '9('; %'RightArrow';
+        see         = 'space'; %'UpArrow';
     end
     
     methods
@@ -25,8 +25,11 @@ classdef keyboardHandler < handle
             if strcmp(keyboardName,'Mac')
                keyboardName = 'Apple Internal Keyboard / Trackpad';
             end
-            if strcmp(keyboardName,'Logitech')
+            if strcmp(keyboardName,'Wireless')
                 keyboardName = 'USB Receiver';
+            end
+            if strcmp(keyboardName,'USB')
+                keyboardName = 'USB Keyboard';
             end
             obj.dev=PsychHID('Devices');
             obj.devInd = find(strcmpi('Keyboard', {obj.dev.usageName}) & strcmpi(keyboardName, {obj.dev.product}));

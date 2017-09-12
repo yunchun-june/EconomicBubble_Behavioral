@@ -11,8 +11,8 @@ try
     initialStockPrice   = 100;
     totalTrials         = 20;
     
-    resultTime          =10;
-    decideTime          =3;
+    resultTime          =8;
+    decideTime          =6;
     fixationTime        =1;
     
     %===== Constants =====%
@@ -136,14 +136,18 @@ try
 
                 end
 
-                if decisionMade
+                if decisionMade & GetSecs() < timesUp
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,TRUE);
                 end
             end
         end
 
         if showHiddenInfo == TRUE
-            myRes.events(end+1,:) = ['unsee',num2str(GetSecs()-startTime)];
+            myRes.events{end+1,:} = ['unsee',num2str(GetSecs()-startTime)];
+        end
+        
+        if ~decisionMade
+            myRes.decision = 'no trade';
         end
         
         fprintf('timesUp!\n');
