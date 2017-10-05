@@ -24,8 +24,8 @@ try
     rule                = 'player2';
     
     %===== Inputs =====%
-    myID                = 'dummyID2';
-    oppID               = 'dummyID1';
+    myID                = '1234567';
+    oppID               = '7654321';
     myIP                = 'localhost';
     oppIP               = 'localhost';
     myPort              = 5454;
@@ -48,8 +48,8 @@ try
     cnt.establish(myID,oppID);
         
     %===== Open Screen =====% 
-    fprintf('Start after 10 secs, move cursor to script\n');
-    WaitSecs(10);
+    fprintf('Start after 5 secs, move cursor to script\n');
+    WaitSecs(5);
     displayer.openScreen();
     
     %===== Game Start =====%

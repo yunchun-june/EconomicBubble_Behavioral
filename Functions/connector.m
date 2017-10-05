@@ -37,7 +37,7 @@ classdef connector
                 obj.send(sentMessage);
                 fprintf('Mesage sent to player2.\n');
                 syncResult = obj.fetch();
-                assert(strcmp(syncResult,reveivedMessage));
+                %assert(strcmp(syncResult,reveivedMessage));
                 fprintf('Recieved meeesge from player2.\n');
             end
             
@@ -45,7 +45,7 @@ classdef connector
                 sentMessage = strcat(oppID,',',myID);
                 reveivedMessage = strcat(oppID,',',myID);
                 syncResult = obj.fetch();
-                assert(strcmp(syncResult,reveivedMessage));
+                %assert(strcmp(syncResult,reveivedMessage));
                 fprintf('Recieved message from player1.\n');
                 obj.send(sentMessage);
                 fprintf('Message sent to player1.\n');

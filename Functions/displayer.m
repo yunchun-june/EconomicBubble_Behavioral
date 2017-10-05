@@ -20,6 +20,8 @@ classdef displayer < handle
         YELLOW = [255 255 0];
         GREEN = [0 255 0];
         RED = [255 0 0];
+        GREY = [100 100 100];
+        DIMYELLOW = [100 100 0];
         yLine = [23 29 35 41 47 53 59 65 71 77];
     end
     
@@ -191,16 +193,16 @@ classdef displayer < handle
         end
         
         function drawTimer(obj,t,xPosi,yPosi)
-            w = 8;
+            w = 3;
             h = 20;
             margin = 13;
             x = ceil(xPosi*obj.width/100);
             y = ceil(obj.yLine(yPosi)*obj.height/100);
             for i = 1:t
                 if i <= obj.decideTime
-                    Screen('FillRect', obj.wPtr, obj.YELLOW, [x,y,x+w,y+h]);
+                    Screen('FillRect', obj.wPtr, obj.DIMYELLOW, [x,y,x+w,y+h]);
                 else
-                    Screen('FillRect', obj.wPtr, obj.WHITE, [x,y,x+w,y+h]);
+                    Screen('FillRect', obj.wPtr, obj.GREY, [x,y,x+w,y+h]);
                 end
                 x = x+margin;
             end
