@@ -21,16 +21,17 @@ try
     MARKET_BURST        = 3;
     TRUE                = 1;
     FALSE               = 0;
-    rule                = 'player2';
-       
+    rule                = 'player1';
+    
     %===== Inputs =====%
-    fprintf('---Starting player 2---\n');
+    fprintf('---Starting player 1---\n');
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
+    fprintf('On Windows, use "IPconfig" command to get IP.\n');
     myIP                = input('your IP: ','s');;
     oppIP               = input('Opponent IP: ','s');;
-    myPort              = 5454;
-    oppPort             = 7676;
+    myPort              = 7676;
+    oppPort             = 5454;
     inputDeviceName     = 'Mac';
     displayerOn         = FALSE;
     screenID            = 0;
@@ -58,7 +59,6 @@ try
     displayer.writeMessage('Press Space To Start');
     keyboard.waitSpacePress();
     displayer.blackScreen();
-    fprintf('Game Start.\n');
     
     for trial = 1:totalTrials
 
