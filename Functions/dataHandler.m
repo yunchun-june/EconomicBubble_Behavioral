@@ -108,20 +108,12 @@ classdef dataHandler <handle
                 data.stockValue = obj.result{i,6}* obj.result{i,4};
                 data.totalAsset= obj.result{i,7};
                 data.rivalTotal = obj.result{i,10};
-                oppDecision= '';  
+                oppDecision= cell(1,5);  
                 for back= 5:-1:1  
                     if i-back <=0 
-                        oppDecision = strcat(oppDecision,'.');  
+                        oppDecision{1,back} = '.';  
                     else  
-                        if strcmp(obj.result{i-back,13} ,'buy')  
-                            oppDecision = strcat(oppDecision,'+');  
-                        end  
-                        if strcmp(obj.result{i-back,13}, 'no trade') 
-                            oppDecision = strcat(oppDecision,'x');  
-                        end  
-                        if strcmp(obj.result{i-back,13} ,'sell')
-                            oppDecision = strcat(oppDecision,'-');  
-                        end  
+                        oppDecision{1,back} = obj.result{i-back,13};
                     end  
                 end 
                 data.oppDecision = oppDecision; 
@@ -133,20 +125,12 @@ classdef dataHandler <handle
                 data.stockValue = obj.result{i,9}*obj.result{i,4};
                 data.totalAsset= obj.result{i,10};
                 data.rivalTotal = obj.result{i,7};
-                oppDecision= '';  
+                oppDecision= cell(1,5);  
                 for back= 5:-1:1  
-                    if(i-back <0)  
-                        oppDecision = strcat(oppDecision,'.');  
-                    else  
-                        if strcmp(obj.result{i-back,11} ,'buy')  
-                            oppDecision = strcat(oppDecision,'+');  
-                        end  
-                        if strcmp(obj.result{i-back,11}, 'no trade') 
-                            oppDecision = strcat(oppDecision,'x');  
-                        end  
-                        if strcmp(obj.result{i-back,11} ,'sell')
-                            oppDecision = strcat(oppDecision,'-');  
-                        end  
+                    if i-back <=0 
+                        oppDecision{1,back} = '.';  
+                    else
+                        oppDecision{1,back} = obj.result{i-back,11}; 
                     end
                 end 
                 data.oppDecision = oppDecision; 

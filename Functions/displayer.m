@@ -146,10 +146,16 @@ classdef displayer < handle
             %5
             %6 Rivals  11000
              
-            if see
-                obj.write(data.oppDecision,60,3,'white',30);
-            else
-                obj.write('* * * * *',60,3,'white',30);
+            for i = 5:-1:1
+                startpoint= 60;
+                if see
+                    if strcmp(data.oppDecision{1,i},'.') obj.write('.',startpoint+i,3,'white',30); end
+                    if strcmp(data.oppDecision{1,i},'buy') obj.write('+',startpoint+i,3,'red',30); end
+                    if strcmp(data.oppDecision{1,i},'no trade') obj.write('x',startpoint+i,3,'white',20); end
+                    if strcmp(data.oppDecision{1,i},'sell') obj.write('-',startpoint+i,3,'green',30); end
+                else
+                    obj.write('*',startpoint+i,3,'white',30);
+                end
             end
             
             obj.write('Rival Total:',55,6,'white',30);

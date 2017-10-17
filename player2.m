@@ -9,7 +9,7 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 3;
+    totalTrials         = 120;
     
     resultTime          =8;
     decideTime          =6;

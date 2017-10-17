@@ -76,6 +76,7 @@ classdef connector
         end
         
         function oppRes = sendOwnResAndgetOppRes(obj,myResStr)
+            fprintf('Sending data...\n');
             if strcmp(obj.rule , 'player1')
                 obj.send(myResStr);
                 oppRes = obj.fetch();
@@ -84,7 +85,7 @@ classdef connector
                 oppRes = obj.fetch();
                 obj.send(myResStr);
             end
-            
+            fprintf('Data sent and received.\n');
         end
 
     end
