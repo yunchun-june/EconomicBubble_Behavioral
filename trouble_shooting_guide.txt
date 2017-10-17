@@ -1,1 +1,6 @@
 1. If anything went wrong, use Control-C to stop the program.
+2. Can not establish Connection:
+    o Are you starting exactly one player1.m and one player2.m?
+    o Is the IP address correct? Run IPConfig in command windows, use the one starting with 172.16 or 192.168
+    o Connection may fail is the ID of two player doesn't match.
+    o Connection may fail if two program is not in the same trials. In terms of this, use control-C to kill both two program and restart them.

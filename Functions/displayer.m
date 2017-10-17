@@ -113,16 +113,16 @@ classdef displayer < handle
             obj.write(num2str(data.stockPrice),40,1,'white',30);
             if data.change<0
                 output = strcat('(',num2str(data.change),')');
-                obj.write(output,43,1,'green',30);
+                obj.write(output,45,1,'green',30);
             end
             
             if data.change ==0
-                obj.write('(+0)',43,1,'white',30);
+                obj.write('(+0)',45,1,'white',30);
             end
             
             if data.change>0
                 output = strcat('(+',num2str(data.change),')');
-                obj.write(output,43,1,'red',30);
+                obj.write(output,45,1,'red',30);
             end
             
             %2 Stock Hold  10
@@ -149,7 +149,7 @@ classdef displayer < handle
             if see
                 obj.write(data.oppDecision,60,3,'white',30);
             else
-                obj.write('*****',60,3,'white',30);
+                obj.write('* * * * *',60,3,'white',30);
             end
             
             obj.write('Rival Total:',55,6,'white',30);
