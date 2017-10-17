@@ -27,7 +27,7 @@ try
     fprintf('---Starting player 2---\n');
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
-    fprintf('On Windows, use "IPconfig" command to get IP(IPv4 or IPv6 address).\n');
+    fprintf('On Windows, use "IPconfig" command to get IP(172.16 or 192.168).\n');
     myIP                = input('your IP: ','s');
     oppIP               = input('Opponent IP: ','s');
     myPort              = 5454;
