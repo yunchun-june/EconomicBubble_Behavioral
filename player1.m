@@ -28,7 +28,7 @@ try
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
     fprintf('On Windows, use "IPconfig" command to get IP.\n');
-    myIP                = input('your IP: ','s');;
+    myIP                = input('your IP: ','s');
     oppIP               = input('Opponent IP: ','s');;
     myPort              = 7676;
     oppPort             = 5454;
