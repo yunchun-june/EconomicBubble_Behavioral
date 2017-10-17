@@ -71,7 +71,7 @@ try
         
         %response to get
         myRes.decision = 'no trade';
-        myRes.events = strings(0,2);
+        myRes.events = cell(0,2);
         
         %=========== Fixation ==============%
         displayer.fixation(fixationTime);
@@ -99,7 +99,7 @@ try
                     if strcmp(keyName,'see')
                         myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
                         fprintf('%s %s\n',keyName,num2str(timing-startTime));
-                        showHiddenInfo = TRUE;
+                        showHiddenInfo = TRUE;test
                     end
                     if strcmp(keyName,'unsee')
                         myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
