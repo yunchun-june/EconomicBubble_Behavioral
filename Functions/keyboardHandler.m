@@ -54,7 +54,8 @@ classdef keyboardHandler < handle
             
             KbEventFlush();
             while GetSecs()<timesUp && keyName == NA
-               [isDown, press, release] = KbQueueCheck(obj.devInd); 
+               [isDown, press, release] = KbQueueCheck(obj.devInd);
+               
                 if press(KbName(obj.buy))
                     keyName = BUY;
                     timing = GetSecs();

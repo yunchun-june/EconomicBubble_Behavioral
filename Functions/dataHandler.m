@@ -37,7 +37,7 @@ classdef dataHandler <handle
         end
         
         %----- Updating Data -----%
-        function updateCondition(obj,mrk,player,opp,trial)
+        function updateCondition(obj,mrk,me,opp,trial)
             
             obj.result{trial,1} = trial;
             obj.result{trial,2} = mrk.marketCondition;
@@ -45,13 +45,13 @@ classdef dataHandler <handle
             obj.result{trial,4} = mrk.stockPrice;
             
             if strcmp(obj.rule, 'player1')
-                p1 = player;
+                p1 = me;
                 p2 = opp;
             end
             
             if strcmp(obj.rule , 'player2')
                 p1 = opp;
-                p2 = player;
+                p2 = me;
             end
 
             obj.result{trial,5} = p1.cash;
@@ -175,6 +175,7 @@ classdef dataHandler <handle
             result = obj.result;
             filename = strcat('./RawData/',datestr(now,'YYmmDD'),'_',obj.player1ID,'.mat');
             save(filename,'result');
+            fprintf('Data saved to file.\n');
         end
         
         function data = loadData(obj,filename)

@@ -9,7 +9,7 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 5;
+    totalTrials         = 3;
     
     resultTime          =8;
     decideTime          =6;
@@ -33,15 +33,16 @@ try
     keyresponse = {'na','buy','no trade','sell','confirm','see','unsee'};
     
     %===== Inputs =====%
-    myID                = '1234567';
-    oppID               = '7654321';
-    myIP                = 'localhost';
-    oppIP               = 'localhost';
+    fprintf('---Starting player 2---\n');
+    myID                = input('your ID: ','s');
+    oppID               = input('Opponent ID: ','s');
+    myIP                = input('your IP: ','s');;
+    oppIP               = input('Opponent IP: ','s');;
     myPort              = 5454;
     oppPort             = 7676;
     inputDeviceName     = 'Mac';
     displayerOn         = FALSE;
-    screenID            = 1;
+    screenID            = 0;
     
     %===== Initialize Componets =====%
     keyboard    = keyboardHandler(inputDeviceName);
@@ -55,7 +56,7 @@ try
     %===== Establish Connection =====% 
     cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
     cnt.establish(myID,oppID);
-        
+    
     %===== Open Screen =====% 
     fprintf('Start after 5 secs, move cursor to script\n');
     WaitSecs(5);
@@ -94,8 +95,8 @@ try
         showHiddenInfo = FALSE;
         
         for remaining = resultTime+decideTime:-1:1
-            timesUp = deadline - remaining;
-            while GetSecs() < timesUp
+            endOfThisSecond = deadline - remaining;
+            while GetSecs() < endOfThisSecond
                 if ~decisionMade
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,FALSE);
                     
@@ -104,63 +105,61 @@ try
                     %keyName = keyNameList(randi(5));
                     
                     %Manual Mode
-                    [keyName,timing] = keyboard.getResponse(timesUp);
+                    [keyName,timing] = keyboard.getResponse(endOfThisSecond);
                       
-                    if keyName == SEE
+                    if keyName ~= NA
                         myRes.events(end+1,:) = [keyName,timing-startTime];
-                        fprintf('%d %f\n',keyresponse{keyName},num2str(timing-startTime));
-                        showHiddenInfo = TRUE;
-                    end
+                        fprintf('%s %.2f\n',keyresponse{keyName},num2str(timing-startTime));  
+                        
+                        if keyName == SEE
+                            showHiddenInfo = TRUE;
+                        end
                     
-                    if keyName == UNSEE
-                        myRes.events(end+1,:) = [keyName,timing-startTime];
-                        fprintf('%d %f\n',keyresponse{keyName},num2str(timing-startTime));
-                        showHiddenInfo = FALSE;
+                        if keyName == UNSEE
+                            showHiddenInfo = FALSE;
+                        end
                     end
                     
                     if remaining <= decideTime
                         
-                        if keyName == BUY && me.canBuy(market.stockPrice)
+                        if keyName ~= NA
                             myRes.events(end+1,:) = [keyName,timing-startTime];
-                            fprintf('%d %f\n',keyresponse{keyName},num2str(timing-startTime));
-                            myRes.decision = 'buy';
-                        end
+                            fprintf('%s %.2f\n',keyresponse{keyName},num2str(timing-startTime));
+                            
+                            if keyName == BUY && me.canBuy(market.stockPrice)
+                                myRes.decision = 'buy';
+                            end
 
-                        if keyName == NO_TRADE
-                            myRes.events(end+1,:) = [keyName,timing-startTime];
-                            fprintf('%d %f\n',keyresponse{keyName},num2str(timing-startTime));
-                            myRes.decision = 'no trade';
-                        end
+                            if keyName == NO_TRADE
+                                myRes.decision = 'no trade';
+                            end
 
-                        if keyName == SELL && me.canSell()
-                            myRes.events(end+1,:) = [keyName,timing-startTime];
-                            fprintf('%d %f\n',keyresponse{keyName},num2str(timing-startTime));
-                            myRes.decision = 'sell';
-                        end
-                        
-                        if keyName == CONFIRM
-                            myRes.events(end+1,:) = [keyName,timing-startTime];
-                            fprintf('%d %f\n',keyresponse{keyName},num2str(timing-startTime));
-                            decisionMade = TRUE;
+                            if keyName == SELL && me.canSell()
+                                myRes.decision = 'sell';
+                            end
+
+                            if keyName == CONFIRM
+                                decisionMade = TRUE;
+                            end
                         end
                     end
                 end
 
-                if decisionMade && GetSecs() < timesUp
+                if decisionMade && GetSecs() < endOfThisSecond
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,TRUE);
                 end
             end
         end
 
         if showHiddenInfo == TRUE
-            myRes.events{end+1,:} = [UNSEE,num2str(GetSecs()-startTime)];
+            myRes.events(end+1,:) = [UNSEE,GetSecs()-startTime];
         end
         
         if ~decisionMade
             myRes.decision = 'no trade';
         end
         
-        fprintf('timesUp!\n');
+        fprintf('timesUp! decision: %s\n',myRes.decision);
         displayer.showDecision(statusData,myRes.decision,FALSE,0,TRUE);
         
         %========== Exchange and Save Data ===============%
@@ -183,6 +182,7 @@ try
     
     displayer.closeScreen();
     data.saveToFile();
+    fprintf('----END OF EXPERIMENT----\n');
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));
