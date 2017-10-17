@@ -23,15 +23,6 @@ try
     FALSE               = 0;
     rule                = 'player1';
     
-    NA          =0;
-    BUY         =1;
-    NO_TRADE    =2;
-    SELL        =3;
-    CONFIRM     =4;
-    SEE         =5;
-    UNSEE       =6;
-    keyresponse = {'na','buy','no trade','sell','confirm','see','unsee'};
-    
     %===== Inputs =====%
     fprintf('---Starting player 1---\n');
     myID                = input('your ID: ','s');
@@ -41,7 +32,7 @@ try
     myPort              = 7676;
     oppPort             = 5454;
     inputDeviceName     = 'Mac';
-    displayerOn         = TRUE;
+    displayerOn         = FALSE;
     screenID            = 0;
     
     %===== Initialize Componets =====%
@@ -56,17 +47,17 @@ try
     %===== Establish Connection =====% 
     cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
     cnt.establish(myID,oppID);
+    ListenChar(2);
     
     %===== Open Screen =====% 
-    fprintf('Start after 5 secs, move cursor to script\n');
-    WaitSecs(5);
+    fprintf('Start after 3 seconds\n');
+    WaitSecs(3);
     displayer.openScreen();
     
     %===== Game Start =====%
     displayer.writeMessage('Press Space To Start');
     keyboard.waitSpacePress();
     displayer.blackScreen();
-    fprintf('Game Start.\n');
     
     for trial = 1:totalTrials
 
@@ -106,46 +97,53 @@ try
                     
                     %Manual Mode
                     [keyName,timing] = keyboard.getResponse(endOfThisSecond);
-                      
-                    if remaining > decideTime && keyName ~= NA
-                        myRes.events(end+1,:) = [keyName,timing-startTime];
-                        fprintf('%s %.2f\n',keyresponse{keyName},num2str(timing-startTime));  
+                     
+                    if remaining > decideTime && ~strcmp(keyName,'na')
+                        myRes.events{end+1,1} = keyName;
+                        myRes.events{end,2} = num2str(timing-startTime);
+                        fprintf('%s %s\n',keyName,num2str(timing-startTime));  
                         
-                        if keyName == SEE
+                        if strcmp(keyName,'see')
                             showHiddenInfo = TRUE;
                         end
+                        
+                        if strcmp(keyName,'unsee')
+                            showHiddenInfo = FALSE;
+                        end
                     
-                    if strcmp(keyName,'see')
-                        myRes.events(end+1,:) = [keyName,num2str(timing-startTime)];
-                        fprintf('%s %s\n',keyName,num2str(timing-startTime));
-                        showHiddenInfo = TRUE;test
                     end
                     
-                    if remaining <= decideTime && keyName ~= NA
-                        myRes.events(end+1,:) = [keyName,timing-startTime];
-                        fprintf('%s %.2f\n',keyresponse{keyName},num2str(timing-startTime));
+                    
+                    if remaining <= decideTime && ~strcmp(keyName,'na')
+                        myRes.events{end+1,1} = keyName;
+                        myRes.events{end,2} = num2str(timing-startTime);
+                        fprintf('%s %s\n',keyName,num2str(timing-startTime));
 
-                        if keyName == BUY && me.canBuy(market.stockPrice)
+                        if strcmp(keyName,'buy') && me.canBuy(market.stockPrice)
                             myRes.decision = 'buy';
                         end
 
-                        if keyName == NO_TRADE
+                        if strcmp(keyName,'no trade')
                             myRes.decision = 'no trade';
                         end
 
-                        if keyName == SELL && me.canSell()
+                        if strcmp(keyName,'sell') && me.canSell()
                             myRes.decision = 'sell';
                         end
 
-                        if keyName == CONFIRM
+                        if strcmp(keyName,'confirm')
                             decisionMade = TRUE;
+                            if showHiddenInfo == TRUE
+                                myRes.events{end+1,1} = 'unsee';
+                                myRes.events{end,2} = num2str(GetSecs()-startTime);
+                            end
                         end
 
-                        if keyName == SEE
-                        showHiddenInfo = TRUE;
+                        if strcmp(keyName,'see')
+                            showHiddenInfo = TRUE;
                         end
-
-                        if keyName == UNSEE
+                        
+                        if strcmp(keyName,'unsee')
                             showHiddenInfo = FALSE;
                         end
                     end
@@ -158,7 +156,8 @@ try
         end
 
         if showHiddenInfo == TRUE
-            myRes.events(end+1,:) = [UNSEE,GetSecs()-startTime];
+            myRes.events{end+1,1} = 'unsee';
+            myRes.events{end,2} = num2str(GetSecs()-startTime);
         end
         
         if ~decisionMade
@@ -187,11 +186,13 @@ try
     end
     
     displayer.closeScreen();
+    ListenChar();
     data.saveToFile();
     fprintf('----END OF EXPERIMENT----\n');
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));
     displayer.closeScreen();
+    ListenChar();
 end
 

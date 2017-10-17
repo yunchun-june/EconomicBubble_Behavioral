@@ -13,7 +13,7 @@ classdef parser
             str = '';
             str = strcat(str,res.decision);
             for i = 1:size(res.events)
-                str = strcat(str,',',num2str(res.events(i,1)),',',num2str(res.events(i,2)));
+                str = strcat(str,',',res.events{i,1},',',res.events{i,2});
             end
         end
         

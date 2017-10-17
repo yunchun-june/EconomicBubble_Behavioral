@@ -33,7 +33,7 @@ classdef keyboardHandler < handle
             end
             
             obj.dev=PsychHID('Devices');
-            obj.devInd = find(strcmpi('Keyboard', {obj.dev.usageName}) & strcmpi(keyboardName, {obj.dev.product}));
+            obj.devInd = find(strcmpi('Keyboard', {obj.dev.usageName}) );
             KbQueueCreate(obj.devInd);  
             KbQueueStart(obj.devInd);
             KbName('UnifyKeyNames');
@@ -41,48 +41,41 @@ classdef keyboardHandler < handle
        
         %----- Functions -----%
         function [keyName, timing] = getResponse(obj,timesUp)
-            NA          =0;
-            BUY         =1;
-            NO_TRADE    =2;
-            SELL        =3;
-            CONFIRM     =4;
-            SEE         =5;
-            UNSEE       =6;
             
-            keyName = NA;
+            keyName = 'na';
             timing = -1;
             
-            KbEventFlush();
-            while GetSecs()<timesUp && keyName == NA
+            KbEventFlush(obj.devInd);
+            while GetSecs()<timesUp && strcmp(keyName,'na')
                [isDown, press, release] = KbQueueCheck(obj.devInd);
                
                 if press(KbName(obj.buy))
-                    keyName = BUY;
+                    keyName = 'buy';
                     timing = GetSecs();
                 end
 
                 if press(KbName(obj.noTrade))
-                    keyName = NO_TRADE;
+                    keyName = 'no trade';
                     timing = GetSecs();
                 end
 
                 if press(KbName(obj.sell))
-                    keyName = SELL;
+                    keyName = 'sell';
                     timing = GetSecs();
                 end
 
                 if press(KbName(obj.confirm))
-                    keyName = CONFIRM;
+                    keyName = 'confirm';
                     timing = GetSecs();
                 end
                 
                 if press(KbName(obj.see))
-                    keyName = SEE;
+                    keyName = 'see';
                     timing = GetSecs();
                 end
                 
                 if release(KbName(obj.see))
-                    keyName = UNSEE;
+                    keyName = 'unsee';
                     timing = GetSecs();
                 end
             end
