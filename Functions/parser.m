@@ -13,7 +13,7 @@ classdef parser
             str = '';
             str = strcat(str,res.decision);
             for i = 1:size(res.events)
-                str = strcat(str,',',res.events(i,1),',',res.events(i,2));
+                str = strcat(str,',',num2str(res.events(i,1)),',',num2str(res.events(i,2)));
             end
         end
         
@@ -24,8 +24,8 @@ classdef parser
             eventsNum = (size(c)-1)/2;
             
             for i = 1:eventsNum(2)
-                res.events{end+1,1} = c{i*2};
-                res.events{end,2} = c{i*2+1};
+                res.events{end+1,1} = str2double(c{i*2});
+                res.events{end,2} = str2double(c{i*2+1});
             end
         end
     end
