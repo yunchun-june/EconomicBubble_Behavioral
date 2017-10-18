@@ -52,6 +52,11 @@ classdef keyboardHandler < handle
             KbEventFlush(obj.devInd);
             while GetSecs()<timesUp && strcmp(keyName,'na')
                [isDown, press, release] = KbQueueCheck(obj.devInd);
+                
+                if press(KbName(obj.buy))
+                    keyName = 'quitkey';
+                    timing = GetSecs();
+                end
                
                 if press(KbName(obj.buy))
                     keyName = 'buy';

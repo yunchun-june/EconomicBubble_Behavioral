@@ -107,6 +107,12 @@ try
                         myRes.events{end,2} = num2str(timing-startTime);
                         fprintf('%s %s\n',keyName,num2str(timing-startTime));  
                         
+                        if strcmp(keyName,'quitkey')
+                            displayer.closeScreen();
+                            ListenChar();
+                            return;
+                        end
+                        
                         if strcmp(keyName,'see')
                             showHiddenInfo = TRUE;
                         end
@@ -122,7 +128,13 @@ try
                         myRes.events{end+1,1} = keyName;
                         myRes.events{end,2} = num2str(timing-startTime);
                         fprintf('%s %s\n',keyName,num2str(timing-startTime));
-
+                        
+                        if strcmp(keyName,'quitkey')
+                            displayer.closeScreen();
+                            ListenChar();
+                            return;
+                        end
+                        
                         if strcmp(keyName,'buy') && me.canBuy(market.stockPrice)
                             myRes.decision = 'buy';
                         end

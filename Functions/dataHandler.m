@@ -118,8 +118,8 @@ classdef dataHandler <handle
                     end  
                 end 
                 data.oppDecision = oppDecision; 
-
             end
+            
             if player == 2
                 data.cash = obj.result{i,8};
                 data.stock = obj.result{i,9};
@@ -136,7 +136,6 @@ classdef dataHandler <handle
                     end
                 end 
                 data.oppDecision = oppDecision;
-                
             end
             
             if i ==1
