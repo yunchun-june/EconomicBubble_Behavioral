@@ -7,7 +7,7 @@ classdef keyboardHandler < handle
     
     properties (Constant)
         quitkey     = 'ESCAPE';
-        confirm     = 'enter';
+        confirm     = 'ENTER';
         buy         = 'LeftArrow'; %'LeftArrow';
         noTrade     = 'DownArrow'; %'DownArrow';
         sell        = 'RightArrow'; %'RightArrow';
@@ -40,6 +40,10 @@ classdef keyboardHandler < handle
         end
        
         %----- Functions -----%
+        function detected = detectEsc(obj)
+            
+        end
+        
         function [keyName, timing] = getResponse(obj,timesUp)
             
             keyName = 'na';
