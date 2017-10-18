@@ -108,7 +108,8 @@ classdef dataHandler <handle
                 data.stockValue = obj.result{i,6}* obj.result{i,4};
                 data.totalAsset= obj.result{i,7};
                 data.rivalTotal = obj.result{i,10};
-                oppDecision= cell(1,5);  
+                oppDecision= cell(1,5);
+                
                 for back= 5:-1:1  
                     if i-back <=0 
                         oppDecision{1,back} = '.';  
@@ -126,6 +127,7 @@ classdef dataHandler <handle
                 data.totalAsset= obj.result{i,10};
                 data.rivalTotal = obj.result{i,7};
                 oppDecision= cell(1,5);  
+                
                 for back= 5:-1:1  
                     if i-back <=0 
                         oppDecision{1,back} = '.';  
@@ -133,7 +135,8 @@ classdef dataHandler <handle
                         oppDecision{1,back} = obj.result{i-back,11}; 
                     end
                 end 
-                data.oppDecision = oppDecision; 
+                data.oppDecision = oppDecision;
+                
             end
             
             if i ==1
