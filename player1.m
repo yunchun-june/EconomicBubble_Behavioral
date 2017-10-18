@@ -110,6 +110,7 @@ try
                         if strcmp(keyName,'quitkey')
                             displayer.closeScreen();
                             ListenChar();
+                            fprintf('---- MANUALLY STOPPED ----\n');
                             return;
                         end
                         
@@ -132,6 +133,7 @@ try
                         if strcmp(keyName,'quitkey')
                             displayer.closeScreen();
                             ListenChar();
+                            fprintf('---- MANUALLY STOPPED ----\n');
                             return;
                         end
                         
