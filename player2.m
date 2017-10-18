@@ -9,7 +9,7 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 10;
+    totalTrials         = 60;
     
     resultTime          =8;
     decideTime          =6;
@@ -63,8 +63,8 @@ try
     
     for trial = 1:totalTrials
         
-        if(trial == 40) market.setCondition(MARKET_BUBBLE); end
-        if(trial == 80) market.setCondition(MARKET_BURST);end
+        if(trial == 20) market.setCondition(MARKET_BUBBLE); end
+        if(trial == 40) market.setCondition(MARKET_BURST);end
 
         %=========== Setting Up Trials ==============%
         

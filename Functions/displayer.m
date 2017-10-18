@@ -150,9 +150,9 @@ classdef displayer < handle
                 startpoint= 60;
                 if see
                     if strcmp(data.oppDecision{1,i},'.') obj.write('.',startpoint+i,3,'white',30); end
-                    if strcmp(data.oppDecision{1,i},'buy') obj.write('+',startpoint+i,3,'red',30); end
-                    if strcmp(data.oppDecision{1,i},'no trade') obj.write('x',startpoint+i,3,'white',20); end
-                    if strcmp(data.oppDecision{1,i},'sell') obj.write('-',startpoint+i,3,'green',30); end
+                    if strcmp(data.oppDecision{1,i},'buy') obj.write('B',startpoint+i,3,'red',30); end
+                    if strcmp(data.oppDecision{1,i},'no trade') obj.write('N',startpoint+i,3,'white',20); end
+                    if strcmp(data.oppDecision{1,i},'sell') obj.write('S',startpoint+i,3,'green',30); end
                 else
                     obj.write('*',startpoint+i,3,'white',30);
                 end
@@ -166,9 +166,9 @@ classdef displayer < handle
             % buy     no trade    sell    [timer]
             
             if timer <= obj.decideTime
-                obj.write('buy'      ,27,8,'white',30);
-                obj.write('no trade' ,43,8,'white',30);
-                obj.write('sell'     ,59,8,'white',30);
+                obj.write('Buy'      ,27,8,'white',30);
+                obj.write('No Trade' ,43,8,'white',30);
+                obj.write('Sell'     ,59,8,'white',30);
 
                 if confirmed == 0
                     if strcmp(temp ,'buy')      obj.write('buy'     ,27,8,'yellow',30); end
