@@ -62,9 +62,10 @@ try
     fprintf('Game Start.\n');
     
     for trial = 1:totalTrials
+        
         if(trial == 40) market.setCondition(MARKET_BUBBLE); end
         if(trial == 80) market.setCondition(MARKET_BURST);end
-        
+
         %=========== Setting Up Trials ==============%
         
         %Syncing
@@ -72,7 +73,7 @@ try
         
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
-        statusData = data.getStatusData(trial,1);
+        statusData = data.getStatusData(trial);
         
         %response to get
         myRes.decision = 'no trade';
@@ -213,4 +214,3 @@ catch exception
     displayer.closeScreen();
     ListenChar();
 end
-

@@ -99,10 +99,10 @@ classdef dataHandler <handle
             
         end
         
-        function data = getStatusData(obj,i,player)
+        function data = getStatusData(obj,i)
             data.stockPrice = obj.result{i,4};
             
-            if player == 1
+            if strcmp(obj.rule, 'player1')
                 data.cash = obj.result{i,5};
                 data.stock = obj.result{i,6};
                 data.stockValue = obj.result{i,6}* obj.result{i,4};
@@ -120,7 +120,7 @@ classdef dataHandler <handle
                 data.oppDecision = oppDecision; 
             end
             
-            if player == 2
+            if strcmp(obj.rule, 'player2')
                 data.cash = obj.result{i,8};
                 data.stock = obj.result{i,9};
                 data.stockValue = obj.result{i,9}*obj.result{i,4};
@@ -144,11 +144,11 @@ classdef dataHandler <handle
                 data.d2 = 'no trade';
             else
                 data.change = obj.result{i,4}-obj.result{i-1,4};
-                if player == 1
+                if strcmp(obj.rule, 'player1')
                     data.d1 = obj.result{i-1,11};
                     data.d2 = obj.result{i-1,13};
                 end
-                if player == 2
+                if strcmp(obj.rule, 'player2')
                     data.d1 = obj.result{i-1,13};
                     data.d2 = obj.result{i-1,11};
                 end
