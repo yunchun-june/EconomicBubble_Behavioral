@@ -7,7 +7,7 @@ classdef keyboardHandler < handle
     
     properties (Constant)
         quitkey     = 'ESCAPE';
-        confirm     = 'ENTER';
+        confirm     = 'Return';
         buy         = 'LeftArrow'; %'LeftArrow';
         noTrade     = 'DownArrow'; %'DownArrow';
         sell        = 'RightArrow'; %'RightArrow';
