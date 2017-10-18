@@ -77,6 +77,8 @@ classdef market < handle
 
         
         function setCondition(obj,condition)
+            display = {'baseline';'bubble';'burst'};
+            fprintf('Set market condition: %d\n',display{condition});
             obj.marketCondition = condition;
         end
         

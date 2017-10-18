@@ -62,7 +62,9 @@ try
     fprintf('Game Start.\n');
     
     for trial = 1:totalTrials
-
+        if(trial == 40) market.setCondition(MARKET_BUBBLE); end
+        if(trial == 80) market.setCondition(MARKET_BURST);end
+        
         %=========== Setting Up Trials ==============%
         
         %Syncing
