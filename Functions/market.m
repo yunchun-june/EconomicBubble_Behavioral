@@ -14,9 +14,9 @@ classdef market < handle
         NO_TRADE = 2;
         SELL = 3;
                           %buy  notrade sell
-        baselineRate    = [1.1  1.06   1.00; %buy
-                           1.06 1.00   0.94; %notrade
-                           1.00 0.94   0.90]; %sell
+        baselineRate    = [1.05  1.06   1.00; %buy
+                           1.03 1.00   0.97; %notrade
+                           1.00 0.97   0.95]; %sell
         bubbleRate      = [1.10 1.06   1.00;
                            1.06 1.00   0.97;
                            1.00 0.97   0.95];

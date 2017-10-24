@@ -32,7 +32,7 @@ try
     myPort              = 7676;
     oppPort             = 5454;
     inputDeviceName     = 'Mac';
-    displayerOn         = FALSE;
+    displayerOn         = TRUE;
     screenID            = 0;
     
     %===== Initialize Componets =====%
@@ -176,8 +176,8 @@ try
         %========== Exchange and Save Data ===============%
         
         %Get opponent's response (randomly generated)
-        resultList = ['buy', 'no trade', 'sell'];
-        oppRes.decision = resultList(randi(3));
+        resultList = {'buy'; 'no trade'; 'sell'};
+        oppRes.decision = resultList{randi(3)};
         oppRes.events = cell(0,2);
         
         %Save Data
