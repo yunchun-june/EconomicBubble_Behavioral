@@ -32,7 +32,7 @@ classdef dataHandler <handle
             obj.player1ID = ID1;
             obj.player2ID = ID2;
             obj.rule = rule;
-            obj.totalTrial = trials;
+            obj.totalTrial = trials+1;
             obj.result = cell(trials,14);
         end
         

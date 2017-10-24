@@ -9,7 +9,7 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 10;
+    totalTrials         = 1;
     
     resultTime          =8;
     decideTime          =6;
@@ -32,7 +32,7 @@ try
     myPort              = 7676;
     oppPort             = 5454;
     inputDeviceName     = 'Mac';
-    displayerOn         = FALSE;
+    displayerOn         = TRUE;
     screenID            = 0;
     
     %===== Initialize Componets =====%
@@ -58,13 +58,14 @@ try
     keyboard.waitSpacePress();
     displayer.blackScreen();
     
-    for trial = 1:totalTrials
+    for trial = 1:totalTrials+1
 
         %=========== Setting Up Trials ==============%
        
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
         statusData = data.getStatusData(trial);
+        if(trial == totalTrials+1) break; end
         
         %response to get
         myRes.decision = 'no trade';
@@ -190,10 +191,15 @@ try
         if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
         market.trade(myRes.decision,oppRes.decision);
 
-    end
-    
+    enddisplayer.blackScreen();
+    WaitSecs(1);
+    displayer.writeMessage('End of Experiment');
+    WaitSecs(3);
+    displayer.blackScreen();
+    WaitSecs(1);
     displayer.showResult(data.getResult());
-    WaitSecs(5);
+    WaitSecs(10);
+    
     
     displayer.closeScreen();
     ListenChar();

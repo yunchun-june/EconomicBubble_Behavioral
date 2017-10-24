@@ -61,7 +61,7 @@ try
     displayer.blackScreen();
     fprintf('Game Start.\n');
     
-    for trial = 1:totalTrials
+    for trial = 1:totalTrials+1
         
         if(trial == 21) market.setCondition(MARKET_BUBBLE); end
         if(trial == 61) market.setCondition(MARKET_BURST);end
@@ -80,6 +80,7 @@ try
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
         statusData = data.getStatusData(trial);
+        if(trial == totalTrials+1) break; end
         
         %response to get
         myRes.decision = 'no trade';
@@ -210,9 +211,14 @@ try
         market.trade(myRes.decision,oppRes.decision);
 
     end
-    
+    displayer.blackScreen();
+    WaitSecs(1);
+    displayer.writeMessage('End of Experiment');
+    WaitSecs(3);
+    displayer.blackScreen();
+    WaitSecs(1);
     displayer.showResult(data.getResult());
-    WaitSecs(5);
+    WaitSecs(10);
     
     displayer.closeScreen();
     ListenChar();
