@@ -25,12 +25,14 @@ try
     
     %===== Inputs =====%
     fprintf('---Starting player 1---\n');
+    myID                = 'practice';
+    oppID               = 'practice';
     myIP                = 'localhost';
     oppIP               = 'localhost';
     myPort              = 7676;
     oppPort             = 5454;
     inputDeviceName     = 'Mac';
-    displayerOn         = TRUE;
+    displayerOn         = FALSE;
     screenID            = 0;
     
     %===== Initialize Componets =====%
@@ -59,10 +61,7 @@ try
     for trial = 1:totalTrials
 
         %=========== Setting Up Trials ==============%
-        
-        %Syncing
-        cnt.syncTrial(trial);
-        
+       
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
         statusData = data.getStatusData(trial);
@@ -195,8 +194,7 @@ try
     
     displayer.closeScreen();
     ListenChar();
-    data.saveToFile();
-    fprintf('----END OF EXPERIMENT----\n');
+    fprintf('----END OF PRACTICE----\n');
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));
