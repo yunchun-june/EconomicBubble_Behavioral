@@ -48,6 +48,7 @@ try
     cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
     cnt.establish(myID,oppID);
     ListenChar(2);
+    HideCursor();
     
     %===== Open Screen =====% 
     fprintf('Start after 3 seconds\n');
@@ -71,6 +72,7 @@ try
         if(trial == 1)
             displayer.writeMessage('Waiting for Opponent.');
             cnt.syncTrial(trial);
+            displayer.blackScreen();
         else
             cnt.syncTrial(trial);
         end
@@ -138,6 +140,7 @@ try
                         if strcmp(keyName,'quitkey')
                             displayer.closeScreen();
                             ListenChar();
+                            ShowCursor();
                             fprintf('---- MANUALLY STOPPED ----\n');
                             return;
                         end
@@ -217,4 +220,5 @@ catch exception
     fprintf(1,'Error: %s\n',getReport(exception));
     displayer.closeScreen();
     ListenChar();
+    ShowCursor();
 end
