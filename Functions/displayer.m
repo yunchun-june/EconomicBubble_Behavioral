@@ -221,15 +221,15 @@ classdef displayer < handle
             obj.write('Opponent Cash',30,4,'white',30);
             obj.write(num2str(result.oppCash),50,4,'white',30);
             
-            if (result.myCash > result OppCash)
+            if (result.myCash > result.OppCash)
                 obj.write('YOU WIN',40,5,'red',30);
                 fprintf('[RESULT] you win\n');
             end
-            if (result.myCash == result OppCash)
+            if (result.myCash == result.OppCash)
                 obj.write('DRAW ',40,5,'white',30);
                 fprintf('[RESULT] draw\n');
             end
-            if (result.myCash < result OppCash)
+            if (result.myCash < result.OppCash)
                 obj.write('YOU LOSE',40,5,'green',30);
                 fprintf('[RESULT] you lose\n');
             end
