@@ -67,7 +67,12 @@ try
         %=========== Setting Up Trials ==============%
         
         %Syncing
-        cnt.syncTrial(trial);
+        if(trial == 1)
+            displayer.writeMessage('Waiting for Opponent.');
+            cnt.syncTrial(trial);
+        else
+            cnt.syncTrial(trial);
+        end
         
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
