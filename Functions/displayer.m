@@ -150,9 +150,9 @@ classdef displayer < handle
                 startpoint= 60;
                 if see
                     if strcmp(data.oppDecision{1,i},'.') obj.write('.',startpoint+i,3,'white',30); end
-                    if strcmp(data.oppDecision{1,i},'buy') obj.write('B',startpoint+i,3,'red',20); end
-                    if strcmp(data.oppDecision{1,i},'no trade') obj.write('N',startpoint+i,3,'white',20); end
-                    if strcmp(data.oppDecision{1,i},'sell') obj.write('S',startpoint+i,3,'green',20); end
+                    if strcmp(data.oppDecision{1,i},'buy') obj.write('B',startpoint+i,3,'red',18); end
+                    if strcmp(data.oppDecision{1,i},'no trade') obj.write('N',startpoint+i,3,'white',18); end
+                    if strcmp(data.oppDecision{1,i},'sell') obj.write('S',startpoint+i,3,'green',18); end
                 else
                     obj.write('*',startpoint+i,3,'white',30);
                 end
