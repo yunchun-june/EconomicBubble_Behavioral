@@ -33,7 +33,7 @@ try
     myPort              = 5454;
     oppPort             = 7676;
     inputDeviceName     = 'Mac';
-    displayerOn         = TRUE;
+    displayerOn         = FALSE;
     screenID            = 0;
     
     %===== Initialize Componets =====%
