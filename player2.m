@@ -211,6 +211,9 @@ try
 
     end
     
+    displayer.showResult(data.getResult());
+    WaitSecs(5);
+    
     displayer.closeScreen();
     ListenChar();
     data.saveToFile();

@@ -155,7 +155,17 @@ classdef dataHandler <handle
                 
             end
         end
-    
+        
+        function data = getResult(obj)
+            if strcmp(obj.rule, 'player1')
+                data.myCash = obj.result{obj.totalTrial,5};
+                data.oppCash = obj.result{obj.totalTrial,8};
+            end
+            if strcmp(obj.rule, 'player2')
+                data.myCash = obj.result{obj.totalTrial,8};
+                data.oppCash = obj.result{obj.totalTrial,5};
+            end
+        end
         %----- Writing and Loading -----%
         function saveToFile(obj)
             result = obj.result;
