@@ -9,7 +9,7 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 60;
+    totalTrials         = 100;
     
     resultTime          =8;
     decideTime          =6;
@@ -27,9 +27,8 @@ try
     fprintf('---Starting player 1---\n');
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
-    fprintf('On Windows, use "IPconfig" command to get IP(172.16 or 192.168).\n');
-    myIP                = input('your IP: ','s');
-    oppIP               = input('Opponent IP: ','s');
+    myIP                = '172.16.10';
+    oppIP               = '172.16.10';
     myPort              = 7676;
     oppPort             = 5454;
     inputDeviceName     = 'Mac';
@@ -62,8 +61,8 @@ try
     
     for trial = 1:totalTrials
         
-        if(trial == 20) market.setCondition(MARKET_BUBBLE); end
-        if(trial == 40) market.setCondition(MARKET_BURST);end
+        if(trial == 21) market.setCondition(MARKET_BUBBLE); end
+        if(trial == 61) market.setCondition(MARKET_BURST);end
 
         %=========== Setting Up Trials ==============%
         
