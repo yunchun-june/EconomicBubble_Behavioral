@@ -23,14 +23,23 @@ try
     FALSE               = 0;
     rule                = 'player2';
        
+    %===== IP Config for 505 ===%
+    setting = [12 19; 21 15 ;11 18 ;20 17; 10 16];
+    [status,cmdout] = system('IPConfig')
+    myIP = cmdout(164:175);
+    IPIndex = str2num(cmdout(174:175));
+    for i = 1:5
+        if(setting(i,1) == IPIndex) oppIP = strcat('172.16.10.',num2str(setting(i,2))); break; end
+        if(setting(i,2) == IPIndex) oppIP = strcat('172.16.10.',num2str(setting(i,1))); break; end
+    end 
+    myPort              = 7676;
+    oppPort             = 5454;
+    
     %===== Inputs =====%
-    fprintf('---Starting player 2---\n');
+
+    fprintf('---Starting player 1---\n');
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
-    myIP                = '172.16.10.';
-    oppIP               = '172.16.10.';
-    myPort              = 5454;
-    oppPort             = 7676;
     inputDeviceName     = 'Mac';
     displayerOn         = TRUE;
     screenID            = 0;
