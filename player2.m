@@ -37,7 +37,7 @@ try
     
     %===== Inputs =====%
 
-    fprintf('---Starting player 1---\n');
+    fprintf('---Starting player 2---\n');
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
     inputDeviceName     = 'Mac';
