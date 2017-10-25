@@ -26,7 +26,7 @@ try
     
     %===== IP Config for 505 ===%
     setting = [12 19; 21 15 ;11 18 ;20 17; 10 16];
-    [status,cmdout] = system('IPConfig')
+    [status,cmdout] = system('IPConfig');
     myIP = cmdout(164:175);
     IPIndex = str2num(cmdout(174:175));
     for i = 1:5
