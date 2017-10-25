@@ -110,7 +110,7 @@ classdef keyboardHandler < handle
             [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd);
             while 1
                 [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd); 
-                if firstKeyPressTimes(KbName(quitkey))
+                if firstKeyPressTimes(KbName(obj.quitkey))
                     break;
                 end
             end
