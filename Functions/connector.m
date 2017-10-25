@@ -54,17 +54,32 @@ classdef connector
             fprintf('-----------------------------\n');
         end
 
-        function syncTrial(obj,trial)
+        function proceed = syncTrial(obj,trial)
             if strcmp(obj.rule , 'player1')
                 obj.send(num2str(trial));
-                assert(strcmp(num2str(trial), obj.fetch()));
+                oppRes = obj.fetch();
+                if(strcmp('stop', oppRes))
+                    proceed = 0;
+                    return;
+                end
+                assert(strcmp(num2str(trial), oppRes));
+                proceed = 1;
             end
             
             if strcmp(obj.rule ,'player2')
-                assert(strcmp(num2str(trial), obj.fetch()));
+                oppRes = obj.fetch();
+                if(strcmp('stop', oppRes))
+                    proceed = 0;
+                    return;
+                end
+                assert(strcmp(num2str(trial), oppRes));
                 obj.send(num2str(trial));
+                proceed = 1;
             end
-            
+        end
+        
+        function sendStop(obj)
+            obj.send('stop');
         end
         
         function send(obj,message)

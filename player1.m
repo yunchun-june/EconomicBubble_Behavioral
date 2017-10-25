@@ -70,10 +70,16 @@ try
         %Syncing
         if(trial == 1)
             displayer.writeMessage('Waiting for Opponent.');
-            cnt.syncTrial(trial);
+            proceed = cnt.syncTrial(trial);
+            if proceed == 0
+                displayer.closeScreen();
+                ListenChar();
+                fprintf('---- MANUALLY STOPPED ----\n');
+                return;
+            end
             displayer.blackScreen();
         else
-            cnt.syncTrial(trial);
+            proceed = cnt.syncTrial(trial);
         end
         
         % Update condition based on last decision
@@ -115,6 +121,7 @@ try
                         fprintf('%s %s\n',keyName,num2str(timing-startTime));  
                         
                         if strcmp(keyName,'quitkey')
+                            cnt.sendStop();
                             displayer.closeScreen();
                             ListenChar();
                             fprintf('---- MANUALLY STOPPED ----\n');
@@ -210,14 +217,31 @@ try
         market.trade(myRes.decision,oppRes.decision);
 
     end
+    
+    %show result on screen
+    result = data.getResult();
+    fprintf('Your Cash = %d\n',result.myCash);
+    fprintf('Opponent Cash = %d\n',result.oppCash);
+    
+    if (result.myCash > result.oppCash)
+        fprintf('[RESULT] you win\n');
+    end
+    if (result.myCash == result.oppCash)
+        fprintf('[RESULT] draw\n');
+    end
+    if (result.myCash < result.oppCash)
+        fprintf('[RESULT] you lose\n');
+    end
+    
     displayer.blackScreen();
     WaitSecs(1);
     displayer.writeMessage('End of Experiment');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);
-    displayer.showResult(data.getResult());
-    WaitSecs(10);
+    
+    displayer.writeMessage('Please Inform the instructors');
+    keyboard.waitEscPress()
     
     displayer.closeScreen();
     ListenChar();

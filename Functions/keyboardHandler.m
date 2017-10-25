@@ -104,6 +104,17 @@ classdef keyboardHandler < handle
                 end
             end
         end
+        
+        function waitEscPress(obj)
+            KbEventFlush();
+            [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd);
+            while 1
+                [keyIsDown, firstKeyPressTimes, firstKeyReleaseTimes] = KbQueueCheck(obj.devInd); 
+                if firstKeyPressTimes(KbName(quitkey))
+                    break;
+                end
+            end
+        end
     end
     
 end

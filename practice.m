@@ -9,7 +9,7 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 1;
+    totalTrials         = 15;
     
     resultTime          =8;
     decideTime          =6;
@@ -190,16 +190,14 @@ try
         if(strcmp(oppRes.decision,'buy'))  opp.buyStock(market.stockPrice);end
         if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
         market.trade(myRes.decision,oppRes.decision);
-
-    enddisplayer.blackScreen();
+    end
+    
+    displayer.blackScreen();
     WaitSecs(1);
     displayer.writeMessage('End of Experiment');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);
-    displayer.showResult(data.getResult());
-    WaitSecs(10);
-    
     
     displayer.closeScreen();
     ListenChar();
