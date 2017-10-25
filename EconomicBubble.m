@@ -49,7 +49,7 @@ try
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
     inputDeviceName     = 'Mac';
-    displayerOn         = FALSE;
+    displayerOn         = TRUE;
     screenID            = 0;
     
     %===== Initialize Componets =====%
