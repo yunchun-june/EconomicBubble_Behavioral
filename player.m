@@ -21,8 +21,7 @@ try
     MARKET_BURST        = 3;
     TRUE                = 1;
     FALSE               = 0;
-    rule                = 'player2';
-       
+    
     %===== IP Config for 505 ===%
     setting = [12 19; 21 15 ;11 18 ;20 17; 10 16];
     [status,cmdout] = system('IPConfig');
@@ -30,20 +29,24 @@ try
     IPIndex = str2num(cmdout(174:175));
     for i = 1:5
         if(setting(i,1) == IPIndex)
-            oppIP = strcat('172.16.10.',num2str(setting(i,2)));
+            oppIP               = strcat('172.16.10.',num2str(setting(i,2)));
+            rule                = 'player1';
+            myPort              = 5454;
+            oppPort             = 7676;
             break;
         end
         if(setting(i,2) == IPIndex)
             oppIP = strcat('172.16.10.',num2str(setting(i,1)));
+            rule                = 'player2';
+            myPort              = 7676;
+            oppPort             = 5454;
             break;
         end
     end 
-    myPort              = 5454;
-    oppPort             = 7676;
     
     %===== Inputs =====%
 
-    fprintf('---Starting player 2---\n');
+    fprintf('---Starting Experiment---\n');
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
     inputDeviceName     = 'Mac';
@@ -96,6 +99,13 @@ try
             displayer.blackScreen();
         else
             proceed = cnt.syncTrial(trial);
+            proceed = cnt.syncTrial(trial);
+            if proceed == 0
+                displayer.closeScreen();
+                ListenChar();
+                fprintf('---- MANUALLY STOPPED ----\n');
+                return;
+            end
         end
         
         % Update condition based on last decision
@@ -151,7 +161,6 @@ try
                         if strcmp(keyName,'unsee')
                             showHiddenInfo = FALSE;
                         end
-                    
                     end
                     
                     
