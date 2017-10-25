@@ -24,8 +24,9 @@ try
     %===== IP Config for 505 ===%
     setting = [12 19; 21 15 ;11 18 ;20 17; 10 16];
     [status,cmdout] = system('IPConfig');
-    myIP = cmdout(164:175);
-    IPIndex = str2num(cmdout(174:175));
+    k = strfind(cmdout,'172.16.10');
+    myIP = cmdout(k(1):k(1)+11);
+    IPIndex = str2num(cmdout(k(1)+10:k(1)+11));
     for i = 1:5
         if(setting(i,1) == IPIndex)
             oppIP               = strcat('172.16.10.',num2str(setting(i,2)));
