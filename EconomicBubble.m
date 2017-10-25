@@ -2,7 +2,6 @@ clear all;
 close all;
 clc;
 addpath('./Functions');
-Screen('Preference', 'SkipSyncTests', 1);
 
 try
     %===== Parameters =====%
@@ -50,7 +49,7 @@ try
     myID                = input('your ID: ','s');
     oppID               = input('Opponent ID: ','s');
     inputDeviceName     = 'Mac';
-    displayerOn         = TRUE;
+    displayerOn         = FALSE;
     screenID            = 0;
     
     %===== Initialize Componets =====%
@@ -89,23 +88,10 @@ try
         %Syncing
         if(trial == 1)
             displayer.writeMessage('Waiting for Opponent.');
-            proceed = cnt.syncTrial(trial);
-            if proceed == 0
-                displayer.closeScreen();
-                ListenChar();
-                fprintf('---- MANUALLY STOPPED ----\n');
-                return;
-            end
+            cnt.syncTrial(trial);
             displayer.blackScreen();
         else
-            proceed = cnt.syncTrial(trial);
-            proceed = cnt.syncTrial(trial);
-            if proceed == 0
-                displayer.closeScreen();
-                ListenChar();
-                fprintf('---- MANUALLY STOPPED ----\n');
-                return;
-            end
+            cnt.syncTrial(trial);
         end
         
         % Update condition based on last decision
@@ -147,7 +133,6 @@ try
                         fprintf('%s %s\n',keyName,num2str(timing-startTime));  
                         
                         if strcmp(keyName,'quitkey')
-                            cnt.sendStop();
                             displayer.closeScreen();
                             ListenChar();
                             fprintf('---- MANUALLY STOPPED ----\n');
@@ -240,7 +225,6 @@ try
         if(strcmp(oppRes.decision,'buy'))  opp.buyStock(market.stockPrice);end
         if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
         market.trade(myRes.decision,oppRes.decision);
-
     end
     
     %show result on screen

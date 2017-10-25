@@ -14,7 +14,6 @@ classdef connector
     
     methods
         
-        %contructor
         function obj = connector(rule,myID, oppID,ownIP, ownPort, destIP,destPort)
             import java.net.ServerSocket
             import java.io.*
@@ -27,18 +26,6 @@ classdef connector
             obj.destPort = destPort; 
         end
         
-        %send and fetch
-        
-        function send(obj,message,timeout)
-            server(message,obj.ownPort,timeout);
-        end
-        
-        function data = fetch(obj,timeout)
-            data = client(obj.destIP,obj.destPort,timeout);
-        end
-        
-        % methods
-        
         function establish(obj,myID,oppID)
             fprintf('-----------------------------\n');
             fprintf('Establishing Connection ....\n');
@@ -46,9 +33,9 @@ classdef connector
             if(strcmp(obj.rule,'player1'))
                 sentMessage = strcat(myID,',',oppID);
                 reveivedMessage = strcat(myID,',',oppID);
-                obj.send(sentMessage,-1);
+                obj.send(sentMessage);
                 fprintf('Mesage sent to player2.\n');
-                syncResult = obj.fetch(-1);
+                syncResult = obj.fetch();
                 assert(strcmp(syncResult,reveivedMessage));
                 fprintf('Recieved meeesge from player2.\n');
             end
@@ -56,10 +43,10 @@ classdef connector
             if(strcmp(obj.rule , 'player2'))
                 sentMessage = strcat(oppID,',',myID);
                 reveivedMessage = strcat(oppID,',',myID);
-                syncResult = obj.fetch(-1);
+                syncResult = obj.fetch();
                 assert(strcmp(syncResult,reveivedMessage));
                 fprintf('Recieved message from player1.\n');
-                obj.send(sentMessage,-1);
+                obj.send(sentMessage);
                 fprintf('Message sent to player1.\n');
             end
             
@@ -69,29 +56,35 @@ classdef connector
 
         function syncTrial(obj,trial)
             if strcmp(obj.rule , 'player1')
-                obj.send(num2str(trial),-1);
-                oppRes = obj.fetch(-1);
+                obj.send(num2str(trial));
+                oppRes = obj.fetch();
                 assert(strcmp(num2str(trial), oppRes));
             end
             
             if strcmp(obj.rule ,'player2')
-                oppRes = obj.fetch(-1);
+                oppRes = obj.fetch();
                 assert(strcmp(num2str(trial), oppRes));
-                obj.send(num2str(trial),-1);
+                obj.send(num2str(trial));
             end
         end
 
-        function oppRes = sendOwnResAndgetOppRes(obj,myResStr)
+        function send(obj,message)
+            server(message,obj.ownPort,-1);
+        end
+        
+        function data = fetch(obj)
+            data = client(obj.destIP,obj.destPort,-1);
+        end
+        
+        function [status,oppRes = sendOwnResAndgetOppRes(obj,myResStr)
             fprintf('Sending data...\n');
             if strcmp(obj.rule , 'player1')
-                obj.send(myResStr,-1);
-                oppRes = obj.fetch(-1);
-                status = 1;
+                obj.send(myResStr);
+                oppRes = obj.fetch();
             end
             if strcmp(obj.rule , 'player2')
-                oppRes = obj.fetch(-1);
-                obj.send(myResStr,-1);
-                status = 1;
+                oppRes = obj.fetch();
+                obj.send(myResStr);
             end
             fprintf('Data sent and received.\n');
         end
