@@ -245,7 +245,13 @@ try
     
     displayer.blackScreen();
     WaitSecs(1);
+    
     displayer.writeMessage('End of Experiment');
+    WaitSecs(3);
+    displayer.blackScreen();
+    WaitSecs(1);
+    
+    displayer.writeMessage('Do not touch any key');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);

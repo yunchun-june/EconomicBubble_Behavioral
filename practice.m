@@ -9,7 +9,7 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 15;
+    totalTrials         = 20;
     
     resultTime          =8;
     decideTime          =6;
@@ -194,14 +194,24 @@ try
     
     displayer.blackScreen();
     WaitSecs(1);
+    
     displayer.writeMessage('End of Experiment');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);
     
+    displayer.writeMessage('Do not touch any key');
+    WaitSecs(3);
+    displayer.blackScreen();
+    WaitSecs(1);
+    
+    displayer.writeMessage('Please Inform the instructors');
+    keyboard.waitEscPress()
+    
     displayer.closeScreen();
     ListenChar();
-    fprintf('----END OF PRACTICE----\n');
+    data.saveToFile();
+    fprintf('----END OF EXPERIMENT----\n');
     
 catch exception
     fprintf(1,'Error: %s\n',getReport(exception));
