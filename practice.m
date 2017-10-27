@@ -195,7 +195,7 @@ try
     displayer.blackScreen();
     WaitSecs(1);
     
-    displayer.writeMessage('End of Experiment');
+    displayer.writeMessage('End of Practice');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);
@@ -205,7 +205,7 @@ try
     displayer.blackScreen();
     WaitSecs(1);
     
-    displayer.writeMessage('Please Inform the instructors');
+    displayer.writeMessage('Please wait the instructors');
     keyboard.waitEscPress()
     
     displayer.closeScreen();

@@ -77,8 +77,8 @@ try
     HideCursor();
     
     %===== Open Screen =====% 
-    fprintf('Start after 3 seconds\n');
-    WaitSecs(3);
+    fprintf('Start after 10 seconds\n');
+    WaitSecs(10);
     displayer.openScreen();
     
     %===== Game Start =====%
@@ -258,14 +258,6 @@ try
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);
-    
-    displayer.writeMessage('Do not touch any key');
-    WaitSecs(3);
-    displayer.blackScreen();
-    WaitSecs(1);
-    
-    displayer.writeMessage('Please Inform the instructors');
-    keyboard.waitEscPress()
     
     displayer.closeScreen();
     ListenChar();
