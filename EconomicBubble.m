@@ -30,8 +30,8 @@ try
     for i = 1:5
         if(setting(i,1) == IPIndex)
             oppIP               = strcat('172.16.10.',num2str(setting(i,2)));
-            myID = strct(num2str(i),'a');
-            oppID = strct(num2str(i),'b');
+            myID = strcat(num2str(i),'a');
+            oppID = strcat(num2str(i),'b');
             rule                = 'player1';
             myPort              = 5454;
             oppPort             = 7676;
@@ -40,8 +40,8 @@ try
         if(setting(i,2) == IPIndex)
             oppIP = strcat('172.16.10.',num2str(setting(i,1)));
             rule                = 'player2';
-            myID = strct(num2str(i),'b');
-            oppID = strct(num2str(i),'a');
+            myID = strcat(num2str(i),'b');
+            oppID = strcat(num2str(i),'a');
             myPort              = 7676;
             oppPort             = 5454;
             break;
