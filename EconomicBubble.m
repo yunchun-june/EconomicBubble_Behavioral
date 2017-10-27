@@ -43,7 +43,9 @@ try
             oppIP = strcat('172.16.10.',num2str(setting(i,1)));
             rule                = 'player2';
             myID = strcat(num2str(i),'b');
+            myID = strcat('0',myID);
             oppID = strcat(num2str(i),'a');
+            oppID = strcat('0',oppID);
             myPort              = 7676;
             oppPort             = 5454;
             break;
