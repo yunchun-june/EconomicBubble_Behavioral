@@ -205,8 +205,8 @@ try
     displayer.blackScreen();
     WaitSecs(1);
     
-    displayer.writeMessage('Please wait the instructors');
-    keyboard.waitEscPress()
+    displayer.writeMessage('Wait for instruction');
+    keyboard.waitEscPress();
     
     displayer.closeScreen();
     ListenChar();
