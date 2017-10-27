@@ -210,7 +210,6 @@ try
     
     displayer.closeScreen();
     ListenChar();
-    data.saveToFile();
     fprintf('----END OF EXPERIMENT----\n');
     
 catch exception
