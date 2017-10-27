@@ -22,7 +22,8 @@ try
     FALSE               = 0;
     
     %===== IP Config for 505 ===%
-    setting = [16 10; 17 20 ;18 11 ;15 21; 19 12];
+    setting = [10 16; 21 15 ;11 18 ;20 17; 10 16];
+    setting = [12 19; 21 15 ;11 18 ;20 17; 10 16];
     [status,cmdout] = system('IPConfig');
     k = strfind(cmdout,'172.16.10');
     myIP = cmdout(k(1):k(1)+11);
@@ -31,9 +32,7 @@ try
         if(setting(i,1) == IPIndex)
             oppIP               = strcat('172.16.10.',num2str(setting(i,2)));
             myID = strcat(num2str(i),'a');
-            myID = strcat('0',myID);
             oppID = strcat(num2str(i),'b');
-            oppID = strcat('0',oppID);
             rule                = 'player1';
             myPort              = 5454;
             oppPort             = 7676;
