@@ -23,35 +23,15 @@ try
     FALSE               = 0;
     
     %===== IP Config for 505 ===%
-    setting = [16 10; 17 20 ;18 11 ;15 21; 19 12];
-    [status,cmdout] = system('IPConfig');
-    k = strfind(cmdout,'172.16.10');
-    myIP = cmdout(k(1):k(1)+11);
-    IPIndex = str2num(cmdout(k(1)+10:k(1)+11));
-    for i = 1:5
-        if(setting(i,1) == IPIndex)
-            oppIP               = strcat('172.16.10.',num2str(setting(i,2)));
-            myID = strcat(num2str(i),'a');
-            myID = strcat('0',myID);
-            oppID = strcat(num2str(i),'b');
-            oppID = strcat('0',oppID);
-            rule                = 'player1';
-            myPort              = 5454;
-            oppPort             = 7676;
-            break;
-        end
-        if(setting(i,2) == IPIndex)
-            oppIP = strcat('172.16.10.',num2str(setting(i,1)));
-            rule                = 'player2';
-            myID = strcat(num2str(i),'b');
-            myID = strcat('0',myID);
-            oppID = strcat(num2str(i),'a');
-            oppID = strcat('0',oppID);
-            myPort              = 7676;
-            oppPort             = 5454;
-            break;
-        end
-    end 
+    myID = input('This ID: ','s');
+    oppID = input('Opp ID: ','s');
+    fprintf('cmd to open terminal. "IPConfig" to get IP (the one with 172.16.10.xxx)');
+    myIP = input('This IP: ','s');
+    myIP = strcat('172.16.10.',myIP);
+    oppIP = input('Opp IP: ','s');
+    oppIP = strcat('172.16.10.',oppIP);
+    myPort = 5454;
+    oppPort = 5454;
     
     %===== Inputs =====%
 
@@ -414,6 +394,9 @@ try
     WaitSecs(1);
     
     displayer.writeMessage('End of Experiment','');
+    WaitSecs(3);
+    displayer.blackScreen();
+    displayer.writeMessage('Please fill the questionaire','');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);
