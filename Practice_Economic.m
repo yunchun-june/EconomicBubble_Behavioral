@@ -241,7 +241,7 @@ try
         
         %Syncing
         if(trial == 1)
-            displayer.writeMessage('Waiting for Opponent.');
+            displayer.writeMessage('Waiting for Opponent.','');
             cnt.syncTrial(trial);
             displayer.blackScreen();
         else
