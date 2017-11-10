@@ -9,6 +9,7 @@ try
     initialStock        = 10;
     initialStockPrice   = 100;
     totalTrials         = 100;
+    practiceTrials      = 10;
     
     resultTime          =8;
     decideTime          =6;
@@ -77,31 +78,31 @@ try
     WaitSecs(10);
     displayer.openScreen();
     
-    displayer.writeMessage('Do not press any key.','Wait for instructions.');
+    displayer.writeMessage('Do not touch any key','Wait for instructions');
     keyboard.waitSpacePress();
     displayer.blackScreen();
     fprintf('Game Start.\n');
     
     %===== Start of practice =====%
     
-    displayer.writeMessage('Press space again','to start practice.');
+    displayer.writeMessage('Press space to start practice','');
     keyboard.waitSpacePress();
     displayer.blackScreen();
     fprintf('Start Practice.\n');
     
     %reinitialized components
-    market      = market(MARKET_BASELINE,initialStockPrice);
-    me          = player(initialCash,initialStock);
-    opp         = player(initialCash,initialStock);
-    data        = dataHandler(myID,oppID,rule,practiceTrials);
-        
+    prac_mrk      = market(MARKET_BASELINE,initialStockPrice);
+    prac_me          = player(initialCash,initialStock);
+    prac_opp         = player(initialCash,initialStock);
+    prac_data        = dataHandler(myID,oppID,rule,practiceTrials);
+    
     for trial = 1:practiceTrials+1
 
         %=========== Setting Up Trials ==============%
        
         % Update condition based on last decision
-        data.updateCondition(market,me,opp,trial);
-        statusData = data.getStatusData(trial);
+        prac_data.updateCondition(prac_mrk,prac_me,prac_opp,trial);
+        statusData = prac_data.getStatusData(trial);
         if(trial == practiceTrials+1) break; end
         
         %response to get
@@ -113,7 +114,7 @@ try
        
         %========== Show Status and Make Decision ===============%
 
-        data.logStatus(trial);
+        prac_data.logStatus(trial);
         startTime = GetSecs();
         deadline = startTime+resultTime+decideTime;
         decisionMade = FALSE;
@@ -163,7 +164,7 @@ try
                             return;
                         end
                         
-                        if strcmp(keyName,'buy') && me.canBuy(market.stockPrice)
+                        if strcmp(keyName,'buy') && prac_me.canBuy(prac_mrk.stockPrice)
                             myRes.decision = 'buy';
                         end
 
@@ -171,7 +172,7 @@ try
                             myRes.decision = 'no trade';
                         end
 
-                        if strcmp(keyName,'sell') && me.canSell()
+                        if strcmp(keyName,'sell') && prac_me.canSell()
                             myRes.decision = 'sell';
                         end
 
@@ -219,24 +220,23 @@ try
         oppRes.events = cell(0,2);
         
         %Save Data
-        data.saveResponse(myRes,oppRes,trial);
+        prac_data.saveResponse(myRes,oppRes,trial);
         
         %Update market and player
-        if(strcmp(myRes.decision,'buy'))   me.buyStock(market.stockPrice);end
-        if(strcmp(myRes.decision,'sell'))  me.sellStock(market.stockPrice);end
-        if(strcmp(oppRes.decision,'buy'))  opp.buyStock(market.stockPrice);end
-        if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
-        market.trade(myRes.decision,oppRes.decision);
+        if(strcmp(myRes.decision,'buy'))   prac_me.buyStock(prac_mrk.stockPrice);end
+        if(strcmp(myRes.decision,'sell'))  prac_me.sellStock(prac_mrk.stockPrice);end
+        if(strcmp(oppRes.decision,'buy'))  prac_opp.buyStock(prac_mrk.stockPrice);end
+        if(strcmp(oppRes.decision,'sell')) prac_opp.sellStock(prac_mrk.stockPrice);end
+        prac_mrk.trade(myRes.decision,oppRes.decision);
     end
     
-    
-    displayer.writeMessage('End of Practice.','Wait for instructions.');
+    displayer.writeMessage('End of Practice','Wait for instructions');
     keyboard.waitSpacePress();
     displayer.blackScreen();
     
     %===== Start of real experiment =====%
     
-    displayer.writeMessage('This is the real experiment.','Press space to start.');
+    displayer.writeMessage('This is the real experiment','Press space to start');
     keyboard.waitSpacePress();
     displayer.blackScreen();
     
@@ -413,7 +413,7 @@ try
     displayer.blackScreen();
     WaitSecs(1);
     
-    displayer.writeMessage('End of Experiment.');
+    displayer.writeMessage('End of Experiment','');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);

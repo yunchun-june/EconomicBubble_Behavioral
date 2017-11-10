@@ -39,10 +39,10 @@ try
     keyboard    = keyboardHandler(inputDeviceName);
     displayer   = displayer(max(Screen('Screens')),displayerOn,decideTime);
     parser      = parser();
-    market      = market(MARKET_BASELINE,initialStockPrice);
-    me          = player(initialCash,initialStock);
-    opp         = player(initialCash,initialStock);
-    data        = dataHandler(myID,oppID,rule,practiceTrials);
+    prac_mrk      = market(MARKET_BASELINE,initialStockPrice);
+    prac_me          = player(initialCash,initialStock);
+    prac_opp         = player(initialCash,initialStock);
+    prac_data        = dataHandler(myID,oppID,rule,practiceTrials);
     
     %===== Establish Connection =====% 
     ListenChar(2);
@@ -63,8 +63,8 @@ try
         %=========== Setting Up Trials ==============%
        
         % Update condition based on last decision
-        data.updateCondition(market,me,opp,trial);
-        statusData = data.getStatusData(trial);
+        prac_data.updateCondition(prac_mrk,prac_me,prac_opp,trial);
+        statusData = prac_data.getStatusData(trial);
         if(trial == practiceTrials+1) break; end
         
         %response to get
@@ -76,7 +76,7 @@ try
        
         %========== Show Status and Make Decision ===============%
 
-        data.logStatus(trial);
+        prac_data.logStatus(trial);
         startTime = GetSecs();
         deadline = startTime+resultTime+decideTime;
         decisionMade = FALSE;
@@ -126,7 +126,7 @@ try
                             return;
                         end
                         
-                        if strcmp(keyName,'buy') && me.canBuy(market.stockPrice)
+                        if strcmp(keyName,'buy') && prac_me.canBuy(prac_mrk.stockPrice)
                             myRes.decision = 'buy';
                         end
 
@@ -134,7 +134,7 @@ try
                             myRes.decision = 'no trade';
                         end
 
-                        if strcmp(keyName,'sell') && me.canSell()
+                        if strcmp(keyName,'sell') && prac_me.canSell()
                             myRes.decision = 'sell';
                         end
 
@@ -182,14 +182,14 @@ try
         oppRes.events = cell(0,2);
         
         %Save Data
-        data.saveResponse(myRes,oppRes,trial);
+        prac_data.saveResponse(myRes,oppRes,trial);
         
         %Update market and player
-        if(strcmp(myRes.decision,'buy'))   me.buyStock(market.stockPrice);end
-        if(strcmp(myRes.decision,'sell'))  me.sellStock(market.stockPrice);end
-        if(strcmp(oppRes.decision,'buy'))  opp.buyStock(market.stockPrice);end
-        if(strcmp(oppRes.decision,'sell')) opp.sellStock(market.stockPrice);end
-        market.trade(myRes.decision,oppRes.decision);
+        if(strcmp(myRes.decision,'buy'))   prac_me.buyStock(prac_mrk.stockPrice);end
+        if(strcmp(myRes.decision,'sell'))  prac_me.sellStock(prac_mrk.stockPrice);end
+        if(strcmp(oppRes.decision,'buy'))  prac_opp.buyStock(prac_mrk.stockPrice);end
+        if(strcmp(oppRes.decision,'sell')) prac_opp.sellStock(prac_mrk.stockPrice);end
+        prac_mrk.trade(myRes.decision,oppRes.decision);
     end
     
     

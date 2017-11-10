@@ -58,7 +58,7 @@ classdef displayer < handle
         
         %===== Display =====%
         
-        function writeMessage1(obj,line1,line2)
+        function writeMessage(obj,line1,line2)
             if ~obj.displayerOn return; end
             obj.write(line1,40,3,'white',30);
             obj.write(line2,40,5,'white',30);
