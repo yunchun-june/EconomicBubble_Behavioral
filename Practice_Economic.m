@@ -8,8 +8,8 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 100;
-    practiceTrials      = 10;
+    totalTrials         = 2;
+    practiceTrials      = 2;
     
     resultTime          =8;
     decideTime          =6;
@@ -23,15 +23,20 @@ try
     FALSE               = 0;
     
     %===== IP Config for 505 ===%
-    myID = input('This ID: ','s');
-    oppID = input('Opp ID: ','s');
-    fprintf('cmd to open terminal. "IPConfig" to get IP (the one with 172.16.10.xxx)');
+    myID = input('This seat: ','s');
+    oppID = input('Opp seat: ','s');
+    fprintf('cmd to open terminal. "IPConfig" to get IP (the one with 172.16.10.xxx)\n');
     myIP = input('This IP: ','s');
     myIP = strcat('172.16.10.',myIP);
     oppIP = input('Opp IP: ','s');
     oppIP = strcat('172.16.10.',oppIP);
     myPort = 5454;
     oppPort = 5454;
+    if myID(2) == 'a'
+        rule = 'player1';
+    else
+        rule = 'player2';
+    end
     
     %===== Inputs =====%
 
