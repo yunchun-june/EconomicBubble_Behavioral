@@ -9,8 +9,8 @@ try
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    totalTrials         = 2;
-    practiceTrials      = 2;
+    totalTrials         = 100;
+    practiceTrials      = 15;
     
     resultTime          =8;
     decideTime          =6;
@@ -399,9 +399,10 @@ try
     displayer.blackScreen();
     WaitSecs(1);
     
-    displayer.writeMessage('End of Experiment','');
+    displayer.writeMessage('End of experiment','');
     WaitSecs(3);
     displayer.blackScreen();
+    WaitSecs(1);
     displayer.writeMessage('Please fill the questionaire','');
     WaitSecs(3);
     displayer.blackScreen();
