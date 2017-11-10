@@ -2,6 +2,7 @@ clear all;
 close all;
 clc;
 addpath('./Functions');
+Screen('Preference', 'SkipSyncTests', 1);
 
 try
     %===== Parameters =====%
