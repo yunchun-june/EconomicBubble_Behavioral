@@ -58,12 +58,13 @@ classdef displayer < handle
         
         %===== Display =====%
         
-        function writeMessage(obj,message)
+        function writeMessage1(obj,line1,line2)
             if ~obj.displayerOn return; end
-            obj.write(message,40,3,'white',30);
+            obj.write(line1,40,3,'white',30);
+            obj.write(line2,40,5,'white',30);
             Screen('Flip',obj.wPtr);
         end
-        
+                
         function blackScreen(obj)
             if ~obj.displayerOn return; end
             Screen('Flip',obj.wPtr);

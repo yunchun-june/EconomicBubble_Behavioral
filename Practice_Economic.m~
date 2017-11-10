@@ -2,14 +2,13 @@ clear all;
 close all;
 clc;
 addpath('./Functions');
-Screen('Preference', 'SkipSyncTests', 1);
 
 try
     %===== Parameters =====%
     initialCash         = 10000;
     initialStock        = 10;
     initialStockPrice   = 100;
-    practiceTrials         = 20;
+    totalTrials         = 100;
     
     resultTime          =8;
     decideTime          =6;
@@ -21,16 +20,43 @@ try
     MARKET_BURST        = 3;
     TRUE                = 1;
     FALSE               = 0;
-    rule                = 'player1';
+    
+    %===== IP Config for 505 ===%
+    setting = [16 10; 17 20 ;18 11 ;15 21; 19 12];
+    [status,cmdout] = system('IPConfig');
+    k = strfind(cmdout,'172.16.10');
+    myIP = cmdout(k(1):k(1)+11);
+    IPIndex = str2num(cmdout(k(1)+10:k(1)+11));
+    for i = 1:5
+        if(setting(i,1) == IPIndex)
+            oppIP               = strcat('172.16.10.',num2str(setting(i,2)));
+            myID = strcat(num2str(i),'a');
+            myID = strcat('0',myID);
+            oppID = strcat(num2str(i),'b');
+            oppID = strcat('0',oppID);
+            rule                = 'player1';
+            myPort              = 5454;
+            oppPort             = 7676;
+            break;
+        end
+        if(setting(i,2) == IPIndex)
+            oppIP = strcat('172.16.10.',num2str(setting(i,1)));
+            rule                = 'player2';
+            myID = strcat(num2str(i),'b');
+            myID = strcat('0',myID);
+            oppID = strcat(num2str(i),'a');
+            oppID = strcat('0',oppID);
+            myPort              = 7676;
+            oppPort             = 5454;
+            break;
+        end
+    end 
     
     %===== Inputs =====%
-    fprintf('---Starting player 1---\n');
-    myID                = 'practice';
-    oppID               = 'practice';
-    myIP                = 'localhost';
-    oppIP               = 'localhost';
-    myPort              = 7676;
-    oppPort             = 5454;
+
+    fprintf('---Starting Experiment---\n');
+    %myID                = input('your ID: ','s');
+    %oppID               = input('Opponent ID: ','s');
     inputDeviceName     = 'Mac';
     displayerOn         = TRUE;
     screenID            = 0;
@@ -42,30 +68,56 @@ try
     market      = market(MARKET_BASELINE,initialStockPrice);
     me          = player(initialCash,initialStock);
     opp         = player(initialCash,initialStock);
-    data        = dataHandler(myID,oppID,rule,practiceTrials);
+    data        = dataHandler(myID,oppID,rule,totalTrials);
     
     %===== Establish Connection =====% 
+    cnt = connector(rule,myID, oppID,myIP,myPort,oppIP,oppPort);
+    cnt.establish(myID,oppID);
     ListenChar(2);
     HideCursor();
-
+    
     %===== Open Screen =====% 
-    fprintf('Start after 3 seconds\n');
-    WaitSecs(3);
+    fprintf('Start after 10 seconds\n');
+    WaitSecs(10);
     displayer.openScreen();
     
     %===== Game Start =====%
-    displayer.writeMessage('Press Space To Start');
+    displayer.writeMessage('Do not press any key.','Wait for instructions.');
     keyboard.waitSpacePress();
     displayer.blackScreen();
+    fprintf('Game Start.\n');
     
-    for trial = 1:practiceTrials+1
+    displayer.writeMessage('Press space again','to to start practice.');
+    keyboard.waitSpacePress();
+    displayer.blackScreen();
+    fprintf('Game Start.\n');
+    
+    
+    displayer.writeMessage('This is the real experiment.','Press space to start.');
+    keyboard.waitSpacePress();
+    displayer.blackScreen();
+    fprintf('Game Start.\n');
+    
+    for trial = 1:totalTrials+1
+        
+        if(trial == 21) market.setCondition(MARKET_BUBBLE); end
+        if(trial == 61) market.setCondition(MARKET_BURST);end
 
         %=========== Setting Up Trials ==============%
-       
+        
+        %Syncing
+        if(trial == 1)
+            displayer.writeMessage('Waiting for Opponent.');
+            cnt.syncTrial(trial);
+            displayer.blackScreen();
+        else
+            cnt.syncTrial(trial);
+        end
+        
         % Update condition based on last decision
         data.updateCondition(market,me,opp,trial);
         statusData = data.getStatusData(trial);
-        if(trial == practiceTrials+1) break; end
+        if(trial == totalTrials+1) break; end
         
         %response to get
         myRes.decision = 'no trade';
@@ -88,6 +140,11 @@ try
                 if ~decisionMade
                     displayer.showDecision(statusData,myRes.decision,showHiddenInfo,remaining,FALSE);
                     
+                    %Auto Mode
+                    %keyNameList = ['NA', 'buy', 'no trade', 'sell', 'confirm'];
+                    %keyName = keyNameList(randi(5));
+                    
+                    %Manual Mode
                     [keyName,timing] = keyboard.getResponse(endOfThisSecond);
                      
                     if remaining > decideTime && ~strcmp(keyName,'na')
@@ -109,7 +166,6 @@ try
                         if strcmp(keyName,'unsee')
                             showHiddenInfo = FALSE;
                         end
-                    
                     end
                     
                     
@@ -176,10 +232,9 @@ try
         
         %========== Exchange and Save Data ===============%
         
-        %Get opponent's response (randomly generated)
-        resultList = {'buy'; 'no trade'; 'sell'};
-        oppRes.decision = resultList{randi(3)};
-        oppRes.events = cell(0,2);
+        %Get opponent's response
+        oppResRaw = cnt.sendOwnResAndgetOppRes(parser.resToStr(myRes));
+        oppRes = parser.strToRes(oppResRaw);
         
         %Save Data
         data.saveResponse(myRes,oppRes,trial);
@@ -192,27 +247,32 @@ try
         market.trade(myRes.decision,oppRes.decision);
     end
     
+    %show result on screen
+    result = data.getResult();
+    fprintf('Your Cash = %d\n',result.myCash);
+    fprintf('Opponent Cash = %d\n',result.oppCash);
     
-    
+    if (result.myCash > result.oppCash)
+        fprintf('[RESULT] you win\n');
+    end
+    if (result.myCash == result.oppCash)
+        fprintf('[RESULT] draw\n');
+    end
+    if (result.myCash < result.oppCash)
+        fprintf('[RESULT] you lose\n');
+    end
     
     displayer.blackScreen();
     WaitSecs(1);
     
-    displayer.writeMessage('End of Practice');
+    displayer.writeMessage('End of Experiment');
     WaitSecs(3);
     displayer.blackScreen();
     WaitSecs(1);
-    
-    displayer.writeMessage('Do not touch any key');
-    WaitSecs(3);
-    displayer.blackScreen();
-    WaitSecs(1);
-    
-    displayer.writeMessage('Wait for instruction');
-    keyboard.waitEscPress();
     
     displayer.closeScreen();
     ListenChar();
+    data.saveToFile();
     fprintf('----END OF EXPERIMENT----\n');
     
 catch exception
@@ -221,4 +281,3 @@ catch exception
     ListenChar();
     ShowCursor();
 end
-
