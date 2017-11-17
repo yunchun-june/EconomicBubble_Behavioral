@@ -33,7 +33,7 @@ try
     oppIP = strcat('172.16.10.',oppIP);
     myPort = 5454;
     oppPort = 5454;
-    if myID(2) == 'a'
+    if myID(2) == 'a' | myID(2)=='A'
         rule = 'player1';
     else
         rule = 'player2';
