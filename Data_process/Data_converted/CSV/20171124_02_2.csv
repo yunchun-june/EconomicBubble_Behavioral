@@ -1,0 +1,102 @@
+trials,marketCondition,marketDramatic,stockPrice,player1Cash,player1Stock,player1TotalAsset,player2Cash,player2Stock,player2TotalAsset,player1Decision,player1event,player2Decision,player2event
+1,1,0,100,10000,10,11000,10000,10,11000,buy,see-6.0326/unsee-6.5493/buy-8.0322/confirm-9.8573/,sell,sell-2.0556/sell-7.5747/confirm-8.4498/
+2,1,0,100,9900,11,11000,10100,9,11000,buy,confirm-0.032845/see-0.57815/unsee-1.7887/buy-8.7086/confirm-11.7823/,sell,sell-7.5565/confirm-8.5158/
+3,1,0,100,9800,12,11000,10200,8,11000,sell,unsee-0.033066/see-0.79833/unsee-3.3849/sell-7.0907/buy-8.1693/sell-8.6923/confirm-9.0782/,sell,sell-7.3927/confirm-8.2537/
+4,1,0,95,9900,11,10945,10300,7,10965,no trade,see-0.62898/unsee-1.8593/confirm-12.621/,sell,sell-7.3929/confirm-8.3143/
+5,1,0,93,9900,11,10923,10395,6,10953,no trade,see-0.32126/unsee-1.4199/no trade-9.277/no trade-10.8728/confirm-11.0844/,sell,sell-7.5229/confirm-8.3406/
+6,1,0,91,9900,11,10901,10488,5,10943,no trade,see-0.38381/unsee-1.0347/no trade-7.8132/no trade-8.7011/no trade-11.1146/confirm-11.416/,buy,buy-7.5666/confirm-8.6211/
+7,1,0,94,9900,11,10934,10397,6,10961,buy,see-2.9302/unsee-4.1297/buy-7.6964/confirm-8.8744/,sell,sell-7.6019/confirm-9.498/
+8,1,0,94,9806,12,10934,10491,5,10961,buy,see-0.70179/unsee-6.5901/buy-8.931/confirm-12.3945/,sell,sell-7.3906/confirm-8.3518/
+9,1,0,94,9712,13,10934,10585,4,10961,buy,see-0.67376/unsee-5.1075/buy-7.6315/confirm-10.88/,buy,buy-8.6513/confirm-11.3142/
+10,1,0,99,9618,14,11004,10491,5,10986,buy,see-0.51753/unsee-2.033/sell-8.4217/buy-10.5678/buy-10.8153/sell-11.6158/buy-12.0515/confirm-12.6964/,sell,sell-7.6583/confirm-8.4204/
+11,1,0,99,9519,15,11004,10590,4,10986,sell,see-1.3853/unsee-3.2617/sell-7.6792/confirm-10.203/,sell,sell-4.7529/sell-7.3835/confirm-8.8393/
+12,1,0,95,9618,14,10948,10689,3,10974,no trade,see-1.3779/unsee-3.0332/see-3.8673/unsee-6.124/no trade-7.7421/no trade-9.2266/confirm-11.8073/,no trade,confirm-12.4/
+13,1,0,95,9618,14,10948,10689,3,10974,buy,see-0.6129/unsee-1.9046/see-2.7634/unsee-3.3586/buy-8.991/confirm-12.2826/,sell,sell-11.4767/confirm-12.8063/
+14,1,0,95,9523,15,10948,10784,2,10974,no trade,see-0.54498/unsee-6.3101/no trade-8.8261/confirm-9.6668/,no trade,confirm-10.1347/
+15,1,0,95,9523,15,10948,10784,2,10974,no trade,see-1.0327/unsee-2.5179/see-2.7012/unsee-8.2226/no trade-10.8941/confirm-11.3534/,no trade,confirm-10.9366/
+16,1,0,95,9523,15,10948,10784,2,10974,no trade,see-0.91072/unsee-3.7494/see-12.2593/unsee-12.6324/buy-12.9591/,sell,sell-8.3612/confirm-9.8089/
+17,1,0,93,9523,15,10918,10879,1,10972,buy,confirm-0.032842/see-0.68721/unsee-2.9973/buy-9.5636/confirm-10.7256/,no trade,confirm-7.9323/
+18,1,0,96,9430,16,10966,10879,1,10975,no trade,see-0.55558/unsee-2.692/no trade-9.3116/confirm-12.6059/,buy,buy-8.3818/confirm-9.1815/
+19,1,0,99,9430,16,11014,10783,2,10981,sell,see-0.70468/unsee-2.3488/sell-8.0757/confirm-8.3827/,sell,sell-8.9397/confirm-9.7729/
+20,1,0,95,9529,15,10954,10882,1,10977,sell,see-2.0991/unsee-3.3487/sell-8.9669/confirm-9.3123/,buy,buy-7.4615/confirm-8.5452/
+21,2,0,95,9624,14,10954,10787,2,10977,no trade,see-0.59691/unsee-2.9464/see-8.3308/unsee-9.5888/no trade-12.549/confirm-12.9863/,no trade,confirm-8.2045/
+22,2,0,95,9624,14,10954,10787,2,10977,no trade,see-0.71443/unsee-2.2214/see-10.5605/unsee-11.2757/sell-12.9156/,no trade,confirm-7.7605/
+23,2,0,95,9624,14,10954,10787,2,10977,sell,confirm-0.032607/see-0.69233/unsee-1.7095/see-2.6405/unsee-3.2774/sell-7.7862/confirm-8.1611/,no trade,confirm-8.3425/
+24,2,0,93,9719,13,10928,10787,2,10973,sell,see-0.59171/unsee-2.4789/see-7.2599/unsee-7.7043/sell-8.1156/confirm-8.6429/,buy,buy-8.383/confirm-9.2814/
+25,2,0,93,9812,12,10928,10694,3,10973,sell,see-0.85469/unsee-1.8833/sell-10.167/confirm-10.7547/,no trade,
+26,2,0,91,9905,11,10906,10694,3,10967,no trade,confirm-0.032851/see-0.55739/unsee-1.9438/no trade-8.8436/confirm-9.178/,buy,buy-7.8168/confirm-8.7347/
+27,2,0,97,9905,11,10972,10603,4,10991,no trade,see-1.0554/unsee-3.2894/no trade-7.9902/no trade-9.5973/confirm-10.2858/,sell,sell-7.5794/confirm-8.4391/
+28,2,0,95,9905,11,10950,10700,3,10985,sell,see-0.65967/unsee-1.6575/see-2.8276/unsee-3.9431/sell-7.5009/confirm-7.8845/,buy,buy-8.031/confirm-10.7643/
+29,2,0,95,10000,10,10950,10605,4,10985,sell,see-4.2406/unsee-5.275/sell-7.7348/confirm-8.2809/,sell,sell-7.7236/confirm-9.5587/
+30,2,0,91,10095,9,10914,10700,3,10973,sell,see-0.73753/unsee-2.938/sell-7.6163/confirm-10.4118/,no trade,confirm-9.6056/
+31,2,0,89,10186,8,10898,10700,3,10967,no trade,see-0.67707/unsee-3.0567/no trade-9.5222/confirm-10.8286/,buy,buy-9.5257/confirm-10.5508/
+32,2,0,95,10186,8,10946,10611,4,10991,sell,see-0.72119/unsee-3.1147/sell-7.6204/confirm-7.9877/,sell,sell-7.553/confirm-8.4268/
+33,2,0,91,10281,7,10918,10706,3,10979,no trade,see-1.1479/unsee-2.5177/see-6.3703/unsee-7.4212/sell-7.9741/no trade-11.5828/confirm-11.9251/,buy,buy-9.4414/confirm-10.5858/
+34,2,0,97,10281,7,10960,10615,4,11003,sell,see-0.44458/unsee-3.9011/sell-7.5815/confirm-7.9756/,sell,sell-3.0981/sell-7.8189/confirm-8.7743/
+35,2,0,93,10378,6,10936,10712,3,10991,no trade,see-0.87541/unsee-2.332/no trade-8.0442/confirm-11.431/,buy,buy-9.5929/confirm-10.193/
+36,2,0,99,10378,6,10972,10619,4,11015,sell,sell-7.7125/confirm-9.3617/,no trade,confirm-7.6408/
+37,2,0,97,10477,5,10962,10619,4,11007,sell,see-1.0576/unsee-1.8512/sell-7.516/confirm-7.8446/,sell,sell-9.9719/confirm-11.942/
+38,2,0,93,10574,4,10946,10716,3,10995,no trade,see-0.67666/unsee-2.1891/see-2.9838/unsee-3.8504/no trade-7.6917/confirm-8.4483/,no trade,confirm-10.2438/
+39,2,0,93,10574,4,10946,10716,3,10995,no trade,see-0.8795/unsee-1.8661/no trade-7.5504/confirm-8.4761/,no trade,confirm-8.0307/
+40,2,0,93,10574,4,10946,10716,3,10995,no trade,see-0.86617/unsee-2.566/no trade-12.9119/,no trade,confirm-7.8292/
+41,2,0,93,10574,4,10946,10716,3,10995,no trade,confirm-0.032785/see-0.38427/unsee-1.8635/see-8.4987/unsee-10.0326/no trade-12.8657/,buy,buy-7.6063/confirm-8.406/
+42,2,0,99,10574,4,10970,10623,4,11019,sell,confirm-0.03259/see-0.35619/unsee-2.0477/sell-7.3178/confirm-7.6681/,sell,sell-7.6272/confirm-8.6825/
+43,2,0,95,10673,3,10958,10722,3,11007,no trade,see-0.30154/unsee-1.5651/no trade-9.676/confirm-11.7558/,no trade,confirm-10.2809/
+44,2,0,95,10673,3,10958,10722,3,11007,no trade,see-0.6154/unsee-2.1806/no trade-12.7352/confirm-12.8871/,no trade,
+45,2,0,95,10673,3,10958,10722,3,11007,no trade,see-0.64118/unsee-1.4962/see-9.3378/unsee-10.0781/no trade-11.315/confirm-11.4478/,no trade,
+46,2,0,95,10673,3,10958,10722,3,11007,no trade,see-0.45963/unsee-1.407/no trade-7.7002/confirm-8.3613/,sell,sell-7.4096/confirm-8.3524/
+47,2,0,93,10673,3,10952,10817,2,11003,no trade,see-0.3666/unsee-3.5571/no trade-7.8183/confirm-9.4053/,no trade,confirm-8.6992/
+48,2,0,93,10673,3,10952,10817,2,11003,no trade,see-1.4007/unsee-2.5217/no trade-7.5973/confirm-8.2072/,no trade,confirm-9.3879/
+49,2,0,93,10673,3,10952,10817,2,11003,no trade,see-0.50836/unsee-1.4222/no trade-7.5456/confirm-7.8581/,buy,buy-9.7736/confirm-10.7891/
+50,2,0,99,10673,3,10970,10724,3,11021,sell,see-0.42097/unsee-1.2704/sell-7.3022/confirm-7.5606/,sell,sell-7.7297/confirm-8.6237/
+51,2,0,95,10772,2,10962,10823,2,11013,no trade,see-0.86212/unsee-1.7535/,buy,buy-7.4488/confirm-8.2099/
+52,2,0,101,10772,2,10974,10728,3,11031,sell,see-0.56738/unsee-1.7022/sell-7.698/confirm-7.8877/,sell,sell-7.6635/confirm-8.3647/
+53,2,0,96,10873,1,10969,10829,2,11021,no trade,unsee-0.03262/see-0.39561/unsee-2.059/see-5.6336/unsee-6.4187/no trade-7.6414/confirm-7.9868/,buy,buy-8.474/confirm-9.0796/
+54,2,0,102,10873,1,10975,10733,3,11039,sell,sell-7.5618/confirm-9.0418/,sell,sell-7.6016/confirm-8.4022/
+55,2,0,97,10975,0,10975,10835,2,11029,no trade,see-0.68288/unsee-2.1955/buy-7.9854/no trade-9.4712/confirm-11.3003/,buy,buy-7.6561/confirm-8.8987/
+56,2,0,103,10975,0,10975,10738,3,11047,no trade,see-3.8253/unsee-5.8748/no trade-7.7954/confirm-8.6742/,sell,sell-7.4234/confirm-8.2235/
+57,2,0,100,10975,0,10975,10841,2,11041,buy,see-1.0559/unsee-2.0736/see-2.7762/unsee-3.6061/buy-7.6669/confirm-10.5633/,buy,buy-7.8808/confirm-8.7132/
+58,2,0,111,10875,1,10986,10741,3,11074,sell,no trade-1.7335/sell-7.4/confirm-8.7086/,sell,sell-7.473/confirm-8.6912/
+59,2,0,106,10986,0,10986,10852,2,11064,no trade,see-0.62285/unsee-1.6123/no trade-7.9581/confirm-12.3662/,no trade,confirm-8.6465/
+60,2,0,106,10986,0,10986,10852,2,11064,no trade,see-0.92299/unsee-1.8783/no trade-7.6875/confirm-8.3099/,sell,sell-9.3485/confirm-10.1075/
+61,3,0,103,10986,0,10986,10958,1,11061,no trade,see-0.53711/unsee-2.9809/no trade-9.1517/confirm-9.8889/,buy,buy-7.5502/confirm-8.3823/
+62,3,0,107,10986,0,10986,10855,2,11069,no trade,see-0.52836/unsee-2.6758/no trade-7.5652/confirm-7.9839/,buy,buy-7.5708/confirm-8.5625/
+63,3,0,111,10986,0,10986,10748,3,11081,no trade,see-0.66562/unsee-2.3597/no trade-7.3966/confirm-7.7529/,sell,sell-7.4431/confirm-8.2215/
+64,3,0,105,10986,0,10986,10859,2,11069,no trade,see-0.45072/unsee-1.9381/no trade-7.3859/confirm-7.644/,buy,buy-7.7049/sell-8.7428/buy-9.5434/confirm-11.438/
+65,3,0,109,10986,0,10986,10754,3,11081,no trade,see-0.69242/unsee-3.0608/no trade-8.2084/confirm-8.4307/,sell,sell-7.3374/confirm-8.1021/
+66,3,0,103,10986,0,10986,10863,2,11069,buy,see-0.53145/unsee-2.3991/buy-7.4855/confirm-7.7298/,buy,buy-9.83/confirm-10.4932/
+67,3,0,109,10883,1,10992,10760,3,11087,sell,see-0.60559/unsee-1.9277/sell-7.3618/confirm-7.6527/,sell,sell-7.6299/confirm-8.4769/
+68,3,0,99,10992,0,10992,10869,2,11067,no trade,see-1.1231/unsee-2.0592/buy-7.6684/no trade-10.0858/confirm-10.6134/,buy,buy-7.518/confirm-8.3451/
+69,3,0,102,10992,0,10992,10770,3,11076,no trade,see-1.5488/unsee-2.4123/no trade-8.2746/confirm-8.4975/,no trade,confirm-7.7374/
+70,3,0,102,10992,0,10992,10770,3,11076,no trade,see-0.71578/unsee-1.6774/no trade-7.4893/confirm-7.8642/,buy,buy-7.9176/confirm-8.7933/
+71,3,0,106,10992,0,10992,10668,4,11092,no trade,see-0.88794/unsee-1.9862/confirm-7.5531/,sell,sell-9.7272/confirm-10.3936/
+72,3,0,100,10992,0,10992,10774,3,11074,buy,see-0.42616/unsee-1.1804/buy-7.3759/confirm-7.6146/,buy,buy-10.0575/confirm-10.8714/
+73,3,0,105,10892,1,10997,10674,4,11094,sell,see-0.57999/unsee-1.3511/sell-7.3186/confirm-7.601/,sell,sell-7.664/confirm-8.3466/
+74,3,0,95,10997,0,10997,10779,3,11064,buy,see-0.44067/unsee-2.107/buy-7.3824/confirm-7.9777/,buy,buy-7.3044/confirm-7.9891/
+75,3,0,100,10902,1,11002,10684,4,11084,sell,see-0.81519/unsee-1.5446/sell-7.2953/confirm-7.5179/,sell,sell-7.5317/confirm-10.3559/
+76,3,0,90,11002,0,11002,10784,3,11054,buy,see-0.55463/unsee-2.1649/buy-7.6293/confirm-7.9062/,buy,buy-7.3276/confirm-7.7371/
+77,3,0,95,10912,1,11007,10694,4,11074,sell,see-0.48182/unsee-1.2112/sell-7.49/confirm-7.7783/,no trade,confirm-11.2977/
+78,3,0,90,11007,0,11007,10694,4,11054,no trade,see-0.60226/unsee-1.7063/no trade-8.1074/confirm-9.7024/,buy,buy-7.2902/confirm-7.6639/
+79,3,0,93,11007,0,11007,10604,5,11069,no trade,see-0.43754/unsee-1.6867/see-3.3792/unsee-3.672/confirm-9.1198/,buy,buy-10.0301/confirm-10.6766/
+80,3,0,96,11007,0,11007,10511,6,11087,buy,see-0.41129/unsee-1.0621/buy-7.8908/confirm-8.7664/,no trade,buy-12.8245/
+81,3,0,99,10911,1,11010,10511,6,11105,sell,see-0.377/unsee-1.8614/sell-7.3091/confirm-7.6084/,sell,confirm-0.046737/sell-11.8676/confirm-12.233/
+82,3,0,90,11010,0,11010,10610,5,11060,buy,see-0.40254/unsee-1.859/buy-8.2126/confirm-8.9907/,sell,buy-7.4668/sell-8.6353/confirm-9.419/
+83,3,0,90,10920,1,11010,10700,4,11060,no trade,see-0.60187/unsee-2.8106/no trade-7.3469/confirm-7.6074/,sell,sell-4.358/sell-7.9837/confirm-8.9997/
+84,3,0,85,10920,1,11005,10790,3,11045,no trade,see-0.48536/unsee-2.3614/see-7.5924/unsee-9.2557/confirm-12.9299/,buy,buy-7.4826/confirm-8.2554/
+85,3,0,88,10920,1,11008,10705,4,11057,buy,see-0.54363/unsee-2.5987/buy-8.7274/confirm-10.9593/,sell,sell-7.5325/confirm-7.9633/
+86,3,0,88,10832,2,11008,10793,3,11057,no trade,unsee-0.032513/see-0.46591/unsee-2.9431/see-6.9539/unsee-7.4036/no trade-8.0629/confirm-10.9179/,sell,sell-7.7044/confirm-8.3056/
+87,3,0,83,10832,2,10998,10881,2,11047,no trade,see-0.54266/unsee-1.6049/no trade-7.6529/confirm-8.1016/,sell,sell-7.4333/confirm-7.8947/
+88,3,0,79,10832,2,10990,10964,1,11043,no trade,see-0.61998/unsee-2.7475/no trade-7.7063/confirm-7.9449/,buy,buy-9.2314/confirm-9.7036/
+89,3,0,82,10832,2,10996,10885,2,11049,buy,see-0.48244/unsee-2.0325/buy-8.3952/confirm-10.8585/,sell,sell-7.393/confirm-7.7731/
+90,3,0,82,10750,3,10996,10967,1,11049,sell,see-0.39428/unsee-1.5455/sell-7.3627/confirm-7.7677/,no trade,confirm-7.8386/
+91,3,0,78,10832,2,10988,10967,1,11045,buy,see-0.53478/unsee-1.9016/buy-7.9738/confirm-10.1317/,buy,buy-7.4924/confirm-7.8818/
+92,3,0,82,10754,3,11000,10889,2,11053,sell,see-0.45749/unsee-1.3321/sell-7.514/confirm-7.7499/,no trade,
+93,3,0,78,10836,2,10992,10889,2,11045,no trade,see-0.42384/unsee-1.3179/no trade-11.2906/confirm-12.5587/,buy,buy-7.4516/confirm-8.468/
+94,3,0,81,10836,2,10998,10811,3,11054,sell,see-0.49153/unsee-1.9563/see-5.8555/unsee-6.5366/sell-7.6758/confirm-7.9255/,sell,sell-7.6672/confirm-8.0655/
+95,3,0,73,10917,1,10990,10892,2,11038,buy,see-0.83055/unsee-1.9626/see-5.0644/unsee-5.5753/buy-7.4736/confirm-7.8837/,buy,buy-7.5352/confirm-8.3128/
+96,3,0,77,10844,2,10998,10819,3,11050,sell,see-0.51149/unsee-1.4112/sell-7.2955/confirm-7.6048/,no trade,confirm-7.7455/
+97,3,0,73,10921,1,10994,10819,3,11038,no trade,see-0.91541/unsee-1.7312/see-5.6949/unsee-6.474/buy-9.0588/,buy,buy-7.4266/confirm-7.7761/
+98,3,0,76,10921,1,10997,10746,4,11050,sell,see-0.4264/unsee-1.1277/sell-7.5093/confirm-7.7781/,sell,sell-10.0388/confirm-10.5443/
+99,3,0,69,10997,0,10997,10822,3,11029,buy,see-0.40438/unsee-1.1589/buy-7.4519/confirm-7.7452/,buy,buy-9.3101/confirm-11.101/
+100,3,0,73,10928,1,11001,10753,4,11045,sell,see-0.45666/unsee-1.4207/sell-7.4135/confirm-7.7229/,sell,sell-7.4825/confirm-8.1433/
+101,3,0,66,11001,0,11001,10826,3,11024,,,,
